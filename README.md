@@ -1,6 +1,6 @@
-### OntoSem TMR Project
+## OntoSem TMR Project
 
-# Getting Started
+### Getting Started
 Install git, node, and npm
 
 ```
