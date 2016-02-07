@@ -1,6 +1,6 @@
 <html>
 <head>
-  <style src="./css/layout.css"></style>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <h1>Dust template...</h1>

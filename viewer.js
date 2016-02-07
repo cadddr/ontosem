@@ -1,13 +1,13 @@
 var utils = require('./utils.js');
 var log = utils.richLogging;
-var template = require('./templateengine.js');
 
 var express = require('express');
 var app = express();
 var adaro = require('adaro');
 var routes = require('./routes.js');
 
-app.engine('dust', adaro.dust({}));
+app.use(express.static('public'));
+app.engine('dust', adaro.dust({cache: false}));
 app.set('view engine', 'dust');
 
 
