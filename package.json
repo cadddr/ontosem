@@ -20,7 +20,8 @@
     "adaro": "^1.0.2",
     "colors": "^1.1.2",
     "express": "^4.13.4",
-    "node-sass": "^3.4.2"
+    "node-sass": "^3.4.2",
+    "nodemon": "^1.8.1"
   },
   "dependencies": {
     "dustjs-linkedin": "^2.7.2"
