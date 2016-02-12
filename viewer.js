@@ -11,7 +11,7 @@ app.engine('dust', adaro.dust({cache: false}));
 app.set('view engine', 'dust');
 
 
-
+app.get('/example', routes.example);
 app.get('/', routes.index);
 
 

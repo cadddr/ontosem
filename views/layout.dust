@@ -5,5 +5,9 @@
 <body>
   <h1>Dust template...</h1>
   {test}
+  <br>
+
+  {#results} {> "tmr" /} {/results}
+
 </body>
 </html>
