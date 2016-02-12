@@ -15,7 +15,7 @@ module.exports = {
 
     res.render("layout", {
       test: "Route: 'example', Layout: 'layout.dust'",
-      tmr: data.map(function(item){
+      results: data.map(function(item){
         return TMRFormatter(item.TMR);
       }),
       raw: JSON.stringify(utils.exampleData)

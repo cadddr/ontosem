@@ -12,13 +12,16 @@ module.exports = {
     // to the browser
 
     var  o = {};
+    o.tmrs = [];
+
     log.info("Interpreting TMR...");
 
     var frames = Object.keys(tmr);
     // Get an array of the frame heads
 
     frames.forEach(function(frame){
-      o[frame] = tmr[frame];
+      tmr[frame]._key = frame;
+      o.tmrs.push(tmr[frame]);
     });
 
     log.info(o)
