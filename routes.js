@@ -12,13 +12,12 @@ module.exports = {
 
     // Fetching hardcoded example data
     var data = utils.exampleData;
+    var formattedData =TMRFormatter(data);
 
     res.render("layout", {
       test: "Route: 'example', Layout: 'layout.dust'",
-      results: data.map(function(item){
-        return TMRFormatter(item.TMR);
-      }),
-      raw: JSON.stringify(utils.exampleData)
+      results: formattedData,
+      data: JSON.stringify(formattedData)
     });
   }
 };

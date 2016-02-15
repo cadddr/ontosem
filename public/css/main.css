@@ -1667,3 +1667,12 @@ body {
   padding: 20px; }
   .debugging h3 {
     margin-top: 0; }
+
+dl dt {
+  font-weight: bold; }
+
+dl dd.hide {
+  display: none; }
+
+dl .kv-pair .key {
+  opacity: 0.5; }

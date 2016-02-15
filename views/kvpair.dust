@@ -1,0 +1,4 @@
+<div class="kv-pair">
+  <span class="key"> {key} </span>
+  <span class="val" data-entity-id="{_id}"> {val} </span>
+</div>

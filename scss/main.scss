@@ -13,3 +13,24 @@ body {
     margin-top: 0;
   }
 }
+
+dl {
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    &.hide {
+      display: none;
+    }
+  }
+
+  .kv-pair {
+    .key {
+      opacity: 0.5;
+    }
+    .val {
+    }
+  }
+
+}
