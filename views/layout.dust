@@ -3,14 +3,37 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <h1>Dust template...</h1>
-  {test}
-  <br>
 
-  {#results}
-    Result: <br>
-    {> "tmr" /}
-  {/results}
+  <header class="container gutters-sm-all">
+    <div class="col-12">
+      <h1>TMR Viewer</h1>
+    </div>
+  </header>
+
+  <div class="container gutters-sm-all main">
+    <!--- Commented out for now since we're using hardcoded TMR
+    <div class="col-6">
+      <form id="tmr-input">
+        <textarea id="tmr-input-textarea" rows=20></textarea>
+      </form>
+    </div>
+    -->
+
+    <div class="col-6">
+      {#results}
+        {> "tmr" /}
+      {/results}
+    </div>
+  </div>
+
+
+  <div class="container gutters-sm-all debugging">
+    <div class="col-12">
+      <h3>Debugging:</h3>
+      {test}
+    </div>
+  </div>
+
 
 </body>
 </html>

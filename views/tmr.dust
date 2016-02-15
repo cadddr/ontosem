@@ -1,5 +1,31 @@
-<div class="tmr">
+<div class="tmr-container">
   {# tmrs}
-    {_key}
+  <div class="tmr">
+    <dl>
+      <dt>{_key}</dt>
+      <dd class="attributes">
+        {# attrs}
+          <span class="key">
+            {key}
+          </span>
+          <span class="value">
+            {val}
+          </span>
+          <br>
+        {/ attrs}
+      </dd>
+      <dd class="optional-attributes">
+        {# optional}
+          <span class="key">
+            {key}
+          </span>
+          <span class="value">
+            {val}
+          </span>
+          <br>
+        {/ optional}
+      </dd>
+    </dl>
+  </div>
   {/ tmrs}
 </div>

@@ -1,2 +1,15 @@
+@import "juiced/juiced.scss";
+
 body {
+  font-family: "Helvetica", Arial, sans-serif;
+  background-color: #F3F3F5;
+}
+
+.debugging {
+  background-color: #EC3E3E;
+  color: white;
+  padding: 20px;
+  h3 {
+    margin-top: 0;
+  }
 }
