@@ -1,5 +1,6 @@
 <div class="tmr-container">
-  {sentence}
+  <div id="sentence"> {sentence} </div>
+
   {# tmrs}
   <div class="tmr">
     <dl>
