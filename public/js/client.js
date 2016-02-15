@@ -21,10 +21,19 @@ toggle.addEventListener("click", function(e){
 var data = JSON.parse($("#data-sync")[0].textContent);
 var entities = data.entities;
 
-for(key in entities){
-  console.log(key);
-  console.log(entities[key]);
-}
+$("[data-entity-id]").on("mouseenter", function(e){
+  var entityKey = $(this)[0].innerText;
+  if(entityKey in entities){
+    var relatedEntityIds = entities[entityKey];
+    relatedEntityIds.forEach(function(entityId){
+      $("[data-entity-id='" + entityId + "']").toggleClass("highlight");
+    });
+  }
+});
+
+$("[data-entity-id]").on("mouseleave", function(e){
+  $("[data-entity-id]").removeClass("highlight");
+});
 
 
 

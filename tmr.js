@@ -51,7 +51,9 @@ module.exports = {
           p.attrs.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
           nextEntityIdNumber += 1;
         } else {
-          p.optional.push({key: attrKey, val: attrVal});
+          entities = tagEntity(attrVal, entities, nextEntityIdNumber);
+          p.optional.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
+          nextEntityIdNumber += 1;
         }
       });
       o.push(p);
