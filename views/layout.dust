@@ -6,7 +6,7 @@
 
   <header class="container gutters-sm-all">
     <div class="col-12">
-      <h1>TMR Viewer</h1>
+      <h6>TMR Viewer</h6>
       <form>
         <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
         <label for="toggleOptional">Show Optional Attributes</label>
@@ -23,20 +23,24 @@
     </div>
     -->
 
-    <div class="col-6">
-      {#results}
-        {> "tmr" /}
-      {/results}
+    <div class="col-8">
+      <div class="rich-viewer">
+        {#results}
+          {> "tmr" /}
+        {/results}
+      </div>
     </div>
   </div>
 
 
+  {?debugging}
   <div class="container gutters-sm-all debugging">
     <div class="col-12">
       <h3>Debugging:</h3>
       {test}
     </div>
   </div>
+  {/debugging}
 
   <div id="data-sync">{data}</div>
   <!-- Hacky way to get JSON objects exposed to the client

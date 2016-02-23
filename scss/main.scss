@@ -1,14 +1,44 @@
 @import "juiced/juiced.scss";
 
-body {
-  font-family: "Helvetica", Arial, sans-serif;
-  background-color: #F3F3F5;
+
+$base: #FEFCFB;
+$white: #FFF;
+$lime: #EFF7E8;
+$aqua: #E0F5EF;
+$washed: #97D8CF;
+$teal: #08AA92;
+
+$error: #FF6242;
+
+.highlightable {
+  border-radius: 3px;
+  padding: 2px 5px;
+
+  &.highlight {
+    border-color: rgba(255, 0, 0, 0.2);
+    background-color: rgba(255, 0, 0, 0.1);
+  }
 }
 
-// #data-sync { display: none; }
+body {
+  font-family: "Helvetica", Arial, sans-serif;
+  background-color: $base;
+}
 
-.highlight {
-  background-color: rgba(255, 0, 0, 0.2);
+
+header.container {
+  background-color: $white;
+  height: 50px;
+  padding: 10px;
+  box-shadow: 0px 2px 3px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+
+  h6 {
+    margin: 0;
+  }
+
+  form {display: none;}
+  // Need to find a better place for this checkbox
 }
 
 .debugging {
@@ -20,9 +50,46 @@ body {
   }
 }
 
+#data-sync {
+  display: none;
+}
+
+.main.container {
+  height: calc(100% - 70px);
+  overflow: hidden;
+}
+
+.rich-viewer {
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  height: 100%;
+  overflow-y: scroll;
+
+  #sentence {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: $base;
+    width: calc(100% - 20px);
+    padding: 10px;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    span {
+      @extend .highlightable;
+    }
+  }
+
+  .tmr-container {
+    background-color: $white;
+  }
+}
+
 dl {
   dt {
     font-weight: bold;
+    @extend .highlightable;
   }
 
   dd {
@@ -36,7 +103,9 @@ dl {
       opacity: 0.5;
     }
     .val {
+      @extend .highlightable;
     }
   }
-
 }
+
+

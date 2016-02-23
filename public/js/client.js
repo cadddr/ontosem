@@ -20,6 +20,8 @@ toggle.addEventListener("click", function(e){
 
 var data = JSON.parse($("#data-sync")[0].textContent);
 
+// ********************************************
+// This should probably be done on the server
 var annotateSentence = function(){
   var sentence = $("#sentence")[0].innerText.split(" ");
   var annotatedSentence = [];
@@ -43,6 +45,7 @@ var annotateSentence = function(){
 
   return annotatedSentence;
 };
+// ********************************************
 
 var reconstructSentence = function(annotatedSentence){
   var htmlString = "";
