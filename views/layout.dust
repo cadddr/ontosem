@@ -15,13 +15,12 @@
   </header>
 
   <div class="container gutters-sm-all main">
-    <!--- Commented out for now since we're using hardcoded TMR
-    <div class="col-6">
-      <form id="tmr-input">
-        <textarea id="tmr-input-textarea" rows=20></textarea>
+    <div class="col-4">
+      <form action="/upload" method="post" id="tmr-input">
+        <textarea id="tmr-input-textarea" rows=20 cols=50 name="inputData"></textarea>
+        <button type="submit">Upload</button>
       </form>
     </div>
-    -->
 
     <div class="col-8">
       <div class="rich-viewer">
