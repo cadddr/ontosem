@@ -20,6 +20,7 @@ toggle.addEventListener("click", function(e){
 
 var data = JSON.parse($("#data-sync")[0].textContent);
 
+/* Not used anymore with sentence given entity name and id (I think)
 // ********************************************
 // This should probably be done on the server
 var annotateSentence = function(){
@@ -46,7 +47,6 @@ var annotateSentence = function(){
   return annotatedSentence;
 };
 // ********************************************
-
 var reconstructSentence = function(annotatedSentence){
   var htmlString = "";
 
@@ -63,13 +63,17 @@ var reconstructSentence = function(annotatedSentence){
 };
 
 $("#sentence")[0].innerHTML = reconstructSentence(annotateSentence());
-
-
+*/
 
 var entities = data.entities;
 
 $("[data-entity-id]").on("mouseenter", function(e){
-  var entityKey = $(this)[0].innerText;
+  var entityKey;
+  if ($(this)[0].hasAttribute("data-entity-name"))
+    entityKey = $(this).attr("data-entity-name");
+  else
+    entityKey = $(this)[0].innerText;
+
   if(entityKey in entities){
     var relatedEntityIds = entities[entityKey];
     relatedEntityIds.forEach(function(entityId){

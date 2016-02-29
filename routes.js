@@ -23,7 +23,7 @@ module.exports = {
     var formattedData = TMRFormatter(data);
 
     res.render("layout", {
-      debugging: false,
+      debugging: true,
       test: "Route: 'example', Layout: 'layout.dust'",
       results: formattedData,
       data: JSON.stringify(formattedData)
