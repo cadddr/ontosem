@@ -1,4 +1,12 @@
-<div id="sentence"> {# sentence}<span data-entity-id="{_id}" data-entity-name="{_name}">{_token}</span>{/ sentence} </div>
+<div id="sentence">
+  {# sentence}
+    <span data-entity-id="{_id}"
+      data-entity-name="{_name}">
+        {_token}
+    </span>
+  {/ sentence}
+</div>
+
 <div class="tmr-container">
 
   {# tmrs}
