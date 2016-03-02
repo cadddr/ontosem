@@ -7,7 +7,7 @@ var adaro = require('adaro');
 var routes = require('./routes.js');
 
 app.use(express.static('public'));
-app.engine('dust', adaro.dust({cache: false}));
+app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
 
