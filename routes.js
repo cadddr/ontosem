@@ -7,6 +7,17 @@ module.exports = {
     log.info("Serving INDEX");
     res.render("layout", {test: "Good test!"});
   },
+  upload: function(req, res) {
+    var data = JSON.parse(req.body.inputData.replace(/\'/g, '\"'));
+    var formattedData = TMRFormatter(data);
+
+    res.render("layout", {
+      debugging: false,
+      test: "Route: 'example', Layout: 'layout.dust'",
+      results: formattedData,
+      data: JSON.stringify(formattedData)
+    });
+  },
   intermediate: function(req, res) {
     log.info("Serving EXAMPLE");
 
@@ -25,7 +36,7 @@ module.exports = {
     res.render("layout", {
       debugging: true,
       test: "Route: 'example', Layout: 'layout.dust'",
-      results: formattedData,
+      results: [],
       data: JSON.stringify(formattedData)
     });
   }

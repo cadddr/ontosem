@@ -27,7 +27,7 @@ var exampleTMR = {'Step': 'final',
  'word-ind': [1]},
  'OFFSPRING': {'count': 1,
  'word-ind': [3]}},
- 'words': {0: 'SHE-N1', 1: 'BEAR-V1', 3: 'SON-N1'}}],
+ 'words': {'0': 'SHE-N1', '1': 'BEAR-V1', '3': 'SON-N1'}}],
 'sent-num': 1,
 'sentence': 'She bears a son.',
 'timestamp': '2016-Jan-20 18:44:13'};
