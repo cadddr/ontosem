@@ -1,5 +1,3 @@
-
-
 var toggle = $("#toggleOptional")[0];
 var optionalAttributes = $(".optional-attributes");
 var isShowingOptionalAttributes = false;

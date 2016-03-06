@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 app.use(express.static('public'));
 app.use(bodyParser());
-app.engine('dust', adaro.dust({cache: false}));
+app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
 
