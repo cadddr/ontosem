@@ -9,21 +9,21 @@
 
 <div class="tmr-container">
 
+  <table class="tmr">
   {# tmrs}
-  <div class="tmr">
-    <dl>
-      <dt data-entity-id="{_id}">{_key}</dt>
-      <dd class="attributes">
-        {# attrs}
-          {> "kvpair" /}
-        {/ attrs}
-      </dd>
-      <dd class="optional-attributes">
-        {# optional}
-          {> "kvpair" /}
-        {/ optional}
-      </dd>
-    </dl>
-  </div>
+    <tr class="frame-header" data-entity-id="{_id}">
+      <td colspan="2">
+        <span class="key">{_key}</span>
+        <span class="minimize-frame">-</span>
+      </td>
+    </tr>
+    {# attrs }
+      {> "kvpair" type="required" parent="{_key}" /}
+    {/ attrs}
+    {# optional}
+      {> "kvpair" type="optional" parent="{_key}" /}
+    {/ optional}
+    <tr class="divider"></tr>
   {/ tmrs}
+  </table>
 </div>
