@@ -13,7 +13,7 @@ app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
 
-app.get('/intermediate', routes.intermediate);
+app.post('/intermediate', routes.intermediate);
 app.post('/tmr', routes.tmr);
 app.get('/upload', routes.upload);
 app.get('/', routes.index);

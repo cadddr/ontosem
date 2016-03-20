@@ -13,7 +13,12 @@ module.exports = {
   },
   upload: function(req, res) {
     log.info("Serving INDEX");
-    res.render("upload", {test: "Good test!"});
+    res.render("upload", {
+      test: "Good test!",
+      clientscripts: [
+        {script: "uploadclient.js"}
+      ]
+    });
   },
   tmr: function(req, res) {
     var data = JSON.parse(req.body.inputData.replace(/\'/g, '\"'));
@@ -32,6 +37,10 @@ module.exports = {
   intermediate: function(req, res) {
     log.info("Serving INTERMEDIATE");
     var raw = utils.exampleIntermediate;
+    if(req.body.inputData != ">"){
+      raw = req.body.inputData.replace(/\\n/g, '');
+    }
+    console.log(raw);
     var results = intermediateFormatter(raw);
     var tmrData = TMRFormatter(results.TMR);
     var entities = tmrData.entities;
