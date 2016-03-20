@@ -2,41 +2,36 @@
 <head>
   <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body class="{page}">
 
   <header class="container gutters-sm-all">
-    <div class="col-12">
-      <h1>TMR Viewer</h1>
-      <form>
-        <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
-        <label for="toggleOptional">Show Optional Attributes</label>
-      </form>
+    <div class="col-1">
+      <h6>Ontosem</h6>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-7">
+      {+toolbar/}
     </div>
   </header>
 
-  <div class="container gutters-sm-all main">
-    <!--- Commented out for now since we're using hardcoded TMR
-    <div class="col-6">
-      <form id="tmr-input">
-        <textarea id="tmr-input-textarea" rows=20></textarea>
-      </form>
-    </div>
-    -->
+  <div class="fixedcontent container gutters-sm-all">
+    {+fixedcontent/}
+  </div>
 
-    <div class="col-6">
-      {#results}
-        {> "tmr" /}
-      {/results}
+  <div class="scroll">
+    <div class="container gutters-sm-all main">
+      {+content/}
     </div>
   </div>
 
-
+  {?debugging}
   <div class="container gutters-sm-all debugging">
     <div class="col-12">
       <h3>Debugging:</h3>
       {test}
     </div>
   </div>
+  {/debugging}
 
   <div id="data-sync">{data}</div>
   <!-- Hacky way to get JSON objects exposed to the client
@@ -44,7 +39,10 @@
 
 
 <script src="js/zepto.js"></script>
-<script src="js/client.js"></script>
+<script src="js/layout.js"></script>
+{#clientscripts}
+<script src="js/{script}"></script>
+{/clientscripts}
 <script>
 </script>
 </body>

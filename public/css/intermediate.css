@@ -1,0 +1,37 @@
+.page-intermediate table tr.properties-row {
+  font-weight: bold; }
+
+.page-intermediate table tr:first-child {
+  background-color: #ccc; }
+
+.page-intermediate table tr:nth-child(odd) {
+  background-color: #ddd; }
+
+.page-intermediate table tr:nth-child(even) {
+  background-color: #fff; }
+
+.page-intermediate table td {
+  padding: 2px; }
+
+.page-intermediate table .word-parse .status {
+  text-align: center;
+  padding-left: 0px; }
+
+.page-intermediate table .word-parse .word {
+  text-align: center; }
+
+.page-intermediate table .word-header {
+  text-align: center;
+  font-weight: bold;
+  background-color: #bbb;
+  cursor: pointer; }
+  .page-intermediate table .word-header:hover {
+    background-color: #aaa; }
+
+.page-intermediate span.highlightable {
+  display: inline-block;
+  padding: 0px 1px 0px 1px;
+  border: 0.5px solid black; }
+
+.page-intermediate .closed {
+  display: none !important; }

@@ -1,0 +1,50 @@
+$base: #FEFCFB;
+$white: #FFF;
+$lime: #EFF7E8;
+$aqua: #E0F5EF;
+$washed: #97D8CF;
+$teal: #08AA92;
+
+$error: #e63946;
+
+.highlightable {
+  border-radius: 3px;
+  padding: 2px 5px;
+
+  &.highlight {
+    border-color: rgba(255, 0, 0, 0.2);
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+}
+
+body {
+  font-family: "Helvetica", Arial, sans-serif;
+  background-color: $base;
+}
+
+header.container {
+  background-color: $white;
+  height: 50px;
+  padding: 10px;
+  box-shadow: 0px 2px 3px rgba(0,0,0,0.1);
+
+  h6 { margin: 0; }
+}
+
+.debugging {
+  background-color: #EC3E3E;
+  color: white;
+  padding: 20px;
+
+  h3 { margin-top: 0; }
+}
+
+#data-sync {
+  display: none;
+}
+
+.scroll {
+  position: absolute;
+  overflow-y: scroll;
+  width: 100%;
+}

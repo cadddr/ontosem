@@ -1,0 +1,85 @@
+{>"layout" page="page-intermediate"/}
+
+{<fixedcontent}
+<div class="col-12">
+  <div id="sentence"></div>
+</div>
+{/fixedcontent}
+
+{<content}
+
+<div class="col-12">
+
+  {# results.words}
+
+    <table id="{word}_ID" class="word-parse open">
+      <thead>
+        <tr>
+          <td colspan="3">
+            <div class="word-header no-select">
+              <span data-entity-id="{results.lexEntries[word].id}" parent-id="{results.lexEntries[word].parent}" class="highlightable">
+              {word}
+              </span>
+            </div>
+          </td>
+        </tr>
+        {? senses}
+          <tr class="properties-row">
+            <td colspan="3">
+              <div class="lexicon-results">
+                Senses: {senses}{? synonyms}, Synonyms: {synonyms}{/ synonyms}
+              </div>
+            </td>
+          </tr>
+        {/ senses}
+      </thead>
+
+      <tbody>
+        <tr>
+          <th>
+            Status
+          </th>
+          <th>
+            Word
+          </th>
+          <th>
+            Reason
+          </th>
+        </tr>
+        {#events}
+          <tr>
+            <td>
+              <div class="status">
+                {results.labels[status]}
+              </div>
+            </td>
+            <td>
+              <div class="word">
+
+              {#words}
+                  <span data-entity-id="{results.lexEntries[.[0]].id}" parent-id="{results.lexEntries[.[0]].parent}" class="highlightable">{.[0]}</span><!--
+                  -->{@eq key=type value="pair"}<!--
+                    --> & <span data-entity-id="{results.lexEntries[.[1]].id}" parent-id="{results.lexEntries[.[1]].parent}" class="highlightable">{.[1]}</span>
+                    <br />
+                  {/eq}
+              {/words}
+              </div>
+            </td>
+            <td>
+              <div class="reason">
+                <ul>
+                  {#reasons}
+                    <li>
+                      {.}
+                    </li>
+                  {/reasons}
+                </ul>
+              </div>
+            </td>
+          </tr>
+        {/events}
+      </tbody>
+    </table>
+    {/results.words}
+</div>
+{/content}

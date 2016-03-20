@@ -1,42 +1,4 @@
 @import "juiced/juiced.scss";
-
-body {
-  font-family: "Helvetica", Arial, sans-serif;
-  background-color: #F3F3F5;
-}
-
-// #data-sync { display: none; }
-
-.highlight {
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-.debugging {
-  background-color: #EC3E3E;
-  color: white;
-  padding: 20px;
-  h3 {
-    margin-top: 0;
-  }
-}
-
-dl {
-  dt {
-    font-weight: bold;
-  }
-
-  dd {
-    &.hide {
-      display: none;
-    }
-  }
-
-  .kv-pair {
-    .key {
-      opacity: 0.5;
-    }
-    .val {
-    }
-  }
-
-}
+@import "layout.scss";
+@import "tmr.scss";
+@import "intermediate.scss";
