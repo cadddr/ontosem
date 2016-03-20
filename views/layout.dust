@@ -18,8 +18,10 @@
     {+fixedcontent/}
   </div>
 
-  <div class="scroll container gutters-sm-all main">
-    {+content/}
+  <div class="scroll">
+    <div class="container gutters-sm-all main">
+      {+content/}
+    </div>
   </div>
 
   {?debugging}

@@ -1688,7 +1688,8 @@ header.container {
 
 .scroll {
   position: absolute;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  width: 100%; }
 
 .page-tmr #sentence {
   position: absolute;
