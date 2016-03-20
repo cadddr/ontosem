@@ -8,7 +8,7 @@ console.log(data);
 
 // parse the sentence
 var parseSentenceRegex = /Intermediate results for: \"(.*)\"/;
-var sentenceContainer = $('#pageHeader');
+var sentenceContainer = $('#sentence');
 data.sentenceMappings = JSON.parse(data.sentenceMappings);
 var sentence = data.sentence;
 for (var i in data.sentenceMappings) {

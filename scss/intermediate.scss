@@ -1,5 +1,58 @@
 
 .page-intermediate {
   table {
+    tr {
+      &.properties-row {
+        font-weight: bold;
+      }
+
+      &:first-child {
+        background-color: #ccc;
+      }
+
+      &:nth-child(odd) {
+        background-color: #ddd;
+      }
+
+      &:nth-child(even) {
+        background-color: #fff;
+      }
+    }
+
+    td {
+      padding: 2px;
+    }
+
+    .word-parse {
+      .status {
+        text-align: center;
+        padding-left: 0px;
+      }
+
+      .word {
+        text-align: center;
+      }
+    }
+
+    .word-header {
+      text-align: center;
+      font-weight: bold;
+      background-color: #bbb;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #aaa;
+      }
+    }
+  }
+
+  span.highlightable {
+    display: inline-block;
+    padding: 0px 1px 0px 1px;
+    border: 0.5px solid black;
+  }
+
+  .closed {
+    display: none !important;
   }
 }

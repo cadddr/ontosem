@@ -2,7 +2,7 @@
 
 {<fixedcontent}
 <div class="col-12">
-  Intermediate results for: "{results.sentence}"
+  <div id="sentence"></div>
 </div>
 {/fixedcontent}
 
@@ -12,11 +12,11 @@
 
   {# results.words}
 
-    <table id="{word}_ID" class="wordParse open">
+    <table id="{word}_ID" class="word-parse open">
       <thead>
         <tr>
           <td colspan="3">
-            <div class="wordHeader noSelect">
+            <div class="word-header no-select">
               <span data-entity-id="{results.lexEntries[word].id}" parent-id="{results.lexEntries[word].parent}" class="highlightable">
               {word}
               </span>
@@ -24,9 +24,9 @@
           </td>
         </tr>
         {? senses}
-          <tr class="propertiesRow">
+          <tr class="properties-row">
             <td colspan="3">
-              <div class="lexiconResults">
+              <div class="lexicon-results">
                 Senses: {senses}{? synonyms}, Synonyms: {synonyms}{/ synonyms}
               </div>
             </td>
@@ -81,7 +81,5 @@
       </tbody>
     </table>
     {/results.words}
-
 </div>
-
 {/content}
