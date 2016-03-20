@@ -1657,10 +1657,10 @@ label input {
   .lg-display-inline {
     display: inline; } }
 
-.highlightable, .rich-viewer #sentence span {
+.highlightable, .page-tmr #sentence span {
   border-radius: 3px;
   padding: 2px 5px; }
-  .highlightable.highlight, .rich-viewer #sentence span.highlight {
+  .highlightable.highlight, .page-tmr #sentence span.highlight {
     border-color: rgba(255, 0, 0, 0.2);
     background-color: rgba(255, 0, 0, 0.1); }
 
@@ -1672,12 +1672,9 @@ header.container {
   background-color: #FFF;
   height: 50px;
   padding: 10px;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; }
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1); }
   header.container h6 {
     margin: 0; }
-  header.container form {
-    display: none; }
 
 .debugging {
   background-color: #EC3E3E;
@@ -1689,56 +1686,59 @@ header.container {
 #data-sync {
   display: none; }
 
-.main.container {
-  height: calc(100% - 70px);
-  overflow: hidden; }
-
-.rich-viewer {
-  background-color: white;
-  border-radius: 4px;
-  padding: 20px;
-  height: 100%;
+.scroll {
+  position: absolute;
   overflow-y: scroll; }
-  .rich-viewer #sentence {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: #FEFCFB;
-    width: calc(100% - 20px);
-    padding: 10px;
-    z-index: 999;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
-  .rich-viewer .tmr-container {
-    background-color: #FFF;
-    padding-top: 40px; }
-  .rich-viewer .tmr {
-    table-layout: fixed;
-    border-collapse: collapse; }
-    .rich-viewer .tmr td {
-      border-radius: 3px;
-      background-color: transparent;
-      transition: box-shadow 100ms, background-color 100ms; }
-    .rich-viewer .tmr td.highlight {
-      box-shadow: 0px 2px 5px rgba(0, 0, 20, 0.2);
-      background-color: #7AADF9; }
-  .rich-viewer .minimize-frame {
-    float: right;
-    font-size: 26px;
-    font-weight: normal !important;
-    line-height: 13px; }
-  .rich-viewer .divider {
-    height: 20px; }
-  .rich-viewer .frame-header td {
-    background-color: #F3F3F3;
-    border-radius: 0;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px rgba(0, 0, 10, 0.2);
-    padding: 10px; }
-  .rich-viewer .kv-pair td {
-    padding: 5px; }
-  .rich-viewer .kv-pair.collapsed {
-    display: none; }
-  .rich-viewer .kv-pair-required {
-    color: #000; }
-  .rich-viewer .kv-pair-optional {
-    color: #797984; }
+
+.page-tmr #sentence {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #FEFCFB;
+  width: calc(100% - 20px);
+  padding: 10px;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+
+.page-tmr .tmr-container {
+  background-color: #FFF;
+  padding-top: 40px; }
+
+.page-tmr .tmr {
+  table-layout: fixed;
+  border-collapse: collapse; }
+  .page-tmr .tmr td {
+    border-radius: 3px;
+    background-color: transparent;
+    transition: box-shadow 100ms, background-color 100ms; }
+  .page-tmr .tmr td.highlight {
+    box-shadow: 0px 2px 5px rgba(0, 0, 20, 0.2);
+    background-color: #7AADF9; }
+
+.page-tmr .minimize-frame {
+  float: right;
+  font-size: 26px;
+  font-weight: normal !important;
+  line-height: 13px; }
+
+.page-tmr .divider {
+  height: 20px; }
+
+.page-tmr .frame-header td {
+  background-color: #F3F3F3;
+  border-radius: 0;
+  font-weight: bold;
+  box-shadow: 0px 1px 2px rgba(0, 0, 10, 0.2);
+  padding: 10px; }
+
+.page-tmr .kv-pair td {
+  padding: 5px; }
+
+.page-tmr .kv-pair.collapsed {
+  display: none; }
+
+.page-tmr .kv-pair-required {
+  color: #000; }
+
+.page-tmr .kv-pair-optional {
+  color: #797984; }

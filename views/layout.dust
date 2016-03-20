@@ -2,35 +2,25 @@
 <head>
   <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body class="{page}">
 
   <header class="container gutters-sm-all">
-    <div class="col-12">
-      <h6>TMR Viewer</h6>
-      <form>
-        <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
-        <label for="toggleOptional">Show Optional Attributes</label>
-      </form>
+    <div class="col-1">
+      <h6>Ontosem</h6>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-7">
+      {+toolbar/}
     </div>
   </header>
 
-  <div class="container gutters-sm-all main">
-    <div class="col-4">
-      <form action="/upload" method="post" id="tmr-input">
-        <textarea id="tmr-input-textarea" rows=20 cols=50 name="inputData"></textarea>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-
-    <div class="col-8">
-      <div class="rich-viewer">
-        {#results}
-          {> "tmr" /}
-        {/results}
-      </div>
-    </div>
+  <div class="fixedcontent container gutters-sm-all">
+    {+fixedcontent/}
   </div>
 
+  <div class="scroll container gutters-sm-all main">
+    {+content/}
+  </div>
 
   {?debugging}
   <div class="container gutters-sm-all debugging">
@@ -47,7 +37,10 @@
 
 
 <script src="js/zepto.js"></script>
-<script src="js/client.js"></script>
+<script src="js/layout.js"></script>
+{#clientscripts}
+<script src="js/{script}"></script>
+{/clientscripts}
 <script>
 </script>
 </body>

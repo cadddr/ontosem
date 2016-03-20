@@ -1,29 +1,49 @@
+{>"layout" page="page-tmr"/}
+
+
+
+{<toolbar}
+<form>
+  <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
+  <label for="toggleOptional">Show Optional Attributes</label>
+</form>
+{/toolbar}
+
+
+
+{<content}
+
+<div class="col-12">
+{#results}
 <div id="sentence">
-  {# sentence}
+  {#sentence}
     <span data-entity-id="{_id}"
       data-entity-name="{_name}">
         {_token}
     </span>
-  {/ sentence}
+  {/sentence}
 </div>
 
 <div class="tmr-container">
-
   <table class="tmr">
-  {# tmrs}
+  {#tmrs}
     <tr class="frame-header" data-entity-id="{_id}">
       <td colspan="2">
         <span class="key">{_key}</span>
         <span class="minimize-frame">-</span>
       </td>
     </tr>
-    {# attrs }
+    {#attrs}
       {> "kvpair" type="required" parent="{_key}" /}
-    {/ attrs}
-    {# optional}
+    {/attrs}
+    {#optional}
       {> "kvpair" type="optional" parent="{_key}" /}
-    {/ optional}
+    {/optional}
     <tr class="divider"></tr>
-  {/ tmrs}
+  {/tmrs}
   </table>
 </div>
+
+{/results}
+</div>
+{/content}

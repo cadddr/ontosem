@@ -1,23 +1,23 @@
-<html>
-  <head>
-    <link rel="stylesheet" href="css/intermediate.css">
-    <link rel="stylesheet" href="css/main.css">
-  </head>
-  <body>
-    <div id="body">
-      <div id="pageHeader">
-        Intermediate results for: "{data.sentence}"
-      </div>
-    </div>
+{>"layout" page="page-intermediate"/}
 
-    {# data.words}
+{<fixedcontent}
+<div class="col-12">
+  Intermediate results for: "{results.sentence}"
+</div>
+{/fixedcontent}
+
+{<content}
+
+<div class="col-12">
+
+  {# results.words}
 
     <table id="{word}_ID" class="wordParse open">
       <thead>
         <tr>
           <td colspan="3">
             <div class="wordHeader noSelect">
-              <span data-entity-id="{data.lexEntries[word].id}" parent-id="{data.lexEntries[word].parent}" class="highlightable">
+              <span data-entity-id="{results.lexEntries[word].id}" parent-id="{results.lexEntries[word].parent}" class="highlightable">
               {word}
               </span>
             </div>
@@ -27,14 +27,13 @@
           <tr class="propertiesRow">
             <td colspan="3">
               <div class="lexiconResults">
-                Senses: {senses}{? synonyms},   Synonyms: {synonyms}{/ synonyms}
+                Senses: {senses}{? synonyms}, Synonyms: {synonyms}{/ synonyms}
               </div>
             </td>
           </tr>
         {/ senses}
       </thead>
-      
-      
+
       <tbody>
         <tr>
           <th>
@@ -47,64 +46,42 @@
             Reason
           </th>
         </tr>
-        {# events}
+        {#events}
           <tr>
             <td>
               <div class="status">
-                {data.labels[status]}
+                {results.labels[status]}
               </div>
             </td>
             <td>
               <div class="word">
-              
-              {# words}
-                <!--<span class="pair">
-                </span>-->
-                  <span data-entity-id="{data.lexEntries[.[0]].id}" parent-id="{data.lexEntries[.[0]].parent}" class="highlightable">{.[0]}</span><!--
+
+              {#words}
+                  <span data-entity-id="{results.lexEntries[.[0]].id}" parent-id="{results.lexEntries[.[0]].parent}" class="highlightable">{.[0]}</span><!--
                   -->{@eq key=type value="pair"}<!--
-                    --> & <span data-entity-id="{data.lexEntries[.[1]].id}" parent-id="{data.lexEntries[.[1]].parent}" class="highlightable">{.[1]}</span>
+                    --> & <span data-entity-id="{results.lexEntries[.[1]].id}" parent-id="{results.lexEntries[.[1]].parent}" class="highlightable">{.[1]}</span>
                     <br />
                   {/eq}
-              {/ words}
-              
+              {/words}
               </div>
             </td>
             <td>
               <div class="reason">
                 <ul>
-                  {# reasons}
+                  {#reasons}
                     <li>
                       {.}
                     </li>
-                  {/ reasons}
+                  {/reasons}
                 </ul>
               </div>
             </td>
           </tr>
-        {/ events}
+        {/events}
       </tbody>
     </table>
-    <br />
-    {/ data.words}
-    
-    <div id="TMRId">
-      <b>TMR:</b>
-      <br />
-      <div class="col-12">
-        <form>
-          <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
-          <label for="toggleOptional">Show Optional Attributes</label>
-        </form>
-      </div>
-      <div class="rich-viewer">
-      {#data.tmrData}
-        {> "tmr" /}
-      {/data.tmrData}
-      </div>
-      <div id="dataString">{dataString}</div>
-    </div>
+    {/results.words}
 
-    <script src="js/zepto.js"></script>
-    <script src="js/intermediate.js"></script>
-  </body>
-</html>
+</div>
+
+{/content}

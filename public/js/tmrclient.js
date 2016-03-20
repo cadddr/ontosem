@@ -42,8 +42,8 @@ $("[data-entity-id]").on("mouseleave", function(e){
 var selectChildRows = function(headRow) {
   var h = $(headRow);
   var key = h.find(".key")[0].textContent;
-  console.log(key);
   var children = h.siblings("[data-parent=" + key + "]");
+
   return children;
 };
 
