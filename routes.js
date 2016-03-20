@@ -6,46 +6,45 @@ var intermediateFormatter = require('./intermediate.js').format;
 module.exports = {
   index: function(req, res) {
     log.info("Serving INDEX");
-    res.render("layout", {test: "Good test!"});
+    res.render("layout", {
+      debugging: true,
+      test: "Try going to /upload for now"
+    });
   },
   upload: function(req, res) {
+    log.info("Serving INDEX");
+    res.render("upload", {test: "Good test!"});
+  },
+  tmr: function(req, res) {
     var data = JSON.parse(req.body.inputData.replace(/\'/g, '\"'));
     var formattedData = TMRFormatter(data);
 
-    res.render("layout", {
+    res.render("tmr", {
       debugging: false,
-      test: "Route: 'example', Layout: 'layout.dust'",
+      test: "Route: 'tmr', Layout: 'tmr.dust'",
       results: formattedData,
-      data: JSON.stringify(formattedData)
+      data: JSON.stringify(formattedData),
+      clientscripts: [
+        {script: "tmrclient.js"}
+      ]
     });
   },
   intermediate: function(req, res) {
-	log.info("Serving EXAMPLE");
-	var raw = utils.exampleIntermediate;
-	var data = intermediateFormatter(raw);
-	var tmrData = TMRFormatter(data.TMR);
-	var entities = tmrData.entities;
-	
-	data.tmrData = tmrData;
-	data.tmrString = JSON.stringify(tmrData);
-	data.dataString = JSON.stringify(data.lexEntries);
-	log.info(data.lexEntries);
-	log.info(data.dataString);
-	
-	res.render("intermediate", {'data':data, 'dataString':JSON.stringify(data)});
-  },
-  tmr: function(req, res) {
-    log.info("Serving EXAMPLE");
+    log.info("Serving INTERMEDIATE");
+    var raw = utils.exampleIntermediate;
+    var results = intermediateFormatter(raw);
+    var tmrData = TMRFormatter(results.TMR);
+    var entities = tmrData.entities;
+    results.tmrData = tmrData;
+    results.tmrString = JSON.stringify(tmrData);
+    results.dataString = JSON.stringify(results.lexEntries);
 
-    // Fetching hardcoded example data
-    var data = utils.exampleData;
-    var formattedData = TMRFormatter(data);
-
-    res.render("layout", {
-      debugging: true,
-      test: "Route: 'example', Layout: 'layout.dust'",
-      results: [],
-      data: JSON.stringify(formattedData)
+    res.render("intermediate", {
+      results: results,
+      data: JSON.stringify(results),
+      clientscripts: [
+        {script: "intermediateclient.js"}
+      ]
     });
   }
 };

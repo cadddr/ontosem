@@ -16,7 +16,7 @@ toggle.addEventListener("click", function(e){
 });
 
 
-var data = JSON.parse($("#data-sync")[0].textContent);
+var data = JSON.parse($("#data-sync")[0].textContent || "");
 
 var entities = data.entities;
 
@@ -38,3 +38,25 @@ $("[data-entity-id]").on("mouseenter", function(e){
 $("[data-entity-id]").on("mouseleave", function(e){
   $("[data-entity-id]").removeClass("highlight");
 });
+
+var selectChildRows = function(headRow) {
+  var h = $(headRow);
+  var key = h.find(".key")[0].textContent;
+  var children = h.siblings("[data-parent=" + key + "]");
+
+  return children;
+};
+
+$(".frame-header").on("click", function(e){
+  var children = selectChildRows(this);
+  children.toggleClass("collapsed");
+  if($(children[0]).hasClass("collapsed")){
+    $(this).find(".minimize-frame")[0].innerHTML = "+";
+  } else {
+    $(this).find(".minimize-frame")[0].innerHTML = "-";
+  }
+});
+
+// Avoid horizontal jerking when hiding and unhiding table rows
+var table = $("table.tmr")[0];
+table.style.width = table.clientWidth + "px";

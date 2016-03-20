@@ -14,8 +14,8 @@ app.set('view engine', 'dust');
 
 
 app.get('/intermediate', routes.intermediate);
-app.post('/upload', routes.upload);
-app.get('/tmr', routes.tmr);
+app.post('/tmr', routes.tmr);
+app.get('/upload', routes.upload);
 app.get('/', routes.index);
 
 

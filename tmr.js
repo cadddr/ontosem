@@ -100,6 +100,10 @@ module.exports = {
 
     // Return the annotated set along with the collection of
     // known entities, as well as the sentence itself.
-    return {sentence: sentence, entities: entities, tmrs: o};
+    return {
+      sentence: sentence,
+      entities: entities,
+      tmrs: o
+    };
   }
 };
