@@ -2,7 +2,7 @@
 
 var toggle = $("#toggleOptional")[0];
 var optionalAttributes = $(".optional-attributes");
-var isShowingOptionalAttributes = false;
+var isShowingOptionalAttributes = true;
 
 var toggleOptionalAttributes = function(){
   isShowingOptionalAttributes = !isShowingOptionalAttributes;
@@ -66,6 +66,7 @@ $("#sentence")[0].innerHTML = reconstructSentence(annotateSentence());
 */
 
 var entities = data.entities;
+console.log(data.entities);
 
 $("[data-entity-id]").on("mouseenter", function(e){
   var entityKey;
@@ -77,11 +78,40 @@ $("[data-entity-id]").on("mouseenter", function(e){
   if(entityKey in entities){
     var relatedEntityIds = entities[entityKey];
     relatedEntityIds.forEach(function(entityId){
-      $("[data-entity-id='" + entityId + "']").toggleClass("highlight");
+      $("[data-entity-id='" + entityId + "']").addClass("highlight");
+      $("[data-entity-id='" + entityId + "']").attr("style", "background-color: "+data.colors[entityKey]);
     });
   }
 });
 
 $("[data-entity-id]").on("mouseleave", function(e){
-  $("[data-entity-id]").removeClass("highlight");
+  $("[data-entity-id]").each(function(index, entity){
+    if (!$(entity).hasClass("lock")){  
+      $(entity).removeClass("highlight");
+      $(entity).removeAttr("style");
+    }
+  });
+});
+
+$("[data-entity-id]").on("click", function(e){
+  var entityKey;
+  if ($(this)[0].hasAttribute("data-entity-name"))
+    entityKey = $(this).attr("data-entity-name");
+  else
+    entityKey = $(this)[0].innerText;
+
+  if(entityKey in entities){
+    var relatedEntityIds = entities[entityKey];
+    relatedEntityIds.forEach(function(entityId){
+      $("[data-entity-id='" + entityId + "']").toggleClass("lock");
+      if (!$("[data-entity-id='" + entityId + "']").hasClass("lock")){
+        $("[data-entity-id='" + entityId + "']").removeClass("highlight");
+        $("[data-entity-id='" + entityId + "']").removeAttr("style");
+      }
+      else{
+        $("[data-entity-id='" + entityId + "']").addClass("highlight");
+        $("[data-entity-id='" + entityId + "']").attr("style", "background-color: "+data.colors[entityKey]);
+      }
+    });
+  }
 });

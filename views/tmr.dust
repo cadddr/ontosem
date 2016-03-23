@@ -12,7 +12,7 @@
   {# tmrs}
   <div class="tmr">
     <dl>
-      <dt data-entity-id="{_id}">{_key}</dt>
+      <dt data-entity-id="{_id}" style="background-color:{color}">{_key}</dt>
       <dd class="attributes">
         {# attrs}
           {> "kvpair" /}

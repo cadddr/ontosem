@@ -1,7 +1,7 @@
 <div class="kv-pair">
   <span class="key"> {key} </span>
   <span class="val"
-    style="color: {color}"
+    {! style="background-color: {color}" !}
     data-entity-color="{color}"
     data-entity-id="{_id}">
       {val}

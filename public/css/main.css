@@ -1676,8 +1676,6 @@ header.container {
   margin-bottom: 20px; }
   header.container h6 {
     margin: 0; }
-  header.container form {
-    display: none; }
 
 .debugging {
   background-color: #EC3E3E;

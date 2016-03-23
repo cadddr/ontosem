@@ -37,7 +37,9 @@ header.container {
     margin: 0;
   }
 
-  form {display: none;}
+  form {
+    //display: none;
+  }
   // Need to find a better place for this checkbox
 }
 
@@ -107,5 +109,3 @@ dl {
     }
   }
 }
-
-
