@@ -346,6 +346,7 @@ var intermediateExample = ">>> sentence_analyzer(inp7o,log=1)\n Input Sentence =
 
 module.exports = {
   port: 3000,
+  pythonPort: 8000,
   exampleData: exampleTMR,
   exampleIntermediate: intermediateExample,
   isCapitalized: function(str) {

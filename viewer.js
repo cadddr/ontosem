@@ -2,6 +2,7 @@ var utils = require('./utils.js');
 var log = utils.richLogging;
 
 var express = require('express');
+var request = require('request');
 var app = express();
 var adaro = require('adaro');
 var routes = require('./routes.js');
@@ -13,6 +14,7 @@ app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
 
+app.post('/sentence', routes.sentence);
 app.post('/intermediate', routes.intermediate);
 app.post('/tmr', routes.tmr);
 app.get('/upload', routes.upload);

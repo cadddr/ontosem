@@ -23,7 +23,7 @@ var setInput = function(textarea, type) {
   }
 };
 
-$("textarea").on("input", function(e) {
+$("textarea#shared-input").on("input", function(e) {
   var content = this.value || "";
   if(content[0] == ">") {
     setInput(this, "Intermediate");
