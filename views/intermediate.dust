@@ -7,7 +7,6 @@
 {/fixedcontent}
 
 {<content}
-
 <div class="col-12">
 
   {# results.words}

@@ -1,3 +1,4 @@
+var request = require('request');
 var utils = require('./utils.js');
 var log = utils.richLogging;
 var TMRFormatter = require('./tmr.js').format;
@@ -6,13 +7,36 @@ var intermediateFormatter = require('./intermediate.js').format;
 module.exports = {
   index: function(req, res) {
     log.info("Serving INDEX");
-    res.render("layout", {
-      debugging: true,
-      test: "Try going to /upload for now"
+    res.render("index", {
+      debugging: true
     });
   },
+  sentence: function(req, res) {
+    log.info("Received SENTENCE");
+
+    var postParams = {
+      url: 'http://localhost:' + utils.pythonPort.toString() + '/req',
+      method: 'POST',
+      form: {
+        inputData: req.body.inputData
+      }
+    };
+
+    request(postParams,
+      function(err, response, body) {
+        if(!err && response.statusCode == 200) {
+          res.render("sentence", {
+            debugging: true,
+            test: "sentence page",
+            sentence: body
+          });
+        }
+      }
+    );
+
+  },
   upload: function(req, res) {
-    log.info("Serving INDEX");
+    log.info("Serving UPLOAD");
     res.render("upload", {
       test: "Good test!",
       clientscripts: [
@@ -40,7 +64,6 @@ module.exports = {
     if(req.body.inputData != ">"){
       raw = req.body.inputData.replace(/\\n/g, '');
     }
-    console.log(raw);
     var results = intermediateFormatter(raw);
     var tmrData = TMRFormatter(results.TMR);
     var entities = tmrData.entities;
