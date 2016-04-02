@@ -4,6 +4,7 @@ var log = utils.richLogging;
 // The set of attributes which exclusively connects entities to other entities
 var relations = new Set(["EXPERIENCER", "EXPERIENCER-OF", "THEME", "THEME-OF"]);
 
+
 var tagEntity = function(item, list, nextId){
   // Checks whether this is an entity that's already
   // been assigned an ID and assigns the same one.
@@ -20,12 +21,39 @@ var tagEntity = function(item, list, nextId){
   return list;
 };
 
-var generateColor = function(id){
+var colors = [];
+
+function hsvToRgb(h, s, v){
+    var r, g, b;
+
+    var i = Math.floor(h * 6);
+    var f = h * 6 - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+
+    switch(i % 6){
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+
+    return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
+}
+
+var generateColor = function(colorCounter, colorMax){
   // TODO: This needs to return distinct (not random) colors!
   // One solution would be to just pick out a bunch of nice colors
   // and make a map from ID : Color, but be sure to account for
   // many many ID's needing colors!
-  return "#000";
+  h = colorCounter/colorMax;
+  s = 0.8;
+  v = 0.8;
+  rgb = hsvToRgb(h,s,v);
+  return "rgba("+rgb.join(",")+",0.25)";
 };
 
 module.exports = {
@@ -50,6 +78,11 @@ module.exports = {
     // Get an array of the frame heads
     var frames = Object.keys(tmr);
 
+    var colors = {};
+    var colorCounter = 0;
+    var colorMax = frames.length;
+    console.log(colorMax);
+
     log.info("Frame heads: " + frames.join(" "));
     frames.forEach(function(frameName){
       var p = {};
@@ -61,7 +94,7 @@ module.exports = {
       // Special case for tagging the "head" of each frame
       entities = tagEntity(frameName, entities, nextEntityIdNumber);
       p._id  = nextEntityIdNumber;
-      p.color = generateColor(nextEntityIdNumber);
+      colors[frameName] = generateColor(colorCounter++, colorMax);
       // -----------
 
       nextEntityIdNumber += 1;
@@ -81,7 +114,7 @@ module.exports = {
           p.optional.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
         }
 
-        // associate token with entity identifier (name)
+        // associate token with entity identifier (name) and color
         if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
           sentence[attrVal]._name = p._key;
           sentence[attrVal]._id = p._id;
@@ -103,7 +136,8 @@ module.exports = {
     return {
       sentence: sentence,
       entities: entities,
-      tmrs: o
+      tmrs: o,
+      colors: colors
     };
   }
 };

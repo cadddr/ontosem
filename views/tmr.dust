@@ -29,7 +29,7 @@
   {#tmrs}
     <tr class="frame-header" data-entity-id="{_id}">
       <td colspan="2">
-        <span class="key">{_key}</span>
+        <span class="key" style="background-color:{color}">{_key}</span>
         <span class="minimize-frame">-</span>
       </td>
     </tr>
@@ -42,7 +42,6 @@
     <tr class="divider"></tr>
   {/tmrs}
   </table>
-</div>
 
 {/results}
 </div>
