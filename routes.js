@@ -14,25 +14,62 @@ module.exports = {
   sentence: function(req, res) {
     log.info("Received SENTENCE");
 
-    var postParams = {
-      url: 'http://localhost:' + utils.pythonPort.toString() + '/req',
-      method: 'POST',
-      form: {
-        inputData: req.body.inputData
+    var inputData = utils.exampleIdeal;
+    var sorted = [];
+
+    var isEvent = function(word) {
+      if(word["in-tree"] != undefined
+          && word["in-tree"] == "events"){
+        return true;
       }
+      return false;
     };
 
-    request(postParams,
-      function(err, response, body) {
-        if(!err && response.statusCode == 200) {
-          res.render("sentence", {
-            debugging: true,
-            test: "sentence page",
-            sentence: body
-          });
+    var getRelated = function(word) {
+      var relatedWords = [];
+
+      if ('AGENT' in word) {
+        relatedWords.push({agent: word['AGENT'].value});
+      }
+      if ('BENEFICIARY' in word) {
+        relatedWords.push({beneficiary: word['BENEFICIARY'].value});
+      }
+
+      return relatedWords;
+    };
+
+    var getTMRByWord = function(setOfWords, word) {
+      console.log(word);
+
+    };
+
+    for (var i in inputData.tmrs) {
+      var frame = inputData.tmrs[i];
+      var events = [];
+      for (var j in frame.results) {
+        var frameTMR = frame.results[j].TMR;
+
+        for (var word in frameTMR) {
+          if (isEvent(frameTMR[word])){
+            var o = {
+              word: word,
+              tmr: frameTMR[word],
+              related: getRelated(frameTMR[word])
+            }
+            events.push(o)
+          }
         }
       }
-    );
+
+      frame.events = events;
+
+      for (var i in events) {
+        var word = events[i];
+        console.log(word);
+      }
+    }
+
+
 
   },
   upload: function(req, res) {
