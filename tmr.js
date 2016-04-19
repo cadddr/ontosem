@@ -2,8 +2,8 @@ var utils = require('./utils.js');
 var log = utils.richLogging;
 
 // The set of attributes which exclusively connects entities to other entities
-var relations = new Set(["EXPERIENCER", "EXPERIENCER-OF", "THEME", "THEME-OF"]);
-
+var relations = new Set(Object.keys(utils.inverseMap));
+var debugKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept"]);
 
 var tagEntity = function(item, list, nextId){
   // Checks whether this is an entity that's already
@@ -90,6 +90,7 @@ module.exports = {
       p._key = frameName;
       p.attrs = [];
       p.optional = [];
+      p.debug = [];
 
       // Special case for tagging the "head" of each frame
       entities = tagEntity(frameName, entities, nextEntityIdNumber);
@@ -103,19 +104,27 @@ module.exports = {
       // and do the same thing
       Object.keys(frame).forEach(function(attrKey){
         var attrVal = frame[attrKey];
-        if(relations.has(attrKey))
+        if(relations.has(attrKey)){
+          if( !(typeof attrVal === 'string') && !(attrVal instanceof String)){
+            attrVal = attrVal.value;
+          }
           entities = tagEntity(attrVal, entities, nextEntityIdNumber);
+        }
 
         // Mark whether an entry should be hidden based on
         // whether or not the key of that entry is capitalized
         if(utils.isCapitalized(attrKey)){
           p.attrs.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
-        } else {
+        }
+        else if (debugKeys.has(attrKey)) {
+          p.debug.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
+        }
+        else {
           p.optional.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
         }
 
         // associate token with entity identifier (name) and color
-        if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
+        if(attrKey == "sent-word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
           sentence[attrVal]._name = p._key;
           sentence[attrVal]._id = p._id;
         }
@@ -128,11 +137,34 @@ module.exports = {
       o.push(p);
     });
 
+    var tmpsort = [];
+
+    o.forEach(function(entity){
+      entity.debug.forEach(function(dbg){
+        if(dbg.key == 'is-in-subtree' && dbg.val == 'EVENT'){
+          log.info(dbg);
+          tmpsort.push(entity);
+          entity.attrs.forEach(function(attr){
+            if(relations.has(attr.key))
+              o.forEach(function(linkedEntity){
+                if (linkedEntity._key == attr.val){
+                  tmpsort.push(linkedEntity);
+                  o.splice(o.indexOf(linkedEntity), 1);
+                }
+              });
+          });
+          o.splice(o.indexOf(entity), 1);
+        }
+      });
+    });
+
+    o = tmpsort.concat(o);
+
     // Log the entire set of TMR frames
     log.info(o);
 
     // Return the annotated set along with the collection of
     // known entities, as well as the sentence itself.
-    return {sentence: sentence, entities: entities, tmrs: o, colors: colors};
+    return {sentence: sentence, entities: entities, tmrs: o, colors: colors, relations: relations};
   }
 };

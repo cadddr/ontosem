@@ -9,7 +9,11 @@
       <h6>TMR Viewer</h6>
       <form>
         <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
-        <label for="toggleOptional">Show Optional Attributes</label>
+          <label for="toggleOptional">Show Optional Attributes</label>
+        </input>
+        <input type="checkbox" checked="true" id="toggleDebug" value="toggleDebug">
+          <label for="toggleDebug">Show Debugging Attributes</label>
+        </input>
       </form>
     </div>
   </header>

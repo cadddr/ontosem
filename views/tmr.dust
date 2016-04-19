@@ -23,6 +23,11 @@
           {> "kvpair" /}
         {/ optional}
       </dd>
+      <dd class="debug-attributes">
+        {# debug}
+          {> "kvpair" /}
+        {/ debug}
+      </dd>
     </dl>
   </div>
   {/ tmrs}

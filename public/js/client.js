@@ -1,8 +1,11 @@
 
 
-var toggle = $("#toggleOptional")[0];
+var toggleOptional = $("#toggleOptional")[0];
+var toggleDebug = $("#toggleDebug")[0];
 var optionalAttributes = $(".optional-attributes");
+var debugAttributes = $(".debug-attributes");
 var isShowingOptionalAttributes = true;
+var isShowingDebugAttributes = true;
 
 var toggleOptionalAttributes = function(){
   isShowingOptionalAttributes = !isShowingOptionalAttributes;
@@ -13,10 +16,30 @@ var toggleOptionalAttributes = function(){
   }
 };
 
-toggle.addEventListener("click", function(e){
+var toggleDebugAttributes = function(){
+  isShowingDebugAttributes = !isShowingDebugAttributes;
+
+  for(var i = 0; i < debugAttributes.length; i++){
+    var el = debugAttributes[i];
+    $(el).toggleClass("hide");
+  }
+};
+
+toggleOptional.addEventListener("click", function(e){
   toggleOptionalAttributes();
 });
 
+toggleDebug.addEventListener("click", function(e){
+  toggleDebugAttributes();
+});
+
+function swapElem(elem1,elem2){
+  elem1.parentNode.insertBefore(elem2,elem1);
+}
+
+function insertLinked(elem){
+  ;
+}
 
 var data = JSON.parse($("#data-sync")[0].textContent);
 
@@ -86,7 +109,7 @@ $("[data-entity-id]").on("mouseenter", function(e){
 
 $("[data-entity-id]").on("mouseleave", function(e){
   $("[data-entity-id]").each(function(index, entity){
-    if (!$(entity).hasClass("lock")){  
+    if (!$(entity).hasClass("lock")){
       $(entity).removeClass("highlight");
       $(entity).removeAttr("style");
     }
