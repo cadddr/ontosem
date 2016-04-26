@@ -10,6 +10,8 @@ var getRelated = function(word) {
   if(isEvent(word)){
     if ('AGENT' in word) { relatedWords.push(word['AGENT'].value); }
     if ('BENEFICIARY' in word) { relatedWords.push(word['BENEFICIARY'].value); }
+    if ('THEME' in word) { relatedWords.push(word['THEME'].value); }
+    if ('BELONGS-TO' in word) { relatedWords.push(word['BELONGS-TO'].value); }
   }
 
   return relatedWords;
@@ -23,7 +25,13 @@ var isEvent = function(word) {
   return false;
 };
 
-var getTMRByWord = function(word, tmr) { return tmr[word] };
+var getTMRByWord = function(word, tmr) {
+  for(var k in tmr) {
+    if(tmr[k].wordKey == word){
+      return tmr[k];
+    }
+  }
+};
 
 var eventsFirst = function(sentenceTmr) {
   var results = [];
@@ -31,16 +39,13 @@ var eventsFirst = function(sentenceTmr) {
   for (var wordKey in sentenceTmr) {
     var wordTmr = sentenceTmr[wordKey];
     wordTmr.wordKey = wordKey;
-    var o = {};
-    o[wordKey] = wordTmr;
 
     if (isEvent(wordTmr)) {
-      results.unshift(o);
+      results.unshift(wordTmr);
     } else {
-      results.push(o);
+      results.push(wordTmr);
     }
   }
-
   return results;
 };
 
@@ -71,12 +76,11 @@ module.exports = {
 
         for (var wordIndex in tmr) {
           var wordTmr = tmr[wordIndex];
-          var wordKey = Object.keys(wordTmr)[0];
+          var wordKey = wordTmr.wordKey;
           var relatedWords = getRelated(wordTmr);
 
+
           if(used.indexOf(wordKey) == -1){
-            var o = {};
-            // o[wordKey] = wordTmr;
             sortedSentence.push(wordTmr);
             used.push(wordKey);
 
@@ -84,17 +88,12 @@ module.exports = {
               var word = relatedWords[relIndex];
 
               if(used.indexOf(word) == -1){
-                var o = {};
-                o[word] = getTMRByWord(word, tmr);
                 sortedSentence.push(getTMRByWord(word, tmr));
-                used.push(wordKey);
+                used.push(word);
               }
             }
-
           }
-
         }
-
       }
 
       var r = {};

@@ -1755,6 +1755,9 @@ header.container {
   font-weight: bold;
   padding: 15px; }
 
+.page-tmr .frame-header.highlight td {
+  background-color: red; }
+
 .page-tmr .kv-pair td {
   padding: 5px 15px; }
 

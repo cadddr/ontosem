@@ -91,6 +91,12 @@
       font-weight: bold;
       padding: 15px;
     }
+
+    &.highlight {
+      td {
+        background-color: red;
+      }
+    }
   }
 
   .kv-pair {

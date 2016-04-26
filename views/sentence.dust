@@ -1,5 +1,5 @@
 
-<section class="sentence col-12 container gutters-sm-all">
+<section class="sentence col-12 container gutters-sm-all" data-sentence-id="{sentenceID}">
   <div class="sentence-header">
     <span class="sentence-id"> {sentenceID} </span>
     <!-- TODO: Use the annotated sentence thing here for highlighting -->

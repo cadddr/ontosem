@@ -2,7 +2,8 @@ var utils = require('./utils.js');
 var log = utils.richLogging;
 
 // The set of attributes which exclusively connects entities to other entities
-var relations = new Set(["EXPERIENCER", "EXPERIENCER-OF", "THEME", "THEME-OF"]);
+var relations = new Set(["EXPERIENCER", "EXPERIENCER-OF", "THEME", "THEME-OF", "AGENT", "AGENT-OF", "BENEFICIARY", "BENEFICIARY-OF"]);
+var composites = new Set(["BELONGS-TO", "AGENT", "THEME", "BENEFICIARY"]);
 
 
 var tagEntity = function(item, list, nextId){
@@ -57,7 +58,6 @@ var generateColor = function(colorCounter, colorMax){
 };
 
 var insertLinebreaks = function(s) {
-  console.log(s);
   return s.toString().split(",").join("\n");
 };
 
@@ -74,7 +74,6 @@ module.exports = {
 
     log.attn("Interpreting TMR...");
 
-    // Get an array of the frame heads
 
     var colors = {};
     var colorCounter = 0;
@@ -83,12 +82,12 @@ module.exports = {
     for (var tmrIndex in tmrSet) {
       var p = {};
       var frame = tmrSet[tmrIndex];
-      var frameName = Object.keys(frame)[0];
+      console.log(frame);
+      var frameName = frame.wordKey;
+
       p._key = frameName;
       p.attrs = [];
       p.optional = [];
-
-      frame = frame[frameName];
 
       entities = tagEntity(frameName, entities, nextEntityIdNumber);
       p._id  = nextEntityIdNumber;
@@ -96,10 +95,17 @@ module.exports = {
 
       nextEntityIdNumber += 1;
 
+      var sentence = data.sentenceString.split(" ").map(function(token){
+        return {"_token":token};
+      });
+
       Object.keys(frame).forEach(function(attrKey){
         var attrVal = frame[attrKey];
         if(relations.has(attrKey))
           entities = tagEntity(attrVal, entities, nextEntityIdNumber);
+
+        if(composites.has(attrKey))
+          attrVal = attrVal.value;
 
         // Mark whether an entry should be hidden based on
         // whether or not the key of that entry is capitalized
@@ -110,10 +116,10 @@ module.exports = {
         }
 
         // associate token with entity identifier (name) and color
-        // if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
-        //   sentence[attrVal]._name = p._key;
-        //   sentence[attrVal]._id = p._id;
-        // }
+        if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
+          sentence[attrVal]._name = p._key;
+          sentence[attrVal]._id = p._id;
+        }
 
         // Get the next ID ready!
         nextEntityIdNumber += 1;

@@ -18,19 +18,25 @@ toggle.addEventListener("click", function(e){
 
 var data = JSON.parse($("#data-sync")[0].textContent || "");
 
-var entities = data.entities;
 
 $("[data-entity-id]").on("mouseenter", function(e){
+  var sentenceID = parseInt($(this).closest("section").attr("data-sentence-id")) - 1;
+  var entities = data[sentenceID].entities;
   var entityKey;
   if ($(this)[0].hasAttribute("data-entity-name"))
     entityKey = $(this).attr("data-entity-name");
   else
     entityKey = $(this)[0].innerText;
 
+  console.log(entityKey)
+  console.log(entities)
+
   if(entityKey in entities){
+    console.log(entityKey)
     var relatedEntityIds = entities[entityKey];
+    console.log(relatedEntityIds);
     relatedEntityIds.forEach(function(entityId){
-      $("[data-entity-id='" + entityId + "']").toggleClass("highlight");
+      $("section[data-sentence-id='" + (sentenceID+1) + "'] [data-entity-id='" + entityId + "']").toggleClass("highlight");
     });
   }
 });

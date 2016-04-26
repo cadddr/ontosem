@@ -127,7 +127,7 @@ var tmrs = [
                         '1': 'READ-V2',
                         '3': 'BOOK-N1',
                         '7': 'MARY-N1'}}],
- 'sent-num': 7,
+ 'sent-num': 6,
  'sentence': 'Jane read a book about dogs to Mary.',
  'timestamp': '2016-Mar-25 12:37:21'},
  {'Step': 'final',
@@ -319,7 +319,7 @@ var tmrs = [
                         '4': 'OBEY-V1',
                         '6': 'BROWN-ADJ1',
                         '7': 'HORSE-N2'}}],
- 'sent-num': 8,
+ 'sent-num': 7,
  'sentence': 'A very large dog follows a brown horse.',
  'timestamp': '2016-Mar-25 12:37:21'}
 ]
