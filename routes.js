@@ -2,7 +2,48 @@ var request = require('request');
 var utils = require('./utils.js');
 var log = utils.richLogging;
 var TMRFormatter = require('./tmr.js').format;
+var TMRFormatter2 = require('./tmr.js').format2;
 var intermediateFormatter = require('./intermediate.js').format;
+
+var getRelated = function(word) {
+  var relatedWords = [];
+  if(isEvent(word)){
+    if ('AGENT' in word) { relatedWords.push(word['AGENT'].value); }
+    if ('BENEFICIARY' in word) { relatedWords.push(word['BENEFICIARY'].value); }
+  }
+
+  return relatedWords;
+};
+
+var isEvent = function(word) {
+  if(word["in-tree"] != undefined
+      && word["in-tree"] == "events"){
+    return true;
+  }
+  return false;
+};
+
+var getTMRByWord = function(word, tmr) { return tmr[word] };
+
+var eventsFirst = function(sentenceTmr) {
+  var results = [];
+
+  for (var wordKey in sentenceTmr) {
+    var wordTmr = sentenceTmr[wordKey];
+    wordTmr.wordKey = wordKey;
+    var o = {};
+    o[wordKey] = wordTmr;
+
+    if (isEvent(wordTmr)) {
+      results.unshift(o);
+    } else {
+      results.push(o);
+    }
+  }
+
+  return results;
+};
+
 
 module.exports = {
   index: function(req, res) {
@@ -15,59 +56,65 @@ module.exports = {
     log.info("Received SENTENCE");
 
     var inputData = utils.exampleIdeal;
-    var sorted = [];
+    var tmrSet = inputData.tmrs;
+    var results = [];
 
-    var isEvent = function(word) {
-      if(word["in-tree"] != undefined
-          && word["in-tree"] == "events"){
-        return true;
-      }
-      return false;
-    };
+    for (var resultIndex in tmrSet) {
+      var result = tmrSet[resultIndex].results;
+      var sentenceString = tmrSet[resultIndex].sentence;
+      var sentenceID = tmrSet[resultIndex]["sent-num"];
+      var sortedSentence = [];
+      var used = [];
 
-    var getRelated = function(word) {
-      var relatedWords = [];
+      for (var tmrIndex in result) {
+        var tmr = eventsFirst(result[tmrIndex].TMR);
 
-      if ('AGENT' in word) {
-        relatedWords.push({agent: word['AGENT'].value});
-      }
-      if ('BENEFICIARY' in word) {
-        relatedWords.push({beneficiary: word['BENEFICIARY'].value});
-      }
+        for (var wordIndex in tmr) {
+          var wordTmr = tmr[wordIndex];
+          var wordKey = Object.keys(wordTmr)[0];
+          var relatedWords = getRelated(wordTmr);
 
-      return relatedWords;
-    };
+          if(used.indexOf(wordKey) == -1){
+            var o = {};
+            // o[wordKey] = wordTmr;
+            sortedSentence.push(wordTmr);
+            used.push(wordKey);
 
-    var getTMRByWord = function(setOfWords, word) {
-      console.log(word);
+            for (var relIndex in relatedWords) {
+              var word = relatedWords[relIndex];
 
-    };
-
-    for (var i in inputData.tmrs) {
-      var frame = inputData.tmrs[i];
-      var events = [];
-      for (var j in frame.results) {
-        var frameTMR = frame.results[j].TMR;
-
-        for (var word in frameTMR) {
-          if (isEvent(frameTMR[word])){
-            var o = {
-              word: word,
-              tmr: frameTMR[word],
-              related: getRelated(frameTMR[word])
+              if(used.indexOf(word) == -1){
+                var o = {};
+                o[word] = getTMRByWord(word, tmr);
+                sortedSentence.push(getTMRByWord(word, tmr));
+                used.push(wordKey);
+              }
             }
-            events.push(o)
+
           }
+
         }
+
       }
 
-      frame.events = events;
+      var r = {};
+      r.sorted = sortedSentence;
+      r.sentenceString = sentenceString;
+      r.sentenceID = sentenceID;
 
-      for (var i in events) {
-        var word = events[i];
-        console.log(word);
-      }
+      var formatted = TMRFormatter2(r);
+
+      results.push(formatted);
     }
+
+    res.render("multitmr", {
+      debugging: false,
+      results: results,
+      data: JSON.stringify(results),
+      clientscripts: [
+        {script: "tmrclient.js"}
+      ]
+    });
 
 
 

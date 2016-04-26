@@ -1,5 +1,5 @@
 var toggle = $("#toggleOptional")[0];
-var optionalAttributes = $(".optional-attributes");
+var optionalAttributes = $(".kv-pair-optional");
 var isShowingOptionalAttributes = false;
 
 var toggleOptionalAttributes = function(){
@@ -39,21 +39,13 @@ $("[data-entity-id]").on("mouseleave", function(e){
   $("[data-entity-id]").removeClass("highlight");
 });
 
-var selectChildRows = function(headRow) {
-  var h = $(headRow);
-  var key = h.find(".key")[0].textContent;
-  var children = h.siblings("[data-parent=" + key + "]");
-
-  return children;
-};
-
-$(".frame-header").on("click", function(e){
-  var children = selectChildRows(this);
-  children.toggleClass("collapsed");
-  if($(children[0]).hasClass("collapsed")){
-    $(this).find(".minimize-frame")[0].innerHTML = "+";
+$(".sentence-header").on("click", function(e){
+  var container = $(this).parent();
+  container.toggleClass("collapsed");
+  if($(container[0]).hasClass("collapsed")){
+    $(this).find(".sentence-minimize")[0].innerHTML = "Show";
   } else {
-    $(this).find(".minimize-frame")[0].innerHTML = "-";
+    $(this).find(".sentence-minimize")[0].innerHTML = "Hide";
   }
 });
 

@@ -1,0 +1,21 @@
+{>"layout" page="page-tmr"/}
+
+
+
+{<toolbar}
+<form>
+  <input type="checkbox" checked="true" id="toggleOptional" value="toggleOptional">
+  <label for="toggleOptional">Show Optional Attributes</label>
+</form>
+{/toolbar}
+
+
+
+{<content}
+
+{#results}
+  {> "sentence" /}
+{/results}
+
+{/content}
+

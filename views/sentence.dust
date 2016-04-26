@@ -1,6 +1,30 @@
-{>"layout" page="page-upload"/}
 
-{<content}
-  {sentence}
-{/content}
-
+<section class="sentence col-12 container gutters-sm-all">
+  <div class="sentence-header">
+    <span class="sentence-id"> {sentenceID} </span>
+    <!-- TODO: Use the annotated sentence thing here for highlighting -->
+    <span class="sentence-string"> {sentenceString} </span>
+    <span class="sentence-minimize">Hide</span>
+  </div>
+  <div class="sentence-body container gutters-lg-all">
+    {#tmrs}
+      <table class="tmr col-4">
+      <thead class="frame-header" data-entity-id="{_id}">
+        <tr>
+          <td colspan="2">
+            <span class="key" style="background-color:{color}">{_key}</span>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        {#attrs}
+          {> "kvpair" type="required" parent="{_key}" /}
+        {/attrs}
+        {#optional}
+          {> "kvpair" type="optional" parent="{_key}" /}
+        {/optional}
+      </body>
+    </table>
+    {/tmrs}
+  </div>
+</section>

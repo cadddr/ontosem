@@ -56,7 +56,87 @@ var generateColor = function(colorCounter, colorMax){
   return "rgba("+rgb.join(",")+",0.25)";
 };
 
+var insertLinebreaks = function(s) {
+  console.log(s);
+  return s.toString().split(",").join("\n");
+};
+
 module.exports = {
+  format2: function(data) {
+    // Passed a raw JSON TMR, returns a formatted and annotated
+    // JSON object to render the decorated TMR to the browser
+
+    var o = [];
+    var tmrSet = data.sorted;
+    var entities = {};
+    var nextEntityIdNumber = 0;
+
+
+    log.attn("Interpreting TMR...");
+
+    // Get an array of the frame heads
+
+    var colors = {};
+    var colorCounter = 0;
+    var colorMax = tmrSet.length;
+
+    for (var tmrIndex in tmrSet) {
+      var p = {};
+      var frame = tmrSet[tmrIndex];
+      var frameName = Object.keys(frame)[0];
+      p._key = frameName;
+      p.attrs = [];
+      p.optional = [];
+
+      frame = frame[frameName];
+
+      entities = tagEntity(frameName, entities, nextEntityIdNumber);
+      p._id  = nextEntityIdNumber;
+      colors[frameName] = generateColor(colorCounter++, colorMax);
+
+      nextEntityIdNumber += 1;
+
+      Object.keys(frame).forEach(function(attrKey){
+        var attrVal = frame[attrKey];
+        if(relations.has(attrKey))
+          entities = tagEntity(attrVal, entities, nextEntityIdNumber);
+
+        // Mark whether an entry should be hidden based on
+        // whether or not the key of that entry is capitalized
+        if(utils.isCapitalized(attrKey)){
+          p.attrs.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
+        } else {
+          p.optional.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
+        }
+
+        // associate token with entity identifier (name) and color
+        // if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
+        //   sentence[attrVal]._name = p._key;
+        //   sentence[attrVal]._id = p._id;
+        // }
+
+        // Get the next ID ready!
+        nextEntityIdNumber += 1;
+      });
+
+      o.push(p);
+    }
+
+
+    // Log the entire set of TMR frames
+    log.info(o);
+    log.info(data);
+
+    // Return the annotated set along with the collection of
+    // known entities, as well as the sentence itself.
+    return {
+      sentenceID: data.sentenceID,
+      sentenceString: data.sentenceString,
+      entities: entities,
+      tmrs: o,
+      colors: colors
+    };
+  },
   format: function(data) {
     // Passed a raw JSON TMR, returns a formatted and annotated
     // JSON object to render the decorated TMR to the browser
