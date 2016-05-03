@@ -60,8 +60,6 @@ var generateColor = function(colorCounter, colorMax){
 };
 
 var insertLinebreaks = function(s) {
-  console.log("Breaking...");
-  console.log(s);
   return s.toString().split(",").join("\n");
 };
 
@@ -91,7 +89,7 @@ module.exports = {
       p._key = frameName;
       p.attrs = [];
       p.optional = [];
-      p.debug = [];
+      p.debugging = [];
 
       entities = tagEntity(frameName, entities, nextEntityIdNumber);
       p._id  = nextEntityIdNumber;
@@ -99,7 +97,6 @@ module.exports = {
 
       nextEntityIdNumber += 1;
 
-      console.log(frame);
 
       var sentence = data.sentenceString.split(" ").map(function(token){
         return {"_token":token};
@@ -118,14 +115,15 @@ module.exports = {
         // Mark whether an entry should be hidden based on
         // whether or not the key of that entry is capitalized
 
-        console.log(attrKey + " -> " + attrVal);
         if(utils.isCapitalized(attrKey)){
           p.attrs.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
         } else if (debugKeys.has(attrKey)) {
-          p.debug.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
+          p.debugging.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
         } else {
           p.optional.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
         }
+
+        console.log(p.debugging);
 
         // associate token with entity identifier (name) and color
         if(attrKey == "sent-word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
@@ -144,7 +142,7 @@ module.exports = {
     var tmpsort = [];
 
     o.forEach(function(entity){
-      entity.debug.forEach(function(dbg){
+      entity.debugging.forEach(function(dbg){
         if(dbg.key == 'is-in-subtree' && dbg.val == 'EVENT'){
           log.info(dbg);
           tmpsort.push(entity);

@@ -1,6 +1,19 @@
-var toggle = $("#toggleOptional")[0];
+var toggleOptional = $("#toggleOptional")[0];
+var toggleDebugging = $("#toggleDebugging")[0];
 var optionalAttributes = $(".kv-pair-optional");
+var debuggingAttributes = $(".kv-pair-debugging");
+console.log(debuggingAttributes);
 var isShowingOptionalAttributes = false;
+var isShowingDebuggingAttributes = false;
+
+var toggleDebuggingAttributes = function(){
+  isShowingDebuggingAttributes = !isShowingDebuggingAttributes;
+
+  for(var i = 0; i < debuggingAttributes.length; i++){
+    var el = debuggingAttributes[i];
+    $(el).toggleClass("hide");
+  }
+};
 
 var toggleOptionalAttributes = function(){
   isShowingOptionalAttributes = !isShowingOptionalAttributes;
@@ -11,8 +24,12 @@ var toggleOptionalAttributes = function(){
   }
 };
 
-toggle.addEventListener("click", function(e){
+toggleOptional.addEventListener("click", function(e){
   toggleOptionalAttributes();
+});
+
+toggleDebugging.addEventListener("click", function(e){
+  toggleDebuggingAttributes();
 });
 
 

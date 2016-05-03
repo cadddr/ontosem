@@ -1769,8 +1769,9 @@ header.container {
 
 .page-tmr .kv-pair-optional {
   color: #797984; }
-  .page-tmr .kv-pair-optional.hide {
-    display: none; }
+
+.page-tmr .kv-pair.hide {
+  display: none; }
 
 .page-intermediate table tr.properties-row {
   font-weight: bold; }

@@ -23,6 +23,9 @@
         {#optional}
           {> "kvpair" type="optional" parent="{_key}" /}
         {/optional}
+        {#debugging}
+          {> "kvpair" type="debugging" parent="{_key}" /}
+        {/debugging}
       </body>
     </table>
     {/tmrs}
