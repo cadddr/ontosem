@@ -62,7 +62,7 @@ var insertLinebreaks = function(s) {
 };
 
 module.exports = {
-  format2: function(data) {
+  format: function(data) {
     // Passed a raw JSON TMR, returns a formatted and annotated
     // JSON object to render the decorated TMR to the browser
 
@@ -82,7 +82,6 @@ module.exports = {
     for (var tmrIndex in tmrSet) {
       var p = {};
       var frame = tmrSet[tmrIndex];
-      console.log(frame);
       var frameName = frame.wordKey;
 
       p._key = frameName;
@@ -138,89 +137,6 @@ module.exports = {
     return {
       sentenceID: data.sentenceID,
       sentenceString: data.sentenceString,
-      entities: entities,
-      tmrs: o,
-      colors: colors
-    };
-  },
-  format: function(data) {
-    // Passed a raw JSON TMR, returns a formatted and annotated
-    // JSON object to render the decorated TMR to the browser
-
-    var o = [];
-    var tmr = data.results[0].TMR;
-    var entities = {};
-    var nextEntityIdNumber = 0;
-
-    // Ugly line that parses splits and places tokens from sentence into maps
-    var sentence = data.sentence.split(" ").map(function(token){
-      // return {"token":token.replace(/[^\w ]/g, '')};
-      return {"_token":token};
-    });
-
-    log.attn("Interpreting TMR...");
-    log.info("Sentence: " + sentence.map(function(a){return a._token;}));
-
-    // Get an array of the frame heads
-    var frames = Object.keys(tmr);
-
-    var colors = {};
-    var colorCounter = 0;
-    var colorMax = frames.length;
-    console.log(colorMax);
-
-    log.info("Frame heads: " + frames.join(" "));
-    frames.forEach(function(frameName){
-      var p = {};
-      var frame = tmr[frameName];
-      p._key = frameName;
-      p.attrs = [];
-      p.optional = [];
-
-      // Special case for tagging the "head" of each frame
-      entities = tagEntity(frameName, entities, nextEntityIdNumber);
-      p._id  = nextEntityIdNumber;
-      colors[frameName] = generateColor(colorCounter++, colorMax);
-      // -----------
-
-      nextEntityIdNumber += 1;
-
-      // Now loop through all child entities in the frame
-      // and do the same thing
-      Object.keys(frame).forEach(function(attrKey){
-        var attrVal = frame[attrKey];
-        if(relations.has(attrKey))
-          entities = tagEntity(attrVal, entities, nextEntityIdNumber);
-
-        // Mark whether an entry should be hidden based on
-        // whether or not the key of that entry is capitalized
-        if(utils.isCapitalized(attrKey)){
-          p.attrs.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
-        } else {
-          p.optional.push({key: attrKey, val: attrVal, _id: nextEntityIdNumber});
-        }
-
-        // associate token with entity identifier (name) and color
-        if(attrKey == "word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
-          sentence[attrVal]._name = p._key;
-          sentence[attrVal]._id = p._id;
-        }
-
-        // Get the next ID ready!
-        nextEntityIdNumber += 1;
-      });
-
-      // Add the annotated frame to our entire set of TMR frames
-      o.push(p);
-    });
-
-    // Log the entire set of TMR frames
-    log.info(o);
-
-    // Return the annotated set along with the collection of
-    // known entities, as well as the sentence itself.
-    return {
-      sentence: sentence,
       entities: entities,
       tmrs: o,
       colors: colors

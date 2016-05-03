@@ -2,7 +2,6 @@ var request = require('request');
 var utils = require('./utils.js');
 var log = utils.richLogging;
 var TMRFormatter = require('./tmr.js').format;
-var TMRFormatter2 = require('./tmr.js').format2;
 var intermediateFormatter = require('./intermediate.js').format;
 
 var getRelated = function(word) {
@@ -62,6 +61,8 @@ module.exports = {
 
     var inputData = utils.exampleIdeal;
     var tmrSet = inputData.tmrs;
+
+
     var results = [];
 
     for (var resultIndex in tmrSet) {
@@ -101,7 +102,7 @@ module.exports = {
       r.sentenceString = sentenceString;
       r.sentenceID = sentenceID;
 
-      var formatted = TMRFormatter2(r);
+      var formatted = TMRFormatter(r);
 
       results.push(formatted);
     }
@@ -114,9 +115,6 @@ module.exports = {
         {script: "tmrclient.js"}
       ]
     });
-
-
-
   },
   upload: function(req, res) {
     log.info("Serving UPLOAD");

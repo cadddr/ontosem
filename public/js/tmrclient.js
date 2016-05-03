@@ -28,13 +28,8 @@ $("[data-entity-id]").on("mouseenter", function(e){
   else
     entityKey = $(this)[0].innerText;
 
-  console.log(entityKey)
-  console.log(entities)
-
   if(entityKey in entities){
-    console.log(entityKey)
     var relatedEntityIds = entities[entityKey];
-    console.log(relatedEntityIds);
     relatedEntityIds.forEach(function(entityId){
       $("section[data-sentence-id='" + (sentenceID+1) + "'] [data-entity-id='" + entityId + "']").toggleClass("highlight");
     });
