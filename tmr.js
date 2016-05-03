@@ -60,6 +60,8 @@ var generateColor = function(colorCounter, colorMax){
 };
 
 var insertLinebreaks = function(s) {
+  console.log("Breaking...");
+  console.log(s);
   return s.toString().split(",").join("\n");
 };
 
@@ -84,7 +86,7 @@ module.exports = {
     for (var tmrIndex in tmrSet) {
       var p = {};
       var frame = tmrSet[tmrIndex];
-      var frameName = frame.wordKey;
+      var frameName = frame["word-key"];
 
       p._key = frameName;
       p.attrs = [];
@@ -97,27 +99,29 @@ module.exports = {
 
       nextEntityIdNumber += 1;
 
+      console.log(frame);
+
       var sentence = data.sentenceString.split(" ").map(function(token){
         return {"_token":token};
       });
 
       Object.keys(frame).forEach(function(attrKey){
         var attrVal = frame[attrKey];
-        if(eventrelated.has(attrKey)){
+        if(composites.has(attrKey)){
           if( !(typeof attrVal === 'string') && !(attrVal instanceof String)){
             attrVal = attrVal.value;
           }
           entities = tagEntity(attrVal, entities, nextEntityIdNumber);
         }
 
-        if(composites.has(attrKey))
-          attrVal = attrVal.value;
 
         // Mark whether an entry should be hidden based on
         // whether or not the key of that entry is capitalized
+
+        console.log(attrKey + " -> " + attrVal);
         if(utils.isCapitalized(attrKey)){
           p.attrs.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
-        else if (debugKeys.has(attrKey)) {
+        } else if (debugKeys.has(attrKey)) {
           p.debug.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
         } else {
           p.optional.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});

@@ -26,7 +26,7 @@ var isEvent = function(word) {
 
 var getTMRByWord = function(word, tmr) {
   for(var k in tmr) {
-    if(tmr[k].wordKey == word){
+    if(tmr[k]["word-key"] == word){
       return tmr[k];
     }
   }
@@ -37,7 +37,7 @@ var eventsFirst = function(sentenceTmr) {
 
   for (var wordKey in sentenceTmr) {
     var wordTmr = sentenceTmr[wordKey];
-    wordTmr.wordKey = wordKey;
+    wordTmr["word-key"] = wordKey;
 
     if (isEvent(wordTmr)) {
       results.unshift(wordTmr);
@@ -77,7 +77,7 @@ module.exports = {
 
         for (var wordIndex in tmr) {
           var wordTmr = tmr[wordIndex];
-          var wordKey = wordTmr.wordKey;
+          var wordKey = wordTmr["word-key"];
           var relatedWords = getRelated(wordTmr);
 
 

@@ -326,10 +326,10 @@ var dataSpec = [
 module.exports = {
   port: 3000,
   exampleData: exampleTMR,
-  exampleIntermediate: intermediateExample,
+  exampleIntermediate: exampleIntermediate,
   exampleIdeal: {
     tmrs: exampleTMR,
-    logs: intermediateExample
+    logs: exampleIntermediate
   },
   inverseMap: inverses,
   isCapitalized: function(str) {
