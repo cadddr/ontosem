@@ -76,7 +76,6 @@ module.exports = {
 
     log.attn("Interpreting TMR...");
 
-
     var colors = {};
     var colorCounter = 0;
     var colorMax = tmrSet.length;

@@ -17,52 +17,66 @@ var getRelated = function(word) {
 };
 
 var isEvent = function(word) {
-  if(word["in-tree"] != undefined
-      && word["in-tree"] == "events"){
+  if(word["is-in-subtree"] != undefined
+      && word["is-in-subtree"] == "events"){
     return true;
   }
   return false;
 };
 
+// Get a word's frame from a given TMR,
+// else return an empty object
 var getTMRByWord = function(word, tmr) {
   for(var k in tmr) {
     if(tmr[k]["word-key"] == word){
       return tmr[k];
     }
   }
+
+  return {};
 };
 
 var eventsFirst = function(sentenceTmr) {
   var results = [];
 
+  // For each word in a sentence
   for (var wordKey in sentenceTmr) {
     var wordTmr = sentenceTmr[wordKey];
     wordTmr["word-key"] = wordKey;
 
+    // If the word is an event
     if (isEvent(wordTmr)) {
+      // Prepend it to our results
       results.unshift(wordTmr);
     } else {
+      // Append it to our results
       results.push(wordTmr);
     }
   }
+
+  // Results should have all events, in no particular order,
+  // in front of all non-events, in no particular order
   return results;
 };
 
 
 module.exports = {
   index: function(req, res) {
+    // Homepage
     log.info("Serving INDEX");
     res.render("index", {
-      debugging: true
+      debugging: false
     });
   },
-  sentence: function(req, res) {
+  tmr: function(req, res) {
+    // Multiple TMR viewer
     log.info("Received SENTENCE");
 
+    // TODO: Switch this to read the POST data
     var inputData = utils.exampleIdeal;
+    /////////////////////
+
     var tmrSet = inputData.tmrs;
-
-
     var results = [];
 
     for (var resultIndex in tmrSet) {
@@ -73,23 +87,40 @@ module.exports = {
       var used = [];
 
       for (var tmrIndex in result) {
+
+        // Re-sort so that events are all at the
+        // beginning of our list of words
         var tmr = eventsFirst(result[tmrIndex].TMR);
 
         for (var wordIndex in tmr) {
+          // Cycle through each individual TMR frame
           var wordTmr = tmr[wordIndex];
           var wordKey = wordTmr["word-key"];
+
+          // Get the words that are related to this frame
           var relatedWords = getRelated(wordTmr);
 
 
+          // If the word hasn't been added to our final
+          // set of results
           if(used.indexOf(wordKey) == -1){
+            //
+            // Add it to our results
             sortedSentence.push(wordTmr);
+
+            // Mark this word as USED
             used.push(wordKey);
 
+            // For each of the words related to this word
             for (var relIndex in relatedWords) {
               var word = relatedWords[relIndex];
 
+              // If the related word hasn't been used
               if(used.indexOf(word) == -1){
+                // Add it to the results
                 sortedSentence.push(getTMRByWord(word, tmr));
+
+                // Mark it as used
                 used.push(word);
               }
             }
@@ -97,13 +128,18 @@ module.exports = {
         }
       }
 
+      // Make an object that contains all the info
+      // needed for our Dust templates
       var r = {};
       r.sorted = sortedSentence;
       r.sentenceString = sentenceString;
       r.sentenceID = sentenceID;
 
+      // Format, annotate, and decorate the results
       var formatted = TMRFormatter(r);
 
+      // Add that sentence to our final list of
+      // sentences and their formatted TMRs
       results.push(formatted);
     }
 
@@ -111,29 +147,6 @@ module.exports = {
       debugging: false,
       results: results,
       data: JSON.stringify(results),
-      clientscripts: [
-        {script: "tmrclient.js"}
-      ]
-    });
-  },
-  upload: function(req, res) {
-    log.info("Serving UPLOAD");
-    res.render("upload", {
-      test: "Good test!",
-      clientscripts: [
-        {script: "uploadclient.js"}
-      ]
-    });
-  },
-  tmr: function(req, res) {
-    var data = JSON.parse(req.body.inputData.replace(/\'/g, '\"'));
-    var formattedData = TMRFormatter(data);
-
-    res.render("tmr", {
-      debugging: false,
-      test: "Route: 'tmr', Layout: 'tmr.dust'",
-      results: formattedData,
-      data: JSON.stringify(formattedData),
       clientscripts: [
         {script: "tmrclient.js"}
       ]

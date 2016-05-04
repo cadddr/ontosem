@@ -13,8 +13,6 @@
 </form>
 {/toolbar}
 
-
-
 {<content}
 
 {#results}

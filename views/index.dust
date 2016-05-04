@@ -2,7 +2,7 @@
 
 {<content}
 <div class="col-4">
-  <form action="/sentence" method="post" id="sentence-input">
+  <form action="/tmr" method="post" id="sentence-input">
     <textarea id="sentence-input-textarea" rows=20 cols=50 name="inputData"></textarea>
     <button type="submit">Upload</button>
   </form>

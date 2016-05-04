@@ -24,7 +24,8 @@
       opacity: 0.2;
     }
 
-    .sentence-string span { // TODO: Re-enable highlighting
+    .sentence-string span {
+      // TODO: Re-enable highlighting
       @extend .highlightable;
     }
 
@@ -39,7 +40,6 @@
   .tmr {
     table-layout: fixed;
     border-collapse: collapse;
-    border-left: 1px solid #AFBCD8;
     margin-bottom: 30px;
     margin-top: 10px;
 
@@ -103,6 +103,10 @@
 
     td {
       padding: 5px 15px;
+    }
+
+    .key {
+      padding-left: 45px;
     }
 
     &.collapsed {

@@ -14,10 +14,13 @@ app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
 
-app.post('/sentence', routes.sentence);
-app.post('/intermediate', routes.intermediate);
+// Endpoint for TMR JSON data
 app.post('/tmr', routes.tmr);
-app.get('/upload', routes.upload);
+
+// Endpoint for intermediate logging analysis
+app.post('/intermediate', routes.intermediate);
+
+// Index/data upload page
 app.get('/', routes.index);
 
 

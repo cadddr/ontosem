@@ -1717,7 +1717,6 @@ header.container {
 .page-tmr .tmr {
   table-layout: fixed;
   border-collapse: collapse;
-  border-left: 1px solid #AFBCD8;
   margin-bottom: 30px;
   margin-top: 10px; }
   .page-tmr .tmr:first-child, .page-tmr .tmr:nth-child(4) {
@@ -1760,6 +1759,9 @@ header.container {
 
 .page-tmr .kv-pair td {
   padding: 5px 15px; }
+
+.page-tmr .kv-pair .key {
+  padding-left: 45px; }
 
 .page-tmr .kv-pair.collapsed {
   display: none; }
