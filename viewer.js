@@ -18,7 +18,7 @@ app.set('view engine', 'dust');
 app.post('/tmr', routes.tmr);
 
 // Endpoint for intermediate logging analysis
-app.post('/intermediate', routes.intermediate);
+app.post('/logs', routes.intermediate);
 
 // Index/data upload page
 app.get('/', routes.index);
