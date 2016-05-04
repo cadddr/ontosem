@@ -12,7 +12,7 @@
       <thead class="frame-header" data-entity-id="{_id}">
         <tr>
           <td colspan="2">
-            <span class="key" style="background-color:{color}">{_key}</span>
+            <span class="key" data-color="{color}" >{_key}</span>
           </td>
         </tr>
       </thead>
@@ -24,7 +24,7 @@
           {> "kvpair" type="optional" parent="{_key}" /}
         {/optional}
         {#debugging}
-          {> "kvpair" type="debugging" parent="{_key}" /}
+          {> "kvpair" type="debug" parent="{_key}" /}
         {/debugging}
       </body>
     </table>

@@ -325,7 +325,7 @@ var dataSpec = [
 
 module.exports = {
   port: 3000,
-  exampleData: exampleTMR,
+  exampleTMR: exampleTMR,
   exampleIntermediate: exampleIntermediate,
   exampleIdeal: {
     tmrs: exampleTMR,

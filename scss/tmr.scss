@@ -49,7 +49,6 @@
 
     td {
       border-radius: 3px;
-      background-color: transparent;
       transition: box-shadow 100ms, background-color 100ms;
       vertical-align: top;
     }
@@ -92,11 +91,6 @@
       padding: 15px;
     }
 
-    &.highlight {
-      td {
-        background-color: red;
-      }
-    }
   }
 
   .kv-pair {

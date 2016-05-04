@@ -93,6 +93,7 @@ module.exports = {
       entities = tagEntity(frameName, entities, nextEntityIdNumber);
       p._id  = nextEntityIdNumber;
       colors[frameName] = generateColor(colorCounter++, colorMax);
+      p.color = colors[frameName];
 
       nextEntityIdNumber += 1;
 
@@ -122,7 +123,6 @@ module.exports = {
           p.optional.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
         }
 
-        console.log(p.debugging);
 
         // associate token with entity identifier (name) and color
         if(attrKey == "sent-word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
@@ -143,7 +143,6 @@ module.exports = {
     o.forEach(function(entity){
       entity.debugging.forEach(function(dbg){
         if(dbg.key == 'is-in-subtree' && dbg.val == 'EVENT'){
-          log.info(dbg);
           tmpsort.push(entity);
           entity.attrs.forEach(function(attr){
             if(eventrelated.has(attr.key))

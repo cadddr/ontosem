@@ -72,11 +72,11 @@ module.exports = {
     // Multiple TMR viewer
     log.info("Received SENTENCE");
 
-    // TODO: Switch this to read the POST data
-    var inputData = utils.exampleIdeal;
-    /////////////////////
+    var inputData = req.body.inputData;
 
-    var tmrSet = inputData.tmrs;
+    if(inputData == "") { inputData = utils.exampleTMR; }
+
+    var tmrSet = inputData;
     var results = [];
 
     for (var resultIndex in tmrSet) {
@@ -148,7 +148,7 @@ module.exports = {
       results: results,
       data: JSON.stringify(results),
       clientscripts: [
-        {script: "tmrclient.js"}
+        {script: "client.js"}
       ]
     });
   },
