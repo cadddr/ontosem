@@ -59,6 +59,13 @@ var eventsFirst = function(sentenceTmr) {
   return results;
 };
 
+// Think about input
+// Split multiple TMR possibilities
+//
+// Lowercase anything with a lowercase except concept and is-in-subtree
+// Handle weird list behavior
+// Fix minimization
+// Fix highlighting
 
 module.exports = {
   index: function(req, res) {

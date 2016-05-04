@@ -32,7 +32,7 @@ Juiced (lightweight grid system): http://juicedcss.com/
 
 
 
-Notes:
+### Notes
   The server will automatically stop and restart when the code is changed
 
   The SCSS will automatically recompile when it is changed
