@@ -1,89 +1,47 @@
-var toggleOptional = $("#toggleOptional")[0];
-var toggleDebug = $("#toggleDebug")[0];
-var optionalAttributes = $(".kv-pair-optional");
-var debugAttributes = $(".kv-pair-debug");
-
-var toggleOptionalAttributes = function(){
-  for(var i = 0; i < optionalAttributes.length; i++){
-    var el = optionalAttributes[i];
-    $(el).toggleClass("hide");
-  }
-};
-
-var toggleDebugAttributes = function(){
-  for(var i = 0; i < debugAttributes.length; i++){
-    var el = debugAttributes[i];
-    $(el).toggleClass("hide");
-  }
-};
-
-toggleOptional.addEventListener("click", function(e){
-  toggleOptionalAttributes();
+// hide optional or debug attributes when the check box is unchecked
+var optionalAttributes = $("tr.kv-pair.optional");
+$("input#toggleOptional").on("click", function(e) {
+	optionalAttributes.toggleClass("hide");
 });
 
-toggleDebug.addEventListener("click", function(e){
-  toggleDebugAttributes();
+var debugAttributes = $("tr.kv-pair.debug");
+$("input#toggleDebug").on("click", function(e) {
+	 debugAttributes.toggleClass("hide");
 });
 
-function swapElem(elem1,elem2){
-  elem1.parentNode.insertBefore(elem2,elem1);
-}
-
-function insertLinked(elem){
-  ;
-}
+// collapse the sentence body when the button is pressed
+$("span.sentence-minimize").on("click", function(e) {
+	$(this).closest(".sentence").toggleClass("collapsed");
+	if ($(this).html() == "Hide")
+		$(this).html("Show");
+	else
+		$(this).html("Hide");
+});
 
 var data = JSON.parse($("#data-sync")[0].textContent);
 
+// get the sentence ID from any element within the sentence frame
+function getSentenceId(element) {
+	return $(element).closest(".sentence").attr("data-sentence-id");
+}
 
-$("[data-entity-id]").on("mouseenter", function(e){
-  var sentenceID = parseInt($(this).closest("section").attr("data-sentence-id")) - 1;
-  var entities = data[sentenceID].entities;
-  var entityKey;
-  if ($(this)[0].hasAttribute("data-entity-name"))
-    entityKey = $(this).attr("data-entity-name");
-  else
-    entityKey = $(this)[0].innerText;
+// manages highlighting events
+$("[data-entity-name]").on("mouseover mouseout click", function(e) {
+	var name = $(this).attr("data-entity-name");
+	var matches = $(this).closest(".sentence").find("[data-entity-name='"+name+"']");
+	var color = "";
 
-  if(entityKey in entities){
-    var relatedEntityIds = entities[entityKey];
-    relatedEntityIds.forEach(function(entityId){
-      $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").addClass("highlight");
-      $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").attr("style", "background-color: "+data[sentenceID].colors[entityKey]);
-    });
-  }
-});
+	if (e.type == "mouseover") // add color
+		color = data[getSentenceId(this)-1].colors[name];
+	else if (e.type == "mouseout") // remove color if not locked
+		matches = matches.filter(":not(.highlight-lock)");
+	else if (e.type == "click") {
+		// toggle lock then determine whether to color or not
+		matches.toggleClass("highlight-lock");
+		if ($(this).hasClass("highlight-lock"))
+			color = data[getSentenceId(this)-1].colors[name];
+	}
 
-$("[data-entity-id]").on("mouseleave", function(e){
-  $("[data-entity-id]").each(function(index, entity){
-    if (!$(entity).hasClass("lock")){
-      $(entity).removeClass("highlight");
-      $(entity).removeAttr("style");
-    }
-  });
-});
-
-$("[data-entity-id]").on("click", function(e){
-  var sentenceID = parseInt($(this).closest("section").attr("data-sentence-id")) - 1;
-  var entities = data[sentenceID].entities;
-  var entityKey;
-  if ($(this)[0].hasAttribute("data-entity-name"))
-    entityKey = $(this).attr("data-entity-name");
-  else
-    entityKey = $(this)[0].innerText;
-
-  if(entityKey in entities){
-    var relatedEntityIds = entities[entityKey];
-    relatedEntityIds.forEach(function(entityId){
-      $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").toggleClass("lock");
-      if (!$("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").hasClass("lock")){
-        $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").removeClass("highlight");
-        $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").removeAttr("style");
-      }
-      else{
-        $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").addClass("highlight");
-        $("section[data-sentence-id='" + (sentenceID + 1) + "'] [data-entity-id='" + entityId + "']").attr("style", "background-color: "+data[sentenceID].colors[entityKey]);
-      }
-    });
-  }
+	// if color == "", background-color style is removed
+	matches.css("background-color", color);
 });

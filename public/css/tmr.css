@@ -1,0 +1,77 @@
+.page-tmr section.sentence {
+  background-color: white;
+  margin: 10px 0px; }
+  .page-tmr section.sentence.collapsed {
+    margin-bottom: -10px; }
+    .page-tmr section.sentence.collapsed .sentence-body {
+      display: none; }
+
+.page-tmr .sentence-header {
+  font-size: 24px;
+  margin: 10px;
+  margin-bottom: 15px;
+  width: calc(100% - 100px); }
+  .page-tmr .sentence-header .sentence-id {
+    opacity: 0.2; }
+
+.page-tmr [data-entity-name] {
+  cursor: pointer; }
+
+.page-tmr .tmr-container {
+  background-color: white;
+  padding-top: 40px; }
+
+.page-tmr .tmr {
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  margin-top: 10px; }
+  .page-tmr .tmr:first-child, .page-tmr .tmr:nth-child(4) {
+    border: none; }
+  .page-tmr .tmr td {
+    border-radius: 3px;
+    transition: box-shadow 100ms, background-color 100ms;
+    vertical-align: top; }
+
+.page-tmr .sentence-minimize {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: right;
+  font-weight: bold;
+  opacity: 0.8;
+  padding: 10px;
+  background-color: white;
+  transition: background-color 150ms;
+  border-radius: 5px;
+  cursor: pointer; }
+  .page-tmr .sentence-minimize:hover {
+    background-color: #FFDDBB; }
+
+.page-tmr .divider {
+  height: 20px; }
+
+.page-tmr .frame-header td {
+  font-weight: bold;
+  padding: 15px; }
+
+.page-tmr .kv-pair td {
+  padding: 5px 15px; }
+
+.page-tmr .kv-pair .key {
+  padding-left: 45px; }
+
+.page-tmr .kv-pair.required {
+  color: #000; }
+
+.page-tmr .kv-pair.optional {
+  color: #777777; }
+
+.page-tmr .kv-pair.debug {
+  font-style: italic;
+  color: #777777; }
+
+.page-tmr .kv-pair.hide {
+  display: none; }

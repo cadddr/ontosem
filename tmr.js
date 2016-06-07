@@ -2,177 +2,124 @@ var utils = require('./utils.js');
 var log = utils.richLogging;
 
 // The set of attributes which exclusively connects entities to other entities
-var eventrelated = new Set(["EXPERIENCER", "EXPERIENCER-OF", "THEME", "THEME-OF", "AGENT", "AGENT-OF", "BENEFICIARY", "BENEFICIARY-OF"]);
-var composites = new Set(["BELONGS-TO", "AGENT", "THEME", "BENEFICIARY"]);
-
 var relations = new Set(Object.keys(utils.inverseMap));
 var debugKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept", "word-ky"]);
 
-var tagEntity = function(item, list, nextId){
-  // Checks whether this is an entity that's already
-  // been assigned an ID and assigns the same one.
-  // If not, it just picks the next number to use as the ID.
-  //
-  if(!(item in list)){
-    // Make a new entry into our list using the ID
-    list[item] = [nextId];
-  } else {
-    // Append the ID to an already-known object
-    list[item].push(nextId);
-  }
-
-  return list;
+function generateColor(colorCounter, colorMax) {
+	// TODO: This needs to return distinct (not random) colors!
+	// One solution would be to just pick out a bunch of nice colors
+	// and make a map from ID : Color, but be sure to account for
+	// many many ID's needing colors!
+	h = 360 * (colorCounter/colorMax);
+	return "hsla("+h+", 80%, 50%, 0.3)";
 };
 
-var colors = [];
-
-function hsvToRgb(h, s, v){
-    var r, g, b;
-
-    var i = Math.floor(h * 6);
-    var f = h * 6 - i;
-    var p = v * (1 - s);
-    var q = v * (1 - f * s);
-    var t = v * (1 - (1 - f) * s);
-
-    switch(i % 6){
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
-    }
-
-    return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
-}
-
-var generateColor = function(colorCounter, colorMax){
-  // TODO: This needs to return distinct (not random) colors!
-  // One solution would be to just pick out a bunch of nice colors
-  // and make a map from ID : Color, but be sure to account for
-  // many many ID's needing colors!
-  h = colorCounter/colorMax;
-  s = 0.8;
-  v = 0.8;
-  rgb = hsvToRgb(h,s,v);
-  return "rgba("+rgb.join(",")+",0.25)";
-};
-
-var insertLinebreaks = function(s) {
-  return s.toString().split(",").join("\n");
+function insertLinebreaks(s) {
+	return s.toString().split(",").join("\n");
 };
 
 module.exports = {
-  format: function(data) {
-    // Passed a raw JSON TMR, returns a formatted and annotated
-    // JSON object to render the decorated TMR to the browser
+	format: function(data) {
+		// Passed a raw JSON TMR, returns a formatted and annotated
+		// JSON object to render the decorated TMR to the browser
 
-    var o = [];
-    var tmrSet = data.sorted;
-    var entities = {};
-    var nextEntityIdNumber = 0;
+		var o = [];
+		var tmrSet = data.sorted;
 
+		// split the sentence into its individual tokens
+		var words = data.sentenceString.split(" ").map(function(token) {
+			return {"_token": token};
+		});
 
-    log.attn("Interpreting TMR...");
+		log.attn("Interpreting TMR...");
 
-    var colors = {};
-    var colorCounter = 0;
-    var colorMax = tmrSet.length;
+		var colors = {};
+		var colorCounter = 0;
+		var colorMax = tmrSet.length;
 
-    for (var tmrIndex in tmrSet) {
-      var p = {};
-      var frame = tmrSet[tmrIndex];
-      var frameName = frame["word-key"];
+		for (var tmrIndex in tmrSet) {
+			var p = {};
+			var frame = tmrSet[tmrIndex];
+			var frameName = frame["word-key"];
 
-      p._key = frameName;
-      p.attrs = [];
-      p.optional = [];
-      p.debugging = [];
+			p._key = frameName;
+			p.attrs = [];
+			p.optional = [];
+			p.debugging = [];
 
-      entities = tagEntity(frameName, entities, nextEntityIdNumber);
-      p._id  = nextEntityIdNumber;
-      colors[frameName] = generateColor(colorCounter++, colorMax);
-      p.color = colors[frameName];
-
-      nextEntityIdNumber += 1;
-
-
-      var sentence = data.sentenceString.split(" ").map(function(token){
-        return {"_token":token};
-      });
-
-      Object.keys(frame).forEach(function(attrKey){
-        var attrVal = frame[attrKey];
-        if(composites.has(attrKey)){
-          if( !(typeof attrVal === 'string') && !(attrVal instanceof String)){
-            attrVal = attrVal.value;
-          }
-          entities = tagEntity(attrVal, entities, nextEntityIdNumber);
-        }
+			colors[frameName] = generateColor(colorCounter, colorMax);
+			p.color = colors[frameName];
+			++colorCounter;
 
 
-        // Mark whether an entry should be hidden based on
-        // whether or not the key of that entry is capitalized
+			Object.keys(frame).forEach(function(attrKey) {
+				var attrVal = frame[attrKey];
+				var identifier = false;
 
-        if(utils.isCapitalized(attrKey)){
-          p.attrs.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
-        } else if (debugKeys.has(attrKey)) {
-          p.debugging.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
-        } else {
-          p.optional.push({key: attrKey, val: insertLinebreaks(attrVal), _id: nextEntityIdNumber});
-        }
+				// Some attribute values come as objects which only contain a single value
+				// Simply check and extract the contained string if attrVal is not a string
+				if (relations.has(attrKey)) {
+					if ( !(typeof attrVal === 'string') && !(attrVal instanceof String))
+						attrVal = attrVal.value;
+					identifier = attrVal;
+				}
+
+				// push entries into appropriate array, based on capitalization/debug
+				var entry = {"key": attrKey, "val": insertLinebreaks(attrVal)};
+				if (identifier != false)
+					entry.identifier = identifier;
+
+				if (utils.isCapitalized(attrKey)) {
+					p.attrs.push(entry);
+				} else if (debugKeys.has(attrKey)) {
+					p.debugging.push(entry);
+				} else {
+					p.optional.push(entry);
+				}
+
+				// associate token with entity identifier (name) and color
+				if (attrKey == "word-ind" && !words[attrVal].hasOwnProperty("_name")) {
+					words[attrVal]._name = p._key;
+				}
+			});
+
+			o.push(p);
+		}
 
 
-        // associate token with entity identifier (name) and color
-        if(attrKey == "sent-word-ind" && !sentence[attrVal].hasOwnProperty("_name")){
-          sentence[attrVal]._name = p._key;
-          sentence[attrVal]._id = p._id;
-        }
+		var tmpsort = [];
 
-        // Get the next ID ready!
-        nextEntityIdNumber += 1;
-      });
+		o.forEach(function(entity) {
+			entity.debugging.forEach(function(dbg) {
+				if (dbg.key == 'is-in-subtree' && dbg.val == 'EVENT') {
+					tmpsort.push(entity);
+					entity.attrs.forEach(function(attr) {
+						if (eventrelated.has(attr.key))
+							o.forEach(function(linkedEntity) {
+								if (linkedEntity._key == attr.val) {
+									tmpsort.push(linkedEntity);
+									o.splice(o.indexOf(linkedEntity), 1);
+								}
+							});
+					});
+					o.splice(o.indexOf(entity), 1);
+				}
+			});
+		});
 
-      o.push(p);
-    }
+		o = tmpsort.concat(o);
 
+		// Log the entire set of TMR frames
+		log.info(o);
+		log.info(data);
 
-    var tmpsort = [];
-
-    o.forEach(function(entity){
-      entity.debugging.forEach(function(dbg){
-        if(dbg.key == 'is-in-subtree' && dbg.val == 'EVENT'){
-          tmpsort.push(entity);
-          entity.attrs.forEach(function(attr){
-            if(eventrelated.has(attr.key))
-              o.forEach(function(linkedEntity){
-                if (linkedEntity._key == attr.val){
-                  tmpsort.push(linkedEntity);
-                  o.splice(o.indexOf(linkedEntity), 1);
-                }
-              });
-          });
-          o.splice(o.indexOf(entity), 1);
-        }
-      });
-    });
-
-    o = tmpsort.concat(o);
-
-    // Log the entire set of TMR frames
-    log.info(o);
-    log.info(data);
-
-    // Return the annotated set along with the collection of
-    // known entities, as well as the sentence itself.
-    return {
-      sentenceID: data.sentenceID,
-      sentenceString: data.sentenceString,
-      entities: entities,
-      tmrs: o,
-      colors: colors,
-      relations: relations
-    };
-  }
+		// Return the annotated set along with the collection of
+		// known entities, as well as the sentence itself.
+		return {
+			sentenceId: data.sentenceId,
+			sentence: words,
+			tmrs: o,
+			colors: colors
+		};
+	}
 };

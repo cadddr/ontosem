@@ -1,33 +1,36 @@
 
-<section class="sentence col-12 container gutters-sm-all" data-sentence-id="{sentenceID}">
-  <div class="sentence-header">
-    <span class="sentence-id"> {sentenceID} </span>
-    <!-- TODO: Use the annotated sentence thing here for highlighting -->
-    <span class="sentence-string"> {sentenceString} </span>
-    <span class="sentence-minimize">Hide</span>
-  </div>
-  <div class="sentence-body container gutters-lg-all">
-    {#tmrs}
-      <table class="tmr col-4">
-      <thead class="frame-header" data-entity-id="{_id}">
-        <tr>
-          <td colspan="2">
-            <span class="key" data-color="{color}" >{_key}</span>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        {#attrs}
-          {> "kvpair" type="required" parent="{_key}" /}
-        {/attrs}
-        {#optional}
-          {> "kvpair" type="optional" parent="{_key}" /}
-        {/optional}
-        {#debugging}
-          {> "kvpair" type="debug" parent="{_key}" /}
-        {/debugging}
-      </body>
-    </table>
-    {/tmrs}
-  </div>
+<section class="sentence col-12 container gutters-sm-all" data-sentence-id="{sentenceId}">
+	<div class="sentence-header">
+		<span class="sentence-id"> {sentenceId} </span>
+		{#sentence}
+      <span class="sentence-string" {?_name}data-entity-name="{_name}"{/_name}>
+        {_token}
+      </span> {! <= keep trailing whitespace !}
+    {/sentence}
+		<span class="sentence-minimize">Hide</span>
+	</div>
+	<div class="sentence-body container gutters-lg-all">
+		{#tmrs}
+			<table class="tmr col-4">
+				<thead class="frame-header" data-entity-name="{_key}">
+					<tr>
+						<td colspan="2">
+							<span class="key">{_key}</span>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					{#attrs}
+						{> "kvpair" type="required" /}
+					{/attrs}
+					{#optional}
+						{> "kvpair" type="optional" /}
+					{/optional}
+					{#debugging}
+						{> "kvpair" type="debug" /}
+					{/debugging}
+				</tbody>
+			</table>
+		{/tmrs}
+	</div>
 </section>

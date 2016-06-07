@@ -2,8 +2,7 @@
 
   section.sentence {
     background-color: white;
-    margin: 30px 0px;
-    box-shadow: 0px 1px 2px rgba(0, 0, 10, 0.2);
+    margin: 10px 0px;
 
     &.collapsed {
       margin-bottom: -10px;
@@ -24,16 +23,14 @@
       opacity: 0.2;
     }
 
-    .sentence-string span {
-      // TODO: Re-enable highlighting
-      @extend .highlightable;
-    }
-
   }
 
+  [data-entity-name] {
+    cursor: pointer;
+  }
 
   .tmr-container {
-    background-color: $white;
+    background-color: white;
     padding-top: 40px;
   }
 
@@ -52,11 +49,6 @@
       transition: box-shadow 100ms, background-color 100ms;
       vertical-align: top;
     }
-
-    td.highlight {
-      box-shadow: 0px 2px 5px rgba(0, 0, 20, 0.2);
-      background-color: #7AADF9;
-    }
   }
 
   .sentence-minimize {
@@ -72,10 +64,10 @@
     background-color: white;
     transition: background-color 150ms;
     border-radius: 5px;
+    cursor: pointer;
 
     &:hover {
-      cursor: pointer;
-      background-color: #FFE7C9;
+      background-color: #FFDDBB;
     }
 
   }
@@ -103,16 +95,17 @@
       padding-left: 45px;
     }
 
-    &.collapsed {
-      display: none;
-    }
-
-    &-required {
+    &.required {
       color: #000;
     }
 
-    &-optional {
-      color: #797984;
+    &.optional {
+      color: #777777;
+    }
+
+    &.debug {
+      font-style: italic;
+      color: #777777;
     }
 
     &.hide {
@@ -120,4 +113,3 @@
     }
   }
 }
-

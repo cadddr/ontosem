@@ -1,9 +1,6 @@
-<tr class="kv-pair kv-pair-{type}" data-parent="{parent}">
-  <td class="key"> {key} </td>
-  <td class="val"
-    {! style="background-color: {color}" !}
-    data-entity-color="{color}"
-    data-entity-id="{_id}">
-      {val}
-  </td>
+<tr class="kv-pair {type}">
+	<td class="key"> {key} </td>
+	<td class="val" {?identifier}data-entity-name="{identifier}"{/identifier}>
+		{val}
+	</td>
 </tr>

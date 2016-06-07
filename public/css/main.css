@@ -1657,13 +1657,6 @@ label input {
   .lg-display-inline {
     display: inline; } }
 
-.highlightable, .page-tmr .sentence-header .sentence-string span {
-  border-radius: 3px;
-  padding: 2px 5px; }
-  .highlightable.highlight, .page-tmr .sentence-header .sentence-string span.highlight {
-    border-color: rgba(255, 0, 0, 0.2);
-    background-color: rgba(255, 0, 0, 0.1); }
-
 body {
   font-family: "Helvetica", Arial, sans-serif;
   background-color: #FBFCFE; }
@@ -1671,8 +1664,7 @@ body {
 header.container {
   background-color: #FFF;
   height: 50px;
-  padding: 10px;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1); }
+  padding: 10px; }
   header.container h6 {
     margin: 0; }
   header.container form {
@@ -1695,8 +1687,7 @@ header.container {
 
 .page-tmr section.sentence {
   background-color: white;
-  margin: 30px 0px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 10, 0.2); }
+  margin: 10px 0px; }
   .page-tmr section.sentence.collapsed {
     margin-bottom: -10px; }
     .page-tmr section.sentence.collapsed .sentence-body {
@@ -1710,8 +1701,11 @@ header.container {
   .page-tmr .sentence-header .sentence-id {
     opacity: 0.2; }
 
+.page-tmr [data-entity-name] {
+  cursor: pointer; }
+
 .page-tmr .tmr-container {
-  background-color: #FFF;
+  background-color: white;
   padding-top: 40px; }
 
 .page-tmr .tmr {
@@ -1725,9 +1719,6 @@ header.container {
     border-radius: 3px;
     transition: box-shadow 100ms, background-color 100ms;
     vertical-align: top; }
-  .page-tmr .tmr td.highlight {
-    box-shadow: 0px 2px 5px rgba(0, 0, 20, 0.2);
-    background-color: #7AADF9; }
 
 .page-tmr .sentence-minimize {
   position: absolute;
@@ -1741,10 +1732,10 @@ header.container {
   padding: 10px;
   background-color: white;
   transition: background-color 150ms;
-  border-radius: 5px; }
+  border-radius: 5px;
+  cursor: pointer; }
   .page-tmr .sentence-minimize:hover {
-    cursor: pointer;
-    background-color: #FFE7C9; }
+    background-color: #FFDDBB; }
 
 .page-tmr .divider {
   height: 20px; }
@@ -1759,14 +1750,15 @@ header.container {
 .page-tmr .kv-pair .key {
   padding-left: 45px; }
 
-.page-tmr .kv-pair.collapsed {
-  display: none; }
-
-.page-tmr .kv-pair-required {
+.page-tmr .kv-pair.required {
   color: #000; }
 
-.page-tmr .kv-pair-optional {
-  color: #797984; }
+.page-tmr .kv-pair.optional {
+  color: #777777; }
+
+.page-tmr .kv-pair.debug {
+  font-style: italic;
+  color: #777777; }
 
 .page-tmr .kv-pair.hide {
   display: none; }
@@ -1801,7 +1793,7 @@ header.container {
   .page-intermediate table .word-header:hover {
     background-color: #aaa; }
 
-.page-intermediate span.highlightable, .page-intermediate .page-tmr .sentence-header .sentence-string span, .page-tmr .sentence-header .sentence-string .page-intermediate span {
+.page-intermediate span.highlightable {
   display: inline-block;
   padding: 0px 1px 0px 1px;
   border: 0.5px solid black; }
