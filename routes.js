@@ -124,12 +124,13 @@ module.exports = {
       raw = req.body.inputData.replace(/\\n/g, '');
     }
     var results = intermediateFormatter(raw);
+    /*
     var tmrData = TMRFormatter(results.TMR);
     var entities = tmrData.entities;
     results.tmrData = tmrData;
     results.tmrString = JSON.stringify(tmrData);
     results.dataString = JSON.stringify(results.lexEntries);
-
+*/
     res.render("intermediate", {
       results: results,
       data: JSON.stringify(results),

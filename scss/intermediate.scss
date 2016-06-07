@@ -1,57 +1,98 @@
 .page-intermediate {
-  table {
-    tr {
-      &.properties-row {
-        font-weight: bold;
-      }
+	table {
+		width: 1400px;
+		margin-top: 10px;
+		
+		tr {
+			&.properties-row {
+			  font-weight: bold;
+			}
 
-      &:first-child {
-        background-color: #ccc;
-      }
+			&:first-child {
+			  background-color: #ccc;
+			}
 
-      &:nth-child(odd) {
-        background-color: #ddd;
-      }
+			&:nth-child(odd) {
+			  background-color: #ddd;
+			}
 
-      &:nth-child(even) {
-        background-color: #fff;
-      }
-    }
+			&:nth-child(even) {
+			  background-color: #fff;
+			}
+		}
+		
+		tr.eventRow:hover {
+			background-color: #ffcccc;
+		}
 
-    td {
-      padding: 2px;
-    }
+		td {
+			padding: 2px;
+		}
+		
+		.reasonCell {
+			width: 900px;
+			ul {
+				font-family: monospace;
+				margin: 0px;
+			}
+		}
+		.statusCell {
+			width: 80px;
+		}
+		
+		span.pair {
+			border: 1px solid black;
+			padding: 1px;
+			padding-top: 2px;
+			padding-bottom: 3px;
+			background-color: grey;
+			white-space: pre;
+			line-height: 26px;
+		}
+		span.word {
+			line-height: 18px;
+		}
+		span.nullified {
+			opacity: 0.3;
+		}
+		
+		.status {
+			text-align: center;
+			padding-left: 0px;
+		}
 
-    .word-parse {
-      .status {
-        text-align: center;
-        padding-left: 0px;
-      }
+		.words {
+			text-align: center;
+		}
 
-      .word {
-        text-align: center;
-      }
-    }
 
-    .word-header {
-      text-align: center;
-      font-weight: bold;
-      background-color: #bbb;
-      cursor: pointer;
+		.word-header {
+			text-align: center;
+			font-weight: bold;
+			background-color: #bbb;
+			cursor: pointer;
 
-      &:hover {
-        background-color: #aaa;
-      }
-    }
-  }
+			&:hover {
+			  background-color: #aaa;
+			}
+		}
+	}
 
-  span.highlightable {
-    display: inline-block;
-    padding: 0px 1px 0px 1px;
-    border: 0.5px solid black;
-  }
+	span.highlightable {
+		display: inline-block;
+		padding: 0px 1px 0px 1px;
+		border: 0.5px solid black;
+		/*-webkit-box-sizing: border-box;
+		height: 20px;*/
+	}
 
-  .closed {
-    display: none !important;
-  }
+	span.highlighted {
+		border: 1px solid red !important;
+		font-weight: bold;
+		
+	}
+
+	.closed {
+		display: none !important;
+	}
 }

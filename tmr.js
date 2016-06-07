@@ -20,6 +20,8 @@ function insertLinebreaks(s) {
 
 module.exports = {
 	format: function(data) {
+		log.info('data:');
+		log.info(data);
 		// Passed a raw JSON TMR, returns a formatted and annotated
 		// JSON object to render the decorated TMR to the browser
 

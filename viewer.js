@@ -9,7 +9,8 @@ var routes = require('./routes.js');
 var bodyParser = require('body-parser');
 
 app.use(express.static('public'));
-app.use(bodyParser());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
 app.set('view engine', 'dust');
 
