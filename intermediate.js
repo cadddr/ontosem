@@ -241,7 +241,7 @@ module.exports = {
 		//var word = "";
 		var sentence = "Nothing...";
 		var tokens = [];
-		var TMR = {};
+		var TMRList = [];
 		var rawIndex = 0;
 		var state = {
 			'dependency': {},
@@ -259,11 +259,18 @@ module.exports = {
 			'falsePositive': 'False Positive'
 		};
 		
+		var onlyTMR = false;
+		if (lines[0][0] != '>') {
+			onlyTMR = true;
+			readingHeader = false;
+		}
+		
 		// parse the whole output
 		console.log('LINES:');
+		console.log(lines);
 		console.log('*************************************************************************************************************');
 		for (var i = 0; i < lines.length; i++) {
-//			console.log('i = ' + i);
+			//console.log('i = ' + i);
 			var line = lines[i];
 			if (readingHeader)
 				console.log(rawIndex + ':\t' + line);
@@ -307,32 +314,10 @@ module.exports = {
 					state.tmrContents += line;
 	//				console.log('SKIPPING TMR LINE:	' + line);
 				} else {
-					if (state.parsingTmr) {
-						state.parsingTmr = false;
-						var newTMRString = state.tmrContents.replace(regex.formatTMR, regex.formatTMRSubstitution)
-							.replace(/\'/g, '"');
-							//.replace(regex.cleanTMR, regex.cleanTMRSubstitution);
-							
-	//					console.log('PARSING TMR::::::::::::::::::::::::');
-						
-						var matches = newTMRString.match(regex.cleanTMR);
-						var lastIndex = 0;
-						if (matches)
-							for (var j = 0; j < matches.length; ++j) {
-								var startIndex = newTMRString.substr(lastIndex).indexOf(matches[j]) + lastIndex;
-								var endIndex = startIndex + matches[j].length + 1;
-								newTMRString = newTMRString.substring(0, startIndex) + '"' + matches[j].replace(/\"/g, "'") + '"' + newTMRString.substr(endIndex - 1);
-								var lastIndex = endIndex;
-		//						console.log('startIndex = ' + startIndex + ', endIndex = ' + endIndex + ', matches[j] = ' + matches[j] + ', string = ' + newTMRString.substring(startIndex, endIndex));
-							}
-	//					console.log(newTMRString);
-						
-						
-						//console.log(newTMRString.match(regex.cleanTMR));
-						//console.log(TMRString);
-						TMR = JSON.parse(newTMRString);	
-						state.tmrContents = '';
-					}
+					
+					// parse this TMR line
+					if (state.parsingTmr)
+						parseTMRContents(state, TMRList, sentence);
 					
 					// skip empty lines
 					if (line[0] === '\n' || line[0] === '\r') {
@@ -474,12 +459,18 @@ module.exports = {
 			}
 			
 		}
-		console.log('*************************************************************************************************************');
+		console.log('*************************************************************************************************************/');
 //		console.log('events:');
 //		console.log(events);
 //		console.log('words:');
 //		console.log(words);
 //		console.log(JSON.stringify(words));
+		
+		// if the user gave only a TMR, only parse and return that
+		if (onlyTMR) {
+			parseTMRContents(state, TMRList, sentence);
+			return {'TMRList': TMRList};
+		}
 		
 		var wordsList = [];
 		for (var w in words) {
@@ -574,12 +565,12 @@ module.exports = {
 		
 		// annotate the sentence
 		//log.info(newTMRString);
-		log.info(TMR);
+		//log.info(TMR);
 		var sentenceMappings = {};
-		for (var i = 0; i < TMR.results.length; ++i) {
+		for (var i = 0; i < TMRList[0].results.length; ++i) {
 			log.info('i = ');
 			log.info(i);
-			var frame = TMR.results[i];
+			var frame = TMRList[0].results[i];
 			for (var j in frame.TMR) {
 				log.info('j = ');
 				log.info(j);
@@ -596,7 +587,9 @@ module.exports = {
 			mapping.wordString = tokens[tokenIndex].toUpperCase();
 		}
 		
-		var data = {'TMR':TMR, 'words':wordsList, 'sentence':sentence, 'labels':labels, 'lexEntries':lexEntries, 'lexMappings':lexMappings, 'sentenceMappings':JSON.stringify(sentenceMappings)};
+		//log.info('TMRList = ');
+		//log.info(TMRList);
+		var data = {'TMRList':TMRList, 'words':wordsList, 'sentence':sentence, 'labels':labels, 'lexEntries':lexEntries, 'lexMappings':lexMappings, 'sentenceMappings':JSON.stringify(sentenceMappings)};
 //		log.info("---------------------------------------------------------------------------------------------")
 //		log.info("data = ")
 //		log.info(data)
@@ -740,4 +733,35 @@ function wordsInList (list, words) {
 			return true;
 	}
 	return false;
+}
+
+function parseTMRContents (state, TMRList, sentence) {
+	state.parsingTmr = false;
+	var newTMRString = state.tmrContents.replace(regex.formatTMR, regex.formatTMRSubstitution).replace(/\'/g, '"');
+		//.replace(regex.cleanTMR, regex.cleanTMRSubstitution);
+		
+//					console.log('PARSING TMR::::::::::::::::::::::::');
+	
+	var matches = newTMRString.match(regex.cleanTMR);
+	var lastIndex = 0;
+	if (matches)
+		for (var j = 0; j < matches.length; ++j) {
+			var startIndex = newTMRString.substr(lastIndex).indexOf(matches[j]) + lastIndex;
+			var endIndex = startIndex + matches[j].length + 1;
+			newTMRString = newTMRString.substring(0, startIndex) + '"' + matches[j].replace(/\"/g, "'") + '"' + newTMRString.substr(endIndex - 1);
+			var lastIndex = endIndex;
+//						console.log('startIndex = ' + startIndex + ', endIndex = ' + endIndex + ', matches[j] = ' + matches[j] + ', string = ' + newTMRString.substring(startIndex, endIndex));
+		}
+//					console.log(newTMRString);
+	
+	
+	//console.log(newTMRString.match(regex.cleanTMR));
+	//console.log(TMRString);
+	var TMR = JSON.parse(newTMRString);
+	if (TMR.sentence == null)
+		TMR.sentence = sentence;
+	if (TMR['sent-num'] == null)
+		TMR['sent-num'] = 1;
+	TMRList.push(TMR);
+	state.tmrContents = '';	
 }
