@@ -6,12 +6,12 @@ var relations = new Set(Object.keys(utils.inverseMap));
 var debugKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept", "word-ky"]);
 
 function generateColor(colorCounter, colorMax) {
-	// TODO: This needs to return distinct (not random) colors!
-	// One solution would be to just pick out a bunch of nice colors
-	// and make a map from ID : Color, but be sure to account for
-	// many many ID's needing colors!
-	h = 360 * (colorCounter/colorMax);
-	return "hsla("+h+", 80%, 50%, 0.3)";
+	// Returns distinct colors by changing hue
+	var h = Math.floor( 360 * colorCounter/colorMax );
+	var s = "80%";
+	var l = "50%";
+	var a = "0.3";
+	return "hsla("+[h,s,l,a].join(',')+")";
 };
 
 function insertLinebreaks(s) {
@@ -25,103 +25,76 @@ module.exports = {
 		// Passed a raw JSON TMR, returns a formatted and annotated
 		// JSON object to render the decorated TMR to the browser
 
-		var o = [];
-		var tmrSet = data.sorted;
-
-		// split the sentence into its individual tokens
-		var words = data.sentenceString.split(" ").map(function(token) {
+		var sentenceId = data.sentenceId;
+		var splitSentence = data.sentence.split(" ").map(function(token) {
 			return {"_token": token};
 		});
+		var tmrIndex = data.tmrIndex;
+		var tmr = data.tmr;
 
 		log.attn("Interpreting TMR...");
 
-		var colors = {};
+		var frames = [];
+		var entitySet = new Set(Object.keys(tmr));
+
+		var color = {};
 		var colorCounter = 0;
-		var colorMax = tmrSet.length;
-
-		for (var tmrIndex in tmrSet) {
-			var p = {};
-			var frame = tmrSet[tmrIndex];
-			var frameName = frame["word-key"];
-
-			p._key = frameName;
-			p.attrs = [];
-			p.optional = [];
-			p.debugging = [];
-
-			colors[frameName] = generateColor(colorCounter, colorMax);
-			p.color = colors[frameName];
+		var colorMax = entitySet.size;
+		for (var entityName in tmr) {
+			color[entityName] = generateColor(colorCounter, colorMax);
 			++colorCounter;
+		}
 
+		for (var entityName in tmr) {
+			var entityData = tmr[entityName];
+			var required = [];
+			var optional = [];
+			var debugging = [];
 
-			Object.keys(frame).forEach(function(attrKey) {
-				var attrVal = frame[attrKey];
-				var identifier = false;
+			for (var attrKey in entityData) {
+				var attrVal = entityData[attrKey];
 
 				// Some attribute values come as objects which only contain a single value
 				// Simply check and extract the contained string if attrVal is not a string
 				if (relations.has(attrKey)) {
 					if ( !(typeof attrVal === 'string') && !(attrVal instanceof String))
 						attrVal = attrVal.value;
-					identifier = attrVal;
 				}
 
-				// push entries into appropriate array, based on capitalization/debug
-				var entry = {"key": attrKey, "val": insertLinebreaks(attrVal)};
-				if (identifier != false)
-					entry.identifier = identifier;
+				var attr = {"_key": attrKey, "_val": insertLinebreaks(attrVal)};
 
-				if (utils.isCapitalized(attrKey)) {
-					p.attrs.push(entry);
-				} else if (debugKeys.has(attrKey)) {
-					p.debugging.push(entry);
-				} else {
-					p.optional.push(entry);
-				}
+				if (entitySet.has(attrVal))
+					attr._color = color[attrVal];
 
 				// associate token with entity identifier (name) and color
-				if (attrKey == "word-ind" && !words[attrVal].hasOwnProperty("_name")) {
-					words[attrVal]._name = p._key;
-				}
-			});
+				if (attrKey == "word-ind")
+					splitSentence[attrVal]._color = color[entityName];
 
-			o.push(p);
+				// push entries into appropriate array, based on capitalization/debug
+				if (utils.isCapitalized(attrKey))
+					required.push(attr);
+				else if (debugKeys.has(attrKey))
+					debugging.push(attr);
+				else
+					optional.push(attr);
+			}
+
+			frames.push({
+				"_key": entityName,
+				"_color": color[entityName],
+				"required": required,
+				"optional": optional,
+				"debugging": debugging
+			});
 		}
-
-
-		var tmpsort = [];
-
-		o.forEach(function(entity) {
-			entity.debugging.forEach(function(dbg) {
-				if (dbg.key == 'is-in-subtree' && dbg.val == 'EVENT') {
-					tmpsort.push(entity);
-					entity.attrs.forEach(function(attr) {
-						if (eventrelated.has(attr.key))
-							o.forEach(function(linkedEntity) {
-								if (linkedEntity._key == attr.val) {
-									tmpsort.push(linkedEntity);
-									o.splice(o.indexOf(linkedEntity), 1);
-								}
-							});
-					});
-					o.splice(o.indexOf(entity), 1);
-				}
-			});
-		});
-
-		o = tmpsort.concat(o);
-
-		// Log the entire set of TMR frames
-		log.info(o);
-		log.info(data);
 
 		// Return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.
 		return {
-			sentenceId: data.sentenceId,
-			sentence: words,
-			tmrs: o,
-			colors: colors
+			"_sentenceId": sentenceId,
+			"splitSentence": splitSentence,
+			"_tmrIndex": tmrIndex,
+			"frames": frames
 		};
 	}
 };

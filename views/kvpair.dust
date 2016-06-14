@@ -1,6 +1,6 @@
 <tr class="kv-pair {type}">
-	<td class="key"> {key} </td>
-	<td class="val" {?identifier}data-entity-name="{identifier}"{/identifier}>
-		{val}
+	<td class="key"> {_key} </td>
+	<td class="val" {?_color}data-entity-name="{_color}"{/_color}>
+		{_val}
 	</td>
 </tr>

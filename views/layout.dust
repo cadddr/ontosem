@@ -33,10 +33,11 @@
   </div>
   {/debugging}
 
+  {@ne key=page value="page-tmr"}
   <div id="data-sync">{data}</div>
   <!-- Hacky way to get JSON objects exposed to the client
     while also rendering the templated dust.js -->
-
+  {/ne}
 
 <script src="js/zepto.js"></script>
 <script src="js/layout.js"></script>

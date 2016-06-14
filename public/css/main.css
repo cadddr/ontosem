@@ -1701,7 +1701,7 @@ header.container {
   .page-tmr .sentence-header .sentence-id {
     opacity: 0.2; }
 
-.page-tmr [data-entity-name] {
+.page-tmr [data-entity-color] {
   cursor: pointer; }
 
 .page-tmr .tmr-container {
@@ -1711,8 +1711,8 @@ header.container {
 .page-tmr .tmr {
   table-layout: fixed;
   border-collapse: collapse;
-  margin-bottom: 30px;
-  margin-top: 10px; }
+  margin-bottom: 10px;
+  margin-top: 0px; }
   .page-tmr .tmr:first-child, .page-tmr .tmr:nth-child(4) {
     border: none; }
   .page-tmr .tmr td {
@@ -1763,40 +1763,63 @@ header.container {
 .page-tmr .kv-pair.hide {
   display: none; }
 
-.page-intermediate table tr.properties-row {
-  font-weight: bold; }
-
-.page-intermediate table tr:first-child {
-  background-color: #ccc; }
-
-.page-intermediate table tr:nth-child(odd) {
-  background-color: #ddd; }
-
-.page-intermediate table tr:nth-child(even) {
-  background-color: #fff; }
-
-.page-intermediate table td {
-  padding: 2px; }
-
-.page-intermediate table .word-parse .status {
-  text-align: center;
-  padding-left: 0px; }
-
-.page-intermediate table .word-parse .word {
-  text-align: center; }
-
-.page-intermediate table .word-header {
-  text-align: center;
-  font-weight: bold;
-  background-color: #bbb;
-  cursor: pointer; }
-  .page-intermediate table .word-header:hover {
-    background-color: #aaa; }
+.page-intermediate table {
+  width: 1400px;
+  margin-top: 10px; }
+  .page-intermediate table tr.properties-row {
+    font-weight: bold; }
+  .page-intermediate table tr:first-child {
+    background-color: #ccc; }
+  .page-intermediate table tr:nth-child(odd) {
+    background-color: #ddd; }
+  .page-intermediate table tr:nth-child(even) {
+    background-color: #fff; }
+  .page-intermediate table tr.eventRow:hover {
+    background-color: #ffcccc; }
+  .page-intermediate table td {
+    padding: 2px; }
+  .page-intermediate table .reasonCell {
+    width: 900px; }
+    .page-intermediate table .reasonCell ul {
+      font-family: monospace;
+      margin: 0px; }
+  .page-intermediate table .statusCell {
+    width: 80px; }
+  .page-intermediate table span.pair {
+    border: 1px solid black;
+    padding: 1px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    background-color: grey;
+    white-space: pre;
+    line-height: 26px; }
+  .page-intermediate table span.word {
+    line-height: 18px; }
+  .page-intermediate table span.nullified {
+    opacity: 0.3; }
+  .page-intermediate table .status {
+    text-align: center;
+    padding-left: 0px; }
+  .page-intermediate table .words {
+    text-align: center; }
+  .page-intermediate table .word-header {
+    text-align: center;
+    font-weight: bold;
+    background-color: #bbb;
+    cursor: pointer; }
+    .page-intermediate table .word-header:hover {
+      background-color: #aaa; }
 
 .page-intermediate span.highlightable {
   display: inline-block;
   padding: 0px 1px 0px 1px;
-  border: 0.5px solid black; }
+  border: 0.5px solid black;
+  /*-webkit-box-sizing: border-box;
+		height: 20px;*/ }
+
+.page-intermediate span.highlighted {
+  border: 1px solid red !important;
+  font-weight: bold; }
 
 .page-intermediate .closed {
   display: none !important; }

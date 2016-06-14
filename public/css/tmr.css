@@ -14,7 +14,7 @@
   .page-tmr .sentence-header .sentence-id {
     opacity: 0.2; }
 
-.page-tmr [data-entity-name] {
+.page-tmr [data-entity-color] {
   cursor: pointer; }
 
 .page-tmr .tmr-container {
@@ -24,8 +24,8 @@
 .page-tmr .tmr {
   table-layout: fixed;
   border-collapse: collapse;
-  margin-bottom: 30px;
-  margin-top: 10px; }
+  margin-bottom: 10px;
+  margin-top: 0px; }
   .page-tmr .tmr:first-child, .page-tmr .tmr:nth-child(4) {
     border: none; }
   .page-tmr .tmr td {

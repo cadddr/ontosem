@@ -25,7 +25,7 @@
 
   }
 
-  [data-entity-name] {
+  [data-entity-color] {
     cursor: pointer;
   }
 
@@ -37,8 +37,8 @@
   .tmr {
     table-layout: fixed;
     border-collapse: collapse;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: 0px;
 
     &:first-child, &:nth-child(4){
       border: none;

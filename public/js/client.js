@@ -18,28 +18,23 @@ $("span.sentence-minimize").on("click", function(e) {
 		$(this).html("Hide");
 });
 
-var data = JSON.parse($("#data-sync")[0].textContent);
-
 // get the sentence ID from any element within the sentence frame
 function getSentenceId(element) {
 	return $(element).closest(".sentence").attr("data-sentence-id");
 }
 
 // manages highlighting events
-$("[data-entity-name]").on("mouseover mouseout click", function(e) {
-	var name = $(this).attr("data-entity-name");
-	var matches = $(this).closest(".sentence").find("[data-entity-name='"+name+"']");
-	var color = "";
+$("[data-entity-color]").on("mouseover mouseout click", function(e) {
+	var color = $(this).attr("data-entity-color");
+	var matches = $(this).closest(".sentence").find("[data-entity-color='"+color+"']");
 
-	if (e.type == "mouseover") // add color
-		color = data[getSentenceId(this)-1].colors[name];
-	else if (e.type == "mouseout") // remove color if not locked
+	if (e.type == "mouseout") { // remove color if not locked
 		matches = matches.filter(":not(.highlight-lock)");
-	else if (e.type == "click") {
-		// toggle lock then determine whether to color or not
+		color = "";
+	} else if (e.type == "click") { // toggle lock then determine whether to color or not
 		matches.toggleClass("highlight-lock");
-		if ($(this).hasClass("highlight-lock"))
-			color = data[getSentenceId(this)-1].colors[name];
+		if ( !($(this).hasClass("highlight-lock")) )
+			color = "";
 	}
 
 	// if color == "", background-color style is removed
