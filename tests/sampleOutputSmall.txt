@@ -1,0 +1,1595 @@
+>>> res= sentence_analyzer(inp7o2, log=2)
+      Input Sentence = John gave Mary a check-up.
+          SUBJECT :  1 gave, 0 John
+             ROOT : -1   , 1 gave
+   INDIRECTOBJECT :  1 gave, 2 Mary
+              ART :  4 check-up, 3 a
+     DIRECTOBJECT :  1 gave, 4 check-up
+    Expected to SUCCEED
+
+
+ ====> Processing dependency: [ SUBJECT , 1 gave , 0 John ]
+
+ Word = GIVE is found in Lexicon, number of senses = 33
+ Word = GIVE is found in 2 sense(s) as a synonym.
+
+  -->> Head_sense= GIVE-V27
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V27 and JOHN-N1
+
+  -->> Head_sense= GIVE-V14
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V14 and JOHN-N1
+
+  -->> Head_sense= GIVE-V22
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V22 and JOHN-N1
+
+  -->> Head_sense= GIVE-V1
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V1 and JOHN-N1
+
+  -->> Head_sense= GIVE-V10
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V10 and JOHN-N1
+
+  -->> Head_sense= GIVE-V18
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V18 and JOHN-N1
+
+  -->> Head_sense= GIVE-V2
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V2 and JOHN-N1
+
+  -->> Head_sense= GIVE-V20
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V20 and JOHN-N1
+
+  -->> Head_sense= GIVE-V11
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V11 and JOHN-N1
+
+  -->> Head_sense= GIVE-V30
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V30 and JOHN-N1
+
+  -->> Head_sense= GIVE-V5
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V5 and JOHN-N1
+
+  -->> Head_sense= GIVE-V12
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V12 and JOHN-N1
+
+  -->> Head_sense= GIVE-V15
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V15 and JOHN-N1
+
+  -->> Head_sense= GIVE-V17
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V17 and JOHN-N1
+
+  -->> Head_sense= GIVE-V8
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V8 and JOHN-N1
+
+  -->> Head_sense= GIVE-V25
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V25 and JOHN-N1
+
+  -->> Head_sense= GIVE-V13
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V13 and JOHN-N1
+
+  -->> Head_sense= GIVE-V24
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V24 and JOHN-N1
+
+  -->> Head_sense= GIVE-V16
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V16 and JOHN-N1
+
+  -->> Head_sense= GIVE-V19
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V19 and JOHN-N1
+
+  -->> Head_sense= GIVE-V4
+
+    -->> Word_sense= JOHN-N1
+Semantic constraint  ['CRIMINAL-ROLE']  for HUMAN in SUBJECT  had failed. 
+     Skipping  GIVE-V4 - JOHN-N1 pair.
+
+  -->> Head_sense= GIVE-V7
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V7 and JOHN-N1
+
+  -->> Head_sense= GIVE-V9
+
+    -->> Word_sense= JOHN-N1
+Semantic constraint  ['UNIVERSITY-FACULTY', 'TEACHER', 'RELIGIOUS-ROLE']  for HUMAN in SUBJECT  had failed. 
+     Skipping  GIVE-V9 - JOHN-N1 pair.
+      Successful match GIVE-V9 and JOHN-N1
+
+  -->> Head_sense= GIVE-V32
+
+    -->> Word_sense= JOHN-N1
+Required word(s)  OUT  does NOT match input  MARY
+Required word(s)  OUT  does NOT match input  A
+Required word(s)  OUT  does NOT match input  CHECK-UP
+     Skipping  GIVE-V32 - JOHN-N1 pair.
+
+  -->> Head_sense= GIVE-V31
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V31 and JOHN-N1
+
+  -->> Head_sense= GIVE-V29
+
+    -->> Word_sense= JOHN-N1
+      SEM-STRUCT has Unknown element "  OrderedDict([('VALUE', 'REFSEM1')]) :  REFSEM1 ".Skipping it.
+      Successful match GIVE-V29 and JOHN-N1
+
+  -->> Head_sense= GIVE-V6
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V6 and JOHN-N1
+
+  -->> Head_sense= GIVE-V28
+
+    -->> Word_sense= JOHN-N1
+      SEM-STRUCT has Unknown element "  OrderedDict([('VALUE', 'REFSEM1')]) :  REFSEM1 ".Skipping it.
+      Successful match GIVE-V28 and JOHN-N1
+
+  -->> Head_sense= GIVE-V21
+
+    -->> Word_sense= JOHN-N1
+Required word(s)  UP  does NOT match input  MARY
+Required word(s)  UP  does NOT match input  A
+Required word(s)  UP  does NOT match input  CHECK-UP
+     Skipping  GIVE-V21 - JOHN-N1 pair.
+
+  -->> Head_sense= GIVE-V3
+
+    -->> Word_sense= JOHN-N1
+      Successful match GIVE-V3 and JOHN-N1
+
+  -->> Head_sense= GIVE-V26
+
+    -->> Word_sense= JOHN-N1
+Semantic constraint  SPOKESPERSON  for HUMAN in SUBJECT  had failed. 
+     Skipping  GIVE-V26 - JOHN-N1 pair.
+      Successful match GIVE-V26 and JOHN-N1
+
+  -->> Head_sense= ADMINISTER-V1
+
+    -->> Word_sense= JOHN-N1
+      Successful match ADMINISTER-V1 and JOHN-N1
+
+  -->> Head_sense= PROVIDE-V1
+
+    -->> Word_sense= JOHN-N1
+      Successful match PROVIDE-V1 and JOHN-N1
+
+--- Short Term Memory after processing the last dependency. Length= 30
+{'Step': 0,
+ 'dependency': '[SUBJECT, 1 gave, 0 John]',
+ 'results': [{'TMR': {'HUMAN-1': {'AGENT-OF': 'PHONE-CONVERSATION-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'PHONE-CONVERSATION-1': {'AGENT': {'value': 'HUMAN-1'},
+                                               'TIME': ['<',
+                                                        'FIND-ANCHOR-TIME'],
+                                               'concept': 'PHONE-CONVERSATION',
+                                               'from-sense': 'GIVE-V27',
+                                               'syn-roles': ['SUBJECT'],
+                                               'token': 'gave',
+                                               'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'PHONE-CONVERSATION': {'count': 1,
+                                                        'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V27'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': 'PARTY-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'PARTY-1': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                                  'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                  'concept': 'PARTY',
+                                  'from-sense': 'GIVE-V14',
+                                  'syn-roles': ['SUBJECT'],
+                                  'token': 'gave',
+                                  'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'PARTY': {'count': 1,
+                                           'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V14'}},
+             {'TMR': {'BEAR-OFFSPRING-1': {'EXPERIENCER': {'value': 'HUMAN-1'},
+                                           'TIME': ['<',
+                                                    'FIND-ANCHOR-TIME'],
+                                           'concept': 'BEAR-OFFSPRING',
+                                           'from-sense': 'GIVE-V22',
+                                           'syn-roles': ['SUBJECT'],
+                                           'token': 'gave',
+                                           'word-ind': 1},
+                      'HUMAN-1': {'EXPERIENCER-OF': 'BEAR-OFFSPRING-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'BEAR-OFFSPRING': {'count': 1,
+                                                    'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V22'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'AGENT': OrderedDict([('value', 'HUMAN-1')]),
+                          'from-sense': 'GIVE-V1',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V1'}},
+             {'TMR': {'HUMAN-1': {'SOURCE-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'SOURCE': {'value': 'HUMAN-1',
+                                     'facet-type': 'SEM'},
+                          'from-sense': 'GIVE-V10',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V10'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'THANK-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'THANK-1': {'AGENT': {'value': 'HUMAN-1'},
+                                  'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                  'concept': 'THANK',
+                                  'from-sense': 'GIVE-V18',
+                                  'syn-roles': ['SUBJECT'],
+                                  'token': 'gave',
+                                  'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'THANK': {'count': 1,
+                                           'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V18'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                          'from-sense': 'GIVE-V2',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V2'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'TRANSFER-POSSESSION-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'TRANSFER-POSSESSION-1': {'AGENT': {'value': 'HUMAN-1'},
+                                                'TIME': ['<',
+                                                         'FIND-ANCHOR-TIME'],
+                                                'concept': 'TRANSFER-POSSESSION',
+                                                'from-sense': 'GIVE-V20',
+                                                'syn-roles': ['SUBJECT'],
+                                                'token': 'gave',
+                                                'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'TRANSFER-POSSESSION': {'count': 1,
+                                                         'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V20'}},
+             {'TMR': {'HUMAN-1': {'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'': OrderedDict([('value', 'HUMAN-1')]),
+                          'from-sense': 'GIVE-V11',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V11'}},
+             {'TMR': {'DISPLAY-1': {'INSTRUMENT': {'value': 'HUMAN-1'},
+                                    'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                    'concept': 'DISPLAY',
+                                    'from-sense': 'GIVE-V30',
+                                    'syn-roles': ['SUBJECT'],
+                                    'token': 'gave',
+                                    'word-ind': 1},
+                      'HUMAN-1': {'INSTRUMENT-OF': 'DISPLAY-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'DISPLAY': {'count': 1,
+                                             'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V30'}},
+             {'TMR': {'HUMAN-1': {'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'WIN-1': {'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                'concept': 'WIN',
+                                'from-sense': 'GIVE-V5',
+                                'syn-roles': ['SUBJECT'],
+                                'token': 'gave',
+                                'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'WIN': {'count': 1, 'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V5'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'SEX-EVENT-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'SEX-EVENT-1': {'AGENT': {'value': 'HUMAN-1'},
+                                      'TIME': ['<',
+                                               'FIND-ANCHOR-TIME'],
+                                      'concept': 'SEX-EVENT',
+                                      'from-sense': 'GIVE-V12',
+                                      'syn-roles': ['SUBJECT'],
+                                      'token': 'gave',
+                                      'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'SEX-EVENT': {'count': 1,
+                                               'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V12'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': 'RECEPTION-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'RECEPTION-1': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                                      'TIME': ['<',
+                                               'FIND-ANCHOR-TIME'],
+                                      'concept': 'RECEPTION',
+                                      'from-sense': 'GIVE-V15',
+                                      'syn-roles': ['SUBJECT'],
+                                      'token': 'gave',
+                                      'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'RECEPTION': {'count': 1,
+                                               'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V15'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': '^$VAR4',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                          'from-sense': 'GIVE-V17',
+                          'head-var': '^$VAR4',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V17'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'PROMISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'PROMISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                    'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                    'concept': 'PROMISE',
+                                    'from-sense': 'GIVE-V8',
+                                    'syn-roles': ['SUBJECT'],
+                                    'token': 'gave',
+                                    'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'PROMISE': {'count': 1,
+                                             'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V8'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V25',
+                                   'syn-roles': ['SUBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V25'}},
+             {'TMR': {'HUMAN-1': {'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'': OrderedDict([('value', 'HUMAN-1')]),
+                          'from-sense': 'GIVE-V13',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V13'}},
+             {'TMR': {'DIRECTIVE-ACT-1': {'AGENT': {'value': 'HUMAN-1'},
+                                          'TIME': ['<',
+                                                   'FIND-ANCHOR-TIME'],
+                                          'concept': 'DIRECTIVE-ACT',
+                                          'from-sense': 'GIVE-V24',
+                                          'syn-roles': ['SUBJECT'],
+                                          'token': 'gave',
+                                          'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'DIRECTIVE-ACT-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'DIRECTIVE-ACT': {'count': 1,
+                                                   'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V24'}},
+             {'TMR': {'HUMAN-1': {'SOURCE-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'SOURCE': {'value': 'HUMAN-1'},
+                          'from-sense': 'GIVE-V16',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V16'}},
+             {'TMR': {'HUMAN-1': {'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'pre-TMR': {'': OrderedDict([('value', 'HUMAN-1')]),
+                          'from-sense': 'GIVE-V19',
+                          'head-var': '^$VAR3',
+                          'syn-roles': ['SUBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V19'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'VOLUNTEER-EVENT-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'VOLUNTEER-EVENT-1': {'AGENT': {'value': 'HUMAN-1'},
+                                            'TIME': ['<',
+                                                     'FIND-ANCHOR-TIME'],
+                                            'concept': 'VOLUNTEER-EVENT',
+                                            'from-sense': 'GIVE-V7',
+                                            'syn-roles': ['SUBJECT'],
+                                            'token': 'gave',
+                                            'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'VOLUNTEER-EVENT': {'count': 1,
+                                                     'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V7'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'LECTURE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'LECTURE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                    'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                    'concept': 'LECTURE',
+                                    'from-sense': 'GIVE-V9',
+                                    'syn-roles': ['SUBJECT'],
+                                    'token': 'gave',
+                                    'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'LECTURE': {'count': 1,
+                                             'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V9'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V31',
+                                   'syn-roles': ['SUBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V31'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V29',
+                                   'syn-roles': ['SUBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'MODALITY-1': {'TYPE': 'EVALUATIVE',
+                                     'VALUE': 0,
+                                     'concept': 'MODALITY',
+                                     'from-sense': 'GIVE-V29',
+                                     'syn-roles': ['SUBJECT'],
+                                     'token': 'gave',
+                                     'word-ind': 1}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'MODALITY': {'count': 1,
+                                              'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V29'}},
+             {'TMR': {'DIE-1': {'EXPERIENCER': {'value': 'HUMAN-1'},
+                                'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                'concept': 'DIE',
+                                'from-sense': 'GIVE-V6',
+                                'syn-roles': ['SUBJECT'],
+                                'token': 'gave',
+                                'word-ind': 1},
+                      'HUMAN-1': {'EXPERIENCER-OF': 'DIE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'DIE': {'count': 1, 'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V6'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V28',
+                                   'syn-roles': ['SUBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'MODALITY-1': {'TYPE': 'EVALUATIVE',
+                                     'VALUE': 1,
+                                     'concept': 'MODALITY',
+                                     'from-sense': 'GIVE-V28',
+                                     'syn-roles': ['SUBJECT'],
+                                     'token': 'gave',
+                                     'word-ind': 1}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'MODALITY': {'count': 1,
+                                              'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V28'}},
+             {'TMR': {'GIVE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                 'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                 'concept': 'GIVE',
+                                 'from-sense': 'GIVE-V3',
+                                 'syn-roles': ['SUBJECT'],
+                                 'token': 'gave',
+                                 'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'GIVE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'GIVE': {'count': 1, 'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V3'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'INFORM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'INFORM-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'INFORM',
+                                   'from-sense': 'GIVE-V26',
+                                   'syn-roles': ['SUBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 1,
+                                           'word-ind': [0]},
+                                 'INFORM': {'count': 1,
+                                            'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V26'}},
+             {'TMR': {'ADMINISTER-MEDICINE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                                'TIME': ['<',
+                                                         'FIND-ANCHOR-TIME'],
+                                                'concept': 'ADMINISTER-MEDICINE',
+                                                'from-sense': 'ADMINISTER-V1',
+                                                'lex-source': 'synonym',
+                                                'syn-roles': ['SUBJECT'],
+                                                'token': 'gave',
+                                                'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADMINISTER-MEDICINE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'ADMINISTER-MEDICINE': {'count': 1,
+                                                         'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'ADMINISTER-V1'}},
+             {'TMR': {'EVENT-1': {'AGENT': {'value': 'HUMAN-1'},
+                                  'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                  'concept': 'EVENT',
+                                  'from-sense': 'PROVIDE-V1',
+                                  'lex-source': 'synonym',
+                                  'syn-roles': ['SUBJECT'],
+                                  'token': 'gave',
+                                  'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'EVENT-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0}},
+              'concept_counts': {'EVENT': {'count': 1,
+                                           'word-ind': [1]},
+                                 'HUMAN': {'count': 1,
+                                           'word-ind': [0]}},
+              'words': {0: 'JOHN-N1', 1: 'PROVIDE-V1'}}],
+ 'timestamp': '2016-Apr-07 07:49:18'}
+--- lex entries storage:
+      word_index= 0 word_sense(s)= dict_keys(['JOHN-N1'])
+      word_index= 1 word_sense(s)= dict_keys(['GIVE-V16', 'GIVE-V18', 'GIVE-V5', 'GIVE-V11', 'GIVE-V3', 'GIVE-V1', 'PROVIDE-V1', 'GIVE-V14', 'GIVE-V31', 'GIVE-V7', 'GIVE-V9', 'GIVE-V13', 'GIVE-V19', 'GIVE-V6', 'GIVE-V29', 'GIVE-V24', 'GIVE-V22', 'GIVE-V30', 'GIVE-V2', 'GIVE-V10', 'GIVE-V12', 'GIVE-V17', 'GIVE-V8', 'GIVE-V26', 'GIVE-V27', 'ADMINISTER-V1', 'GIVE-V28', 'GIVE-V20', 'GIVE-V25', 'GIVE-V15'])
+
+ ====> Processing dependency: [ INDIRECTOBJECT , 1 gave , 2 Mary ]
+   Word GIVE , index= 1 has been used with sense= GIVE-V27
+
+  -->> Head_sense= GIVE-V27
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V27 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V14
+
+  -->> Head_sense= GIVE-V14
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V14
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V22
+
+  -->> Head_sense= GIVE-V22
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V22
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V1
+
+  -->> Head_sense= GIVE-V1
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V1 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V10
+
+  -->> Head_sense= GIVE-V10
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V10
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V18
+
+  -->> Head_sense= GIVE-V18
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V18
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V2
+
+  -->> Head_sense= GIVE-V2
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V2 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V20
+
+  -->> Head_sense= GIVE-V20
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V20
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V11
+
+  -->> Head_sense= GIVE-V11
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V11
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V30
+
+  -->> Head_sense= GIVE-V30
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V30
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V5
+
+  -->> Head_sense= GIVE-V5
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V5
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V12
+
+  -->> Head_sense= GIVE-V12
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V12 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V15
+
+  -->> Head_sense= GIVE-V15
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V15
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V17
+
+  -->> Head_sense= GIVE-V17
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V17
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V8
+
+  -->> Head_sense= GIVE-V8
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V8 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V25
+
+  -->> Head_sense= GIVE-V25
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V25 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V13
+
+  -->> Head_sense= GIVE-V13
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V13
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V24
+
+  -->> Head_sense= GIVE-V24
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V24
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V16
+
+  -->> Head_sense= GIVE-V16
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V16 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V19
+
+  -->> Head_sense= GIVE-V19
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V19 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V7
+
+  -->> Head_sense= GIVE-V7
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V7
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V9
+
+  -->> Head_sense= GIVE-V9
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V9
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V31
+
+  -->> Head_sense= GIVE-V31
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V31 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V29
+
+  -->> Head_sense= GIVE-V29
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V29 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V6
+
+  -->> Head_sense= GIVE-V6
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  GIVE-V6
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V28
+
+  -->> Head_sense= GIVE-V28
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V28 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V3
+
+  -->> Head_sense= GIVE-V3
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V3 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V26
+
+  -->> Head_sense= GIVE-V26
+
+    -->> Word_sense= MARY-N1
+      Successful match GIVE-V26 and MARY-N1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= ADMINISTER-V1
+
+  -->> Head_sense= ADMINISTER-V1
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  ADMINISTER-V1
+
+ Word = MARY lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= PROVIDE-V1
+
+  -->> Head_sense= PROVIDE-V1
+input syn element INDIRECTOBJECT  not found in lex entry SYN-STRUC 
+     Skipping  PROVIDE-V1
+
+--- Short Term Memory after processing the last dependency. Length= 13
+{'Step': 2,
+ 'dependency': '[INDIRECTOBJECT, 1 gave, 2 Mary]',
+ 'results': [{'TMR': {'HUMAN-1': {'AGENT-OF': 'PHONE-CONVERSATION-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'PHONE-CONVERSATION-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHONE-CONVERSATION-1': {'AGENT': {'value': 'HUMAN-1'},
+                                               'BENEFICIARY': {'value': 'HUMAN-2'},
+                                               'TIME': ['<',
+                                                        'FIND-ANCHOR-TIME'],
+                                               'concept': 'PHONE-CONVERSATION',
+                                               'from-sense': 'GIVE-V27',
+                                               'syn-roles': ['SUBJECT',
+                                                             'INDIRECTOBJECT'],
+                                               'token': 'gave',
+                                               'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHONE-CONVERSATION': {'count': 1,
+                                                        'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V27', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'THEME-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'pre-TMR': {'AGENT': OrderedDict([('value', 'HUMAN-1')]),
+                          'THEME': {'value': 'HUMAN-2'},
+                          'from-sense': 'GIVE-V1',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT', 'INDIRECTOBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V1', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'EXPERIENCER-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'pre-TMR': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                          'EXPERIENCER': {'value': 'HUMAN-2'},
+                          'from-sense': 'GIVE-V2',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT', 'INDIRECTOBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V2', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'SEX-EVENT-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'SEX-EVENT-1': {'AGENT': {'value': 'HUMAN-1'},
+                                      'AGENT-1': {'value': 'HUMAN-2'},
+                                      'TIME': ['<',
+                                               'FIND-ANCHOR-TIME'],
+                                      'concept': 'SEX-EVENT',
+                                      'from-sense': 'GIVE-V12',
+                                      'syn-roles': ['SUBJECT',
+                                                    'INDIRECTOBJECT'],
+                                      'token': 'gave',
+                                      'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'SEX-EVENT': {'count': 1,
+                                               'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V12', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'PROMISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'PROMISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PROMISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                    'BENEFICIARY': {'value': 'HUMAN-2'},
+                                    'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                    'concept': 'PROMISE',
+                                    'from-sense': 'GIVE-V8',
+                                    'syn-roles': ['SUBJECT',
+                                                  'INDIRECTOBJECT'],
+                                    'token': 'gave',
+                                    'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PROMISE': {'count': 1,
+                                             'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V8', 2: 'MARY-N1'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'BENEFICIARY': {'value': 'HUMAN-2'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V25',
+                                   'syn-roles': ['SUBJECT',
+                                                 'INDIRECTOBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V25', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'SOURCE-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'EXPERIENCER-OF': '^$VAR2',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'pre-TMR': {'EXPERIENCER': {'value': 'HUMAN-2'},
+                          'SOURCE': {'value': 'HUMAN-1'},
+                          'from-sense': 'GIVE-V16',
+                          'head-var': '^$VAR2',
+                          'syn-roles': ['SUBJECT', 'INDIRECTOBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V16', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'pre-TMR': {'': OrderedDict([('value', 'HUMAN-1')]),
+                          'AGENT-1': {'value': 'HUMAN-2'},
+                          'from-sense': 'GIVE-V19',
+                          'head-var': '^$VAR3',
+                          'syn-roles': ['SUBJECT', 'INDIRECTOBJECT'],
+                          'token': 'gave',
+                          'word-ind': 1},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V19', 2: 'MARY-N1'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'BENEFICIARY': {'value': 'HUMAN-2'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V31',
+                                   'syn-roles': ['SUBJECT',
+                                                 'INDIRECTOBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V31', 2: 'MARY-N1'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'BENEFICIARY': {'value': 'HUMAN-2'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V29',
+                                   'syn-roles': ['SUBJECT',
+                                                 'INDIRECTOBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'MODALITY-1': {'TYPE': 'EVALUATIVE',
+                                     'VALUE': 0,
+                                     'concept': 'MODALITY',
+                                     'from-sense': 'GIVE-V29',
+                                     'syn-roles': ['SUBJECT',
+                                                   'INDIRECTOBJECT'],
+                                     'token': 'gave',
+                                     'word-ind': 1}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'MODALITY': {'count': 1,
+                                              'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V29', 2: 'MARY-N1'}},
+             {'TMR': {'ADVISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'BENEFICIARY': {'value': 'HUMAN-2'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'ADVISE',
+                                   'from-sense': 'GIVE-V28',
+                                   'syn-roles': ['SUBJECT',
+                                                 'INDIRECTOBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'ADVISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'MODALITY-1': {'TYPE': 'EVALUATIVE',
+                                     'VALUE': 1,
+                                     'concept': 'MODALITY',
+                                     'from-sense': 'GIVE-V28',
+                                     'syn-roles': ['SUBJECT',
+                                                   'INDIRECTOBJECT'],
+                                     'token': 'gave',
+                                     'word-ind': 1}},
+              'concept_counts': {'ADVISE': {'count': 1,
+                                            'word-ind': [1]},
+                                 'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'MODALITY': {'count': 1,
+                                              'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V28', 2: 'MARY-N1'}},
+             {'TMR': {'GIVE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                 'BENEFICIARY': {'value': 'HUMAN-2'},
+                                 'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                 'concept': 'GIVE',
+                                 'from-sense': 'GIVE-V3',
+                                 'syn-roles': ['SUBJECT',
+                                               'INDIRECTOBJECT'],
+                                 'token': 'gave',
+                                 'word-ind': 1},
+                      'HUMAN-1': {'AGENT-OF': 'GIVE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'GIVE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2}},
+              'concept_counts': {'GIVE': {'count': 1, 'word-ind': [1]},
+                                 'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V3', 2: 'MARY-N1'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'INFORM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'INFORM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'INFORM-1': {'AGENT': {'value': 'HUMAN-1'},
+                                   'BENEFICIARY': {'value': 'HUMAN-2'},
+                                   'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                   'concept': 'INFORM',
+                                   'from-sense': 'GIVE-V26',
+                                   'syn-roles': ['SUBJECT',
+                                                 'INDIRECTOBJECT'],
+                                   'token': 'gave',
+                                   'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'INFORM': {'count': 1,
+                                            'word-ind': [1]}},
+              'words': {0: 'JOHN-N1', 1: 'GIVE-V26', 2: 'MARY-N1'}}],
+ 'timestamp': '2016-Apr-07 07:49:22'}
+--- lex entries storage:
+      word_index= 0 word_sense(s)= dict_keys(['JOHN-N1'])
+      word_index= 1 word_sense(s)= dict_keys(['GIVE-V16', 'GIVE-V18', 'GIVE-V5', 'GIVE-V11', 'GIVE-V3', 'GIVE-V1', 'PROVIDE-V1', 'GIVE-V14', 'GIVE-V31', 'GIVE-V7', 'GIVE-V9', 'GIVE-V13', 'GIVE-V19', 'GIVE-V6', 'GIVE-V29', 'GIVE-V24', 'GIVE-V22', 'GIVE-V30', 'GIVE-V2', 'GIVE-V10', 'GIVE-V12', 'GIVE-V17', 'GIVE-V8', 'GIVE-V26', 'GIVE-V27', 'ADMINISTER-V1', 'GIVE-V28', 'GIVE-V20', 'GIVE-V25', 'GIVE-V15'])
+      word_index= 2 word_sense(s)= dict_keys(['MARY-N1'])
+
+ ====> Processing dependency: [ DIRECTOBJECT , 1 gave , 4 check-up ]
+
+ Word = CHECK-UP is found in Lexicon, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V27
+
+  -->> Head_sense= GIVE-V27
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  CALL  does NOT match input  CHECK-UP
+     Skipping  GIVE-V27 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V1
+
+  -->> Head_sense= GIVE-V1
+
+    -->> Word_sense= CHECK-UP-N1
+      Successful match GIVE-V1 and CHECK-UP-N1
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V2
+
+  -->> Head_sense= GIVE-V2
+
+    -->> Word_sense= CHECK-UP-N1
+      Successful match GIVE-V2 and CHECK-UP-N1
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V12
+
+  -->> Head_sense= GIVE-V12
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  ['MYSELF', 'YOURSELF', 'HIMSELF', 'HERSELF', 'OURSELVES', 'YOURSELVES', 'THEMSELVES', 'ONESELF']  does NOT match input  CHECK-UP
+     Skipping  GIVE-V12 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V8
+
+  -->> Head_sense= GIVE-V8
+
+    -->> Word_sense= CHECK-UP-N1
+      Successful match GIVE-V8 and CHECK-UP-N1
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V25
+
+  -->> Head_sense= GIVE-V25
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  ADVICE  does NOT match input  CHECK-UP
+     Skipping  GIVE-V25 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V16
+
+  -->> Head_sense= GIVE-V16
+
+    -->> Word_sense= CHECK-UP-N1
+Semantic constraint  ['COMMUNICABLE-DISEASE']  for PHYSICAL-EXAM in DIRECTOBJECT  had failed. 
+     Skipping  GIVE-V16 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V19
+
+  -->> Head_sense= GIVE-V19
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  INSTRUCTION  does NOT match input  CHECK-UP
+     Skipping  GIVE-V19 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V31
+
+  -->> Head_sense= GIVE-V31
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  ['ADVICE', 'RECOMMENDATION', 'SUGGESTION']  does NOT match input  CHECK-UP
+     Skipping  GIVE-V31 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V29
+
+  -->> Head_sense= GIVE-V29
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  ADVICE  does NOT match input  CHECK-UP
+     Skipping  GIVE-V29 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V28
+
+  -->> Head_sense= GIVE-V28
+
+    -->> Word_sense= CHECK-UP-N1
+Required word(s)  ['ADVICE', 'RECOMMENDATION', 'SUGGESTION']  does NOT match input  CHECK-UP
+     Skipping  GIVE-V28 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V3
+
+  -->> Head_sense= GIVE-V3
+
+    -->> Word_sense= CHECK-UP-N1
+Semantic constraint  ['PHYSICAL-OBJECT']  for PHYSICAL-EXAM in DIRECTOBJECT  had failed. 
+     Skipping  GIVE-V3 - CHECK-UP-N1 pair.
+
+ Word = CHECK-UP lex entry is stored locally, number of senses = 1
+   Word GIVE , index= 1 has been used with sense= GIVE-V26
+
+  -->> Head_sense= GIVE-V26
+
+    -->> Word_sense= CHECK-UP-N1
+Semantic constraint  ['MENTAL-OBJECT']  for PHYSICAL-EXAM in DIRECTOBJECT  had failed. 
+     Skipping  GIVE-V26 - CHECK-UP-N1 pair.
+
+--- Short Term Memory after processing the last dependency. Length= 3
+{'Step': 4,
+ 'dependency': '[DIRECTOBJECT, 1 gave, 4 check-up]',
+ 'results': [{'TMR': {'HUMAN-1': {'AGENT-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'THEME-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHYSICAL-EXAM-1': {'AGENT': {'value': 'HUMAN-1'},
+                                          'THEME': {'value': 'HUMAN-2'},
+                                          'concept': 'PHYSICAL-EXAM',
+                                          'from-sense': 'GIVE-V1',
+                                          'syn-roles': ['SUBJECT',
+                                                        'INDIRECTOBJECT',
+                                                        'DIRECTOBJECT'],
+                                          'token': 'gave',
+                                          'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHYSICAL-EXAM': {'count': 1,
+                                                   'word-ind': [4]}},
+              'words': {0: 'JOHN-N1',
+                        1: 'GIVE-V1',
+                        2: 'MARY-N1',
+                        4: 'CHECK-UP-N1'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'EXPERIENCER-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHYSICAL-EXAM-1': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                                          'EXPERIENCER': {'value': 'HUMAN-2'},
+                                          'concept': 'PHYSICAL-EXAM',
+                                          'from-sense': 'GIVE-V2',
+                                          'syn-roles': ['SUBJECT',
+                                                        'INDIRECTOBJECT',
+                                                        'DIRECTOBJECT'],
+                                          'token': 'gave',
+                                          'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHYSICAL-EXAM': {'count': 1,
+                                                   'word-ind': [4]}},
+              'words': {0: 'JOHN-N1',
+                        1: 'GIVE-V2',
+                        2: 'MARY-N1',
+                        4: 'CHECK-UP-N1'}},
+             {'TMR': {'HUMAN-1': {'AGENT-OF': 'PROMISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'BENEFICIARY-OF': 'PROMISE-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHYSICAL-EXAM-1': {'concept': 'PHYSICAL-EXAM',
+                                          'from-sense': 'CHECK-UP-N1',
+                                          'token': 'check-up',
+                                          'word-ind': 4},
+                      'PROMISE-1': {'AGENT': {'value': 'HUMAN-1'},
+                                    'BENEFICIARY': {'value': 'HUMAN-2'},
+                                    'TIME': ['<', 'FIND-ANCHOR-TIME'],
+                                    'concept': 'PROMISE',
+                                    'from-sense': 'GIVE-V8',
+                                    'syn-roles': ['SUBJECT',
+                                                  'INDIRECTOBJECT',
+                                                  'DIRECTOBJECT'],
+                                    'token': 'gave',
+                                    'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHYSICAL-EXAM': {'count': 1,
+                                                   'word-ind': [4]},
+                                 'PROMISE': {'count': 1,
+                                             'word-ind': [1]}},
+              'words': {0: 'JOHN-N1',
+                        1: 'GIVE-V8',
+                        2: 'MARY-N1',
+                        4: 'CHECK-UP-N1'}}],
+ 'timestamp': '2016-Apr-07 07:49:24'}
+--- lex entries storage:
+      word_index= 0 word_sense(s)= dict_keys(['JOHN-N1'])
+      word_index= 1 word_sense(s)= dict_keys(['GIVE-V16', 'GIVE-V18', 'GIVE-V5', 'GIVE-V11', 'GIVE-V3', 'GIVE-V1', 'PROVIDE-V1', 'GIVE-V14', 'GIVE-V31', 'GIVE-V7', 'GIVE-V9', 'GIVE-V13', 'GIVE-V19', 'GIVE-V6', 'GIVE-V29', 'GIVE-V24', 'GIVE-V22', 'GIVE-V30', 'GIVE-V2', 'GIVE-V10', 'GIVE-V12', 'GIVE-V17', 'GIVE-V8', 'GIVE-V26', 'GIVE-V27', 'ADMINISTER-V1', 'GIVE-V28', 'GIVE-V20', 'GIVE-V25', 'GIVE-V15'])
+      word_index= 2 word_sense(s)= dict_keys(['MARY-N1'])
+      word_index= 4 word_sense(s)= dict_keys(['CHECK-UP-N1'])
+
+ Sense GIVE-V8 : required syntactic role ( COMP ) is missing in the input sentence
+Removing a false positive result: {0: 'JOHN-N1', 1: 'GIVE-V8', 2: 'MARY-N1', 4: 'CHECK-UP-N1'}
+-- Final result: Length= 2
+{'results': [{'TMR': {'HUMAN-1': {'AGENT-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'THEME-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHYSICAL-EXAM-1': {'AGENT': {'value': 'HUMAN-1'},
+                                          'THEME': {'value': 'HUMAN-2'},
+                                          'concept': 'PHYSICAL-EXAM',
+                                          'from-sense': 'GIVE-V1',
+                                          'syn-roles': ['SUBJECT',
+                                                        'INDIRECTOBJECT',
+                                                        'DIRECTOBJECT'],
+                                          'token': 'gave',
+                                          'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHYSICAL-EXAM': {'count': 1,
+                                                   'word-ind': [4]}},
+              'words': {0: 'JOHN-N1',
+                        1: 'GIVE-V1',
+                        2: 'MARY-N1',
+                        4: 'CHECK-UP-N1'}},
+             {'TMR': {'HUMAN-1': {'EFFECT': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JOHN-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'John',
+                                  'word-ind': 0},
+                      'HUMAN-2': {'EXPERIENCER-OF': 'PHYSICAL-EXAM-1',
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'MARY-N1',
+                                  'lex-source': 'NER',
+                                  'token': 'Mary',
+                                  'word-ind': 2},
+                      'PHYSICAL-EXAM-1': {'CAUSED-BY': {'value': 'HUMAN-1'},
+                                          'EXPERIENCER': {'value': 'HUMAN-2'},
+                                          'concept': 'PHYSICAL-EXAM',
+                                          'from-sense': 'GIVE-V2',
+                                          'syn-roles': ['SUBJECT',
+                                                        'INDIRECTOBJECT',
+                                                        'DIRECTOBJECT'],
+                                          'token': 'gave',
+                                          'word-ind': 1}},
+              'concept_counts': {'HUMAN': {'count': 2,
+                                           'word-ind': [0, 2]},
+                                 'PHYSICAL-EXAM': {'count': 1,
+                                                   'word-ind': [4]}},
+              'words': {0: 'JOHN-N1',
+                        1: 'GIVE-V2',
+                        2: 'MARY-N1',
+                        4: 'CHECK-UP-N1'}}],
+ 'sent-num': 1,
+ 'sentence': 'John gave Mary a check-up.',
+ 'timestamp': '2016-Apr-07 07:49:25'}
+>>>
