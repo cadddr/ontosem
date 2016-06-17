@@ -1,7 +1,9 @@
 var colors = require('colors');
+var fs = require('fs');
 
 var exampleTMR = require('./tests/tmrs.js');
 var exampleIntermediate = require('./tests/intermediate.js');
+var inputFileLocation = './tests/results';
 
  var inverses = {
 'BENEFICIARY-OF': 'BENEFICIARY',
@@ -342,5 +344,26 @@ module.exports = {
 		warning: function(message) {
 			console.log((message || "-").orange);
 		}
+	},
+	readInputFile: function () {
+		try {
+			return fs.readFileSync(inputFileLocation, 'utf8');
+		} catch (e) {
+			console.log('input file error:'.red);
+			console.log(e);
+			return JSON.stringify(exampleTMR);
+			/*
+			var returnVal = '';
+			for (var i in exampleTMR) {
+				returnVal += JSON.stringify(exampleTMR[i]) + '\n';
+			}
+			console.log('returnVal = '.cyan);
+			console.log(returnVal);
+			return returnVal;
+			*/
+		}
+	},
+	generateErrorMessage: function (e) {
+		
 	}
 };

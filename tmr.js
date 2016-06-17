@@ -20,8 +20,8 @@ function insertLinebreaks(s) {
 
 module.exports = {
 	format: function(data) {
-		log.info('data:');
-		log.info(data);
+//		log.info('data:');
+//		log.info(data);
 		// Passed a raw JSON TMR, returns a formatted and annotated
 		// JSON object to render the decorated TMR to the browser
 
@@ -112,8 +112,8 @@ module.exports = {
 		o = tmpsort.concat(o);
 
 		// Log the entire set of TMR frames
-		log.info(o);
-		log.info(data);
+//		log.info(o);
+//		log.info(data);
 
 		// Return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.

@@ -1,0 +1,13 @@
+extends ./layout.pug
+
+block content
+	div.col-2
+	div.col-8
+		= errorMessage
+		if e
+			div.error
+				= e.stack
+		form#input(action='/tmr', method='post')
+			textarea#sentence-input-textarea(placeholder='Paste a TMR set or intermediate logs', name='inputData')
+			button#submit-tmr(type='submit') TMR
+			button#submit-logs(type='submit') Logs

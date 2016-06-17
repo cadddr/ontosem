@@ -1,0 +1,51 @@
+ ===== SENTENCE 1 ,concept_base_number 1 =====
+      Input Sentence = Jim is tall.
+          SUBJECT :  2 tall, 0 Jim
+              cop :  2 tall, 1 is
+             ROOT : -1   , 2 tall
+    Expected to SUCCEED
+
+
+ ====> Processing dependency: [ SUBJECT , 2 tall , 0 Jim ]
+
+ ====> Depenedency is replaced with: ['ADJ', 0, 2]
+
+ Word = TALL is found in Lexicon, number of senses = 2
+
+  -->> Head_sense= JIM-N1
+
+    -->> Word_sense= TALL-ADJ2
+      Successful match JIM-N1 and TALL-ADJ2
+
+    -->> Word_sense= TALL-ADJ1
+Input syn element MODS  not found in lex entry SYN-STRUC
+     Skipping  TALL-ADJ1
+
+--- Short Term Memory after processing the last dependency. Length= 1
+{'dependency': '[SUBJECT, 2 tall, 0 Jim]',
+ 'results': [{'TMR': {'HUMAN-1': {'HEIGHT': 0.8,
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JIM-N1',
+                                  'is-in-subtree': 'OBJECT',
+                                  'lex-source': 'NER',
+                                  'sent-word-ind': (1, 0),
+                                  'token': 'Jim'}},
+              'concept_counts': {'HUMAN': {'count': 1, 'word-ind': [0]}},
+              'words': {0: 'JIM-N1', 2: 'TALL-ADJ2'}}],
+ 'timestamp': '2016-Apr-28 12:17:26'}
+--- lex entries storage:
+      word_index= 0 word_sense(s)= dict_keys(['JIM-N1'])
+      word_index= 2 word_sense(s)= dict_keys(['TALL-ADJ2'])
+-- Final result: Length= 1
+{'results': [{'TMR': {'HUMAN-1': {'HEIGHT': 0.8,
+                                  'concept': 'HUMAN',
+                                  'from-sense': 'JIM-N1',
+                                  'is-in-subtree': 'OBJECT',
+                                  'lex-source': 'NER',
+                                  'sent-word-ind': (1, 0),
+                                  'token': 'Jim'}},
+              'concept_counts': {'HUMAN': {'count': 1, 'word-ind': [0]}},
+              'words': {0: 'JIM-N1', 2: 'TALL-ADJ2'}}],
+ 'sent-num': 1,
+ 'sentence': 'Jim is tall.',
+ 'timestamp': '2016-Apr-28 12:17:26'}

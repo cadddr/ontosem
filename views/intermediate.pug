@@ -1,0 +1,102 @@
+extends ./layout.pug
+
+
+block fixedcontent
+	div.col-12
+		div#sentence
+
+block content
+	- console.log('------------------------ generating the view ------------------------')
+	div.col-12
+		each results in parseResults
+			- console.log(results)
+			table.dependencies
+				thead
+					tr
+						td(colspan='100') Dependencies
+				tbody
+					each dep in results.dependencies
+						tr
+							td.depType
+								= dep.type
+							td.depIndex
+								= dep.words[0].index
+							td.depToken
+								if dep.words[0].index != -1
+									span.highlightable.word(data-entity-id=dep.words[0].index+':0.0', parent-id=dep.words[0].index+':0.0') #{dep.words[0].token}
+							td.depIndex
+								= dep.words[1].index
+							td.depToken
+								span.highlightable.word(data-entity-id=dep.words[1].index+':0.0', parent-id=dep.words[1].index+':0.0') #{dep.words[1].token}
+			each mapping in results.lexMappings
+				if mapping.state == 'show'
+					table.word-parse.open(id=mapping.token+'_ID')
+						thead
+							tr
+								td(colspan='100')
+									div.word-header.no-select
+										span.highlightable(data-entity-id=mapping.index+':0.0', parent-id=mapping.index+':0.0')
+											= mapping.token
+										if mapping.senses
+											| &nbsp;Senses: #{mapping.senses.length}
+											if mapping.synonyms
+												| , Synonyms: #{mapping.synonyms}
+
+						tbody
+							tr
+								th.senseCell(rowspan='2') Sense
+								th.matchesCell(colspan=mapping.usedDependencies.length) Matches
+								th.resultCell(rowspan='2') Result
+							tr
+								each dep in mapping.dependencies
+									if dep.hasEvents
+										th.matchesCell #{dep.type}
+							each sense in mapping.senses
+								- console.log('******')
+								- console.log('sense = ')
+								- console.log(sense)
+								- senseId = sense.index + ':' + sense.id
+								- console.log('senseId = ')
+								- console.log(senseId)
+								- senseEvents = results.eventMap[sense.index][sense.id]
+								- console.log('senseEvents = ')
+								- console.log(senseEvents)
+								- sense.result = ['Successfully matched']
+								- sense.status = 'match'
+								tr.eventRow(data-entries='')
+									td.senseCell
+										div.sense
+											span.highlightable.word(data-entity-id=senseId, parent-id=sense.index+':0.0')
+												= sense.senseString
+									each senseEvent in senseEvents
+										if senseEvent.dummy
+											td.matchesCell.dummyCell(class=[senseEvent.status])
+												div.matches
+										else
+											- console.log('senseEvent = ')
+											- console.log(senseEvent)
+											td.matchesCell(class=[senseEvent.status])
+												div.matches
+													| &nbsp;
+													- sortId = senseEvent.sortId
+													- var eventClass = 'success'
+													if senseEvent.status != 'match'
+														- sense.result = senseEvent.reasons
+														- eventClass = 'failure'
+														- sense.status = 'skip'
+													if senseEvent.type == 'pair'
+														span.pair(data-entity-id=senseEvent.id, class=[eventClass])
+															span.highlightable.word(data-entity-id=sortId[0]+':'+sortId[1]+'.'+sortId[2], parent-id=sortId[0]+':0.0') #{senseEvent.words[0]}
+															| &nbsp;
+															span.highlightable.word(data-entity-id=sortId[3]+':'+sortId[4]+'.'+sortId[5], parent-id=sortId[3]+':0.0') #{senseEvent.words[1]}
+													else
+														span.highlightable.word(data-entity-id=senseEvent.id, parent-id=sortId[0]+':0.0', class=[eventClass]) #{senseEvent.words[0]}
+													| &nbsp;
+									td.resultCell(class=[sense.status])
+										div.result
+											ul
+												each reason in sense.result
+													li #{reason}
+
+
+

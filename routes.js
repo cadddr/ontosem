@@ -56,14 +56,10 @@ module.exports = {
 		log.info("Received SENTENCE");
 
 		var inputData = req.body.inputData;
+		if (inputData == "")
+			inputData = utils.readInputFile();
 
-		if (inputData == "") {
-			inputData = utils.exampleTMR;
-		} else {
-			inputData = intermediateFormatter(inputData).TMRList;
-		}
-
-		var tmrSet = inputData;
+		var tmrSet = intermediateFormatter(inputData).TMRList;
 		var results = [];
 		
 		for (var resultIndex in tmrSet) {
@@ -116,31 +112,26 @@ module.exports = {
 			debugging: false,
 			results: results,
 			data: JSON.stringify(results),
-			clientscripts: [
-				{script: "client.js"}
-			]
+			clientscripts: ['client.js']
 		});
 	},
 	intermediate: function(req, res) {
-		log.info("Serving INTERMEDIATE");
-		var raw = utils.exampleIntermediate;
-		if(req.body.inputData != ">"){
-			raw = req.body.inputData.replace(/\\n/g, '');
-		}
-		var results = intermediateFormatter(raw);
-		/*
-		var tmrData = TMRFormatter(results.TMR);
-		var entities = tmrData.entities;
-		results.tmrData = tmrData;
-		results.tmrString = JSON.stringify(tmrData);
-		results.dataString = JSON.stringify(results.lexEntries);
-		*/
-		res.render("intermediate", {
-			results: results,
-			data: JSON.stringify(results),
-			clientscripts: [
-				{script: "intermediateclient.js"}
-			]
-		});
+		log.info("Serving INTERMEDIATE")
+		//try {			
+			var raw = utils.readInputFile()
+			if (req.body.inputData.length > 0)
+				raw = req.body.inputData.replace(/\\n/g, '')
+	//		log.info(raw)
+			var results = intermediateFormatter(raw)
+			log.info(results)
+			res.render("intermediate", {
+				pageTitle: 'page-intermediate',
+				parseResults: results,
+				data: JSON.stringify(results),
+				clientscripts: ['intermediateclient.js']
+			})
+/*		} catch (e) {
+			console.log(e)
+		}*/
 	}
 };

@@ -26,32 +26,31 @@ $(document).ready(function () {
 	// parse the sentence
 	console.log('parsing sentence');
 	var sentenceContainer = $('#sentence');
-	data.sentenceMappings = JSON.parse(data.sentenceMappings);
-	var sentence = data.sentence;
-	for (var i in data.sentenceMappings) {
-		var val = data.sentenceMappings[i];
-		var sentence = sentence.replace(new RegExp('\\b' + i + '\\b'), '<span data-entity-id="' + -1 + '" parent-id="' + data.lexEntries[data.sentenceMappings[i]].id + '" class="highlightable">' + i + '</span>');
+	data[0].sentenceMappings = JSON.parse(data[0].sentenceMappings);
+	var sentence = data[0].sentence;
+	for (var i in data[0].lexMappings) {
+		var mapping = data[0].lexMappings[i];
+		var sentence = sentence.replace(new RegExp('\\b' + mapping.token + '\\b'), '<span data-entity-id="' + i + '" parent-id="' + i + ':0.0" class="highlightable">' + mapping.token + '</span>');
 	}
 	sentenceContainer.html('Intermediate results for "' + sentence + '"');
 	
 	// set the colors for each lex mapping
 	console.log('setting colors');
-	for (var i in data.lexEntries) {
-		var lex = data.lexEntries[i];
-		console.log(i);
-		console.log(lex);
-		if (lex.parent) {
-			var id = lex.id.match(regex.getIdRegex)[1];
-			var parentId = lex.parent.match(regex.getIdRegex)[1];
-			$("[data-entity-id='" + lex.id + "']").css("background-color", colorList[id]);
-			$("[data-entity-id='" + lex.parent + "']").css("background-color", colorList[parentId]);
-			$("[parent-id='" + lex.parent + "']").css("background-color", colorList[parentId]);
-		}
+	for (var i in data[0].lexMappings) {
+//		var lex = data.lexMappings[i];
+//		console.log(i);
+//		console.log(lex);
+//		var id = lex.id.match(regex.getIdRegex)[1];
+//		var parentId = lex.parent.match(regex.getIdRegex)[1];
+		//$("[data-entity-id='" + i + "']").css("background-color", colorList[id]);
+		//$("[data-entity-id='" + lex.parent + "']").css("background-color", colorList[parentId]);
+		$("[parent-id='" + i + ":0.0']").css("background-color", colorList[i]);
 	}
 	
 	console.log('binding listeners');
 	bindRowHighlights();
 	
+	resetScrollHeight()
 	console.log('done');
 });
 
@@ -59,8 +58,8 @@ $(document).ready(function () {
 function bindRowHighlights () {
 	console.log('bindRowHighlights()');
 	$('.eventRow').mouseenter(function () {
-		console.log('this = ');
-		console.log(this);
+//		console.log('this = ');
+//		console.log(this);
 		var entryIds = $(this).attr('data-entries').split(',');//.slice(0, -1);
 		
 		if (highlighted == entryIds) {
@@ -69,7 +68,7 @@ function bindRowHighlights () {
 			// change the highlight
 			changeHighlight(entryIds);
 		}
-		console.log(highlighted);
+//		console.log(highlighted);
 	});
 	$('table.word-parse').mouseleave(function () {
 		unhighlightAll();

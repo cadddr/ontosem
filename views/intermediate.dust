@@ -11,12 +11,104 @@
 
 	{# results.lexMappings}
 	{@eq key=state value="show"}
+<!--
 		<table id="{token}_ID" class="word-parse open">
 			<thead>
 				<tr>
 					<td colspan="3">
 						<div class="word-header no-select">
-							<span data-entity-id="{results.lexEntries[wordString].id}" parent-id="{results.lexEntries[wordString].parent}" class="highlightable">
+							<span data-entity-id="{.index}:0.0" parent-id="{.index}:0.0" class="highlightable">
+								{token}
+							</span>
+							{? senses}
+								&nbsp;Senses: {senses.length}{? synonyms}, Synonyms: {synonyms}{/ synonyms}
+							{/ senses}
+						</div>
+					</td>
+				</tr>
+				<!--
+				{? senses}
+					<tr class="properties-row">
+						<td colspan="3">
+							<div class="lexicon-results">
+								Senses: {senses}{? synonyms}, Synonyms: {synonyms}{/ synonyms}
+							</div>
+						</td>
+					</tr>
+				{/ senses}
+				-->
+<!--
+			</thead>
+
+			<tbody>
+				<tr>
+					<th class="statusCell">
+						Status
+					</th>
+					<th class="wordCell">
+						Word
+					</th>
+					<th class="reasonCell">
+						Reason
+					</th>
+				</tr>
+				{#groupedEvents}
+					<tr class="eventRow {@eq key=status value="match"}matchRow{/eq}" data-entries="{#ids}{.},{/ids}">
+						<td class="statusCell">
+							<div class="status">
+								{results.labels[status]}
+							</div>
+						</td>
+						<td class="wordCell" {@eq key=status value="match"}colspan="2"{/eq}>
+							<div class="words">
+
+							{#events}
+								{@eq key=status value="match"}
+									{@eq key=col value=0}
+										<br />
+									{/eq}
+									<span data-entity-id="{.id}" class="pair {.nullified}">
+										<span data-entity-id="{sortId[0]}:{sortId[1]}.{sortId[2]}" parent-id="{sortId[0]}:0.0" class="highlightable word">{.words[0]}</span>&nbsp;
+										<span data-entity-id="{sortId[3]}:{sortId[4]}.{sortId[5]}" parent-id="{sortId[3]}:0.0" class="highlightable word">{.words[1]}</span>
+									</span>
+								{:else}
+									{@eq key=type value="pair"}
+										<span data-entity-id="{.id}" class="pair {.nullified}">
+											<span data-entity-id="{sortId[0]}:{sortId[1]}.{sortId[2]}" parent-id="{sortId[0]}:0.0" class="highlightable word">{.words[0]}</span>&nbsp;
+											<span data-entity-id="{sortId[3]}:{sortId[4]}.{sortId[5]}" parent-id="{sortId[3]}:0.0" class="highlightable word">{.words[1]}</span>
+										</span>
+									{:else}
+										<span data-entity-id="{.id}" parent-id="{sortId[0]}:0.0" class="highlightable word {.nullified}">{.words[0]}</span>
+									{/eq}
+								{/eq}
+								<!----> 
+<!--							{/events}
+							</div>
+						</td>
+						{@ne key=status value="match"}
+						<td class="reasonCell">
+							<div class="reason">
+								<ul>
+									{#reasons}
+										<li>
+											{.}
+										</li>
+									{/reasons}
+								</ul>
+							</div>
+						</td>
+						{/ne}
+					</tr>
+				{/groupedEvents}
+			</tbody>
+		</table>
+-->		
+		<table id="{token}_ID" class="word-parse open">
+			<thead>
+				<tr>
+					<td colspan="3">
+						<div class="word-header no-select">
+							<span data-entity-id="{.index}:0.0" parent-id="{.index}:0.0" class="highlightable">
 								{token}
 							</span>
 							{? senses}
@@ -40,17 +132,17 @@
 
 			<tbody>
 				<tr>
-					<th class="statusCell">
-						Status
+					<th class="senseCell">
+						Sense
 					</th>
-					<th class="wordCell">
-						Word
+					<th class="matchesCell">
+						Matches
 					</th>
-					<th class="reasonCell">
-						Reason
+					<th class="resultCell">
+						Result
 					</th>
 				</tr>
-				{#groupedEvents}
+				{#senses senseEvents="eventMap[.index][.id]"}
 					<tr class="eventRow" data-entries="{#ids}{.},{/ids}">
 						<td class="statusCell">
 							<div class="status">
@@ -59,18 +151,33 @@
 						</td>
 						<td class="wordCell" {@eq key=status value="match"}colspan="2"{/eq}>
 							<div class="words">
-
+							
+							EVENTS FOR eventMap[{.index}][{.id}]
+							{#senseEvents}
+								aaaaa {.} &nbsp;
+							{/senseEvents}
+							<!--
 							{#events}
-								{@eq key=type value="pair"}
+								{@eq key=status value="match"}
+									{@eq key=col value=0}
+										<br />
+									{/eq}
 									<span data-entity-id="{.id}" class="pair {.nullified}">
-										<span data-entity-id="{sortId[0]}:{sortId[1]}.{sortId[2]}" parent-id="{sortId[0]}:{sortId[1]}.0" class="highlightable word">{.words[0]}</span>&nbsp;
-										<span data-entity-id="{sortId[3]}:{sortId[4]}.{sortId[5]}" parent-id="{sortId[3]}:{sortId[4]}.0" class="highlightable word">{.words[1]}</span>
+										<span data-entity-id="{sortId[0]}:{sortId[1]}.{sortId[2]}" parent-id="{sortId[0]}:0.0" class="highlightable word">{.words[0]}</span>&nbsp;
+										<span data-entity-id="{sortId[3]}:{sortId[4]}.{sortId[5]}" parent-id="{sortId[3]}:0.0" class="highlightable word">{.words[1]}</span>
 									</span>
 								{:else}
-									<span data-entity-id="{.id}" parent-id="{sortId[0]}:{sortId[1]}.0" class="highlightable word {.nullified}">{.words[0]}</span>
+									{@eq key=type value="pair"}
+										<span data-entity-id="{.id}" class="pair {.nullified}">
+											<span data-entity-id="{sortId[0]}:{sortId[1]}.{sortId[2]}" parent-id="{sortId[0]}:0.0" class="highlightable word">{.words[0]}</span>&nbsp;
+											<span data-entity-id="{sortId[3]}:{sortId[4]}.{sortId[5]}" parent-id="{sortId[3]}:0.0" class="highlightable word">{.words[1]}</span>
+										</span>
+									{:else}
+										<span data-entity-id="{.id}" parent-id="{sortId[0]}:0.0" class="highlightable word {.nullified}">{.words[0]}</span>
+									{/eq}
 								{/eq}
-								<!----> 
 							{/events}
+							-->
 							</div>
 						</td>
 						{@ne key=status value="match"}
@@ -87,9 +194,11 @@
 						</td>
 						{/ne}
 					</tr>
-				{/groupedEvents}
+				{/senses}
 			</tbody>
 		</table>
+		
+		
 	{/eq}
 	{/results.lexMappings}
 </div>

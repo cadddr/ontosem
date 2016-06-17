@@ -7,34 +7,44 @@ $teal: #08AA92;
 
 $error: #e63946;
 
+.highlightable {
+	border-radius: 3px;
+	padding: 2px 5px;
+
+	&.highlight {
+		border-color: rgba(255, 0, 0, 0.2);
+		background-color: rgba(255, 0, 0, 0.1);
+	}
+}
+
 body {
-  font-family: "Helvetica", Arial, sans-serif;
-  background-color: $base;
+	font-family: "Helvetica", Arial, sans-serif;
+	background-color: $base;
 }
 
 header.container {
-  background-color: $white;
-  height: 50px;
-  padding: 10px;
+	background-color: $white;
+	height: 50px;
+	padding: 10px;
 
-  h6 { margin: 0; }
-  form { text-align: right; }
+	h6 { margin: 0; }
+	form { text-align: right; }
 }
 
 .debugging {
-  background-color: #EC3E3E;
-  color: white;
-  padding: 20px;
+	background-color: #EC3E3E;
+	color: white;
+	padding: 20px;
 
-  h3 { margin-top: 0; }
+	h3 { margin-top: 0; }
 }
 
 #data-sync {
-  display: none;
+	display: none;
 }
 
 .scroll {
-  position: absolute;
-  overflow-y: scroll;
-  width: 100%;
+	position: absolute;
+	overflow-y: scroll;
+	width: 100%;
 }
