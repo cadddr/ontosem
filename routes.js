@@ -1,12 +1,12 @@
 var request = require('request');
 var utils = require('./utils.js');
 var log = utils.richLogging;
-var TMRFormatter = require('./tmr.js').format;
+var tmrFormatter = require('./tmr.js').format;
 var intermediateFormatter = require('./intermediate.js').format;
 
 var isEvent = function(word) {
 	if(word["is-in-subtree"] != undefined
-			&& word["is-in-subtree"] == "events"){
+			&& word["is-in-subtree"] == "EVENTS"){
 		return true;
 	}
 	return false;
@@ -60,52 +60,22 @@ module.exports = {
 			inputData = utils.readInputFile();
 
 		var tmrSet = intermediateFormatter(inputData).TMRList;
-		var results = [];
 		
-		for (var resultIndex in tmrSet) {
-			var result = tmrSet[resultIndex].results;
-			var sentenceString = tmrSet[resultIndex].sentence;
-			var sentenceId = tmrSet[resultIndex]["sent-num"];
-			var sortedSentence = [];
-			var used = [];
+		var results = [];
 
-			for (var tmrIndex in result) {
+		for (var entry in inputData) {
+			var sentenceId = inputData[entry]["sent-num"];
+			var sentence = inputData[entry].sentence;
 
-				// TO DO: Re-sort so that events are all at the
-				// beginning of our list of words
-				var tmr = eventsFirst(result[tmrIndex].TMR);
-
-				for (var wordIndex in tmr) {
-					// Cycle through each individual TMR frame
-					var wordTmr = tmr[wordIndex];
-					var wordKey = wordTmr["word-key"];
-
-					// If the word hasn't been added to our final
-					// set of results
-					if(used.indexOf(wordKey) == -1){
-						//
-						// Add it to our results
-						sortedSentence.push(wordTmr);
-
-						// Mark this word as USED
-						used.push(wordKey);
-					}
-				}
+			for (var tmrIndex in inputData[entry].results) {
+				var formattedResult = tmrFormatter({
+					"sentenceId": sentenceId,
+					"sentence": sentence,
+					"tmrIndex": tmrIndex,
+					"tmr": inputData[entry].results[tmrIndex].TMR
+				});
+				results.push(formattedResult);
 			}
-
-			// Make an object that contains all the info
-			// needed for our Dust templates
-			var r = {};
-			r.sorted = sortedSentence;
-			r.sentenceString = sentenceString;
-			r.sentenceId = sentenceId;
-
-			// Format, annotate, and decorate the results
-			var formatted = TMRFormatter(r);
-
-			// Add that sentence to our final list of
-			// sentences and their formatted TMRs
-			results.push(formatted);
 		}
 
 		res.render("multitmr", {

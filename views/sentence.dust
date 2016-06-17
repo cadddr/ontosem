@@ -1,18 +1,18 @@
 
-<section class="sentence col-12 container gutters-sm-all" data-sentence-id="{sentenceId}">
+<section class="sentence col-12 container gutters-sm-all" data-sentence-id="{_sentenceId}">
 	<div class="sentence-header">
-		<span class="sentence-id"> {sentenceId} </span>
-		{#sentence}
-      <span class="sentence-string" {?_name}data-entity-name="{_name}"{/_name}>
+		<span class="sentence-id"> {_sentenceId}-{_tmrIndex} </span>
+		{#splitSentence}
+      <span class="sentence-string" {?_color}data-entity-color="{_color}"{/_color}>
         {_token}
       </span> {! <= keep trailing whitespace !}
-    {/sentence}
+    {/splitSentence}
 		<span class="sentence-minimize">Hide</span>
 	</div>
 	<div class="sentence-body container gutters-lg-all">
-		{#tmrs}
+		{#frames}
 			<table class="tmr col-4">
-				<thead class="frame-header" data-entity-name="{_key}">
+				<thead class="frame-header" data-entity-color="{_color}">
 					<tr>
 						<td colspan="2">
 							<span class="key">{_key}</span>
@@ -20,9 +20,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#attrs}
+					{#required}
 						{> "kvpair" type="required" /}
-					{/attrs}
+					{/required}
 					{#optional}
 						{> "kvpair" type="optional" /}
 					{/optional}
@@ -31,6 +31,6 @@
 					{/debugging}
 				</tbody>
 			</table>
-		{/tmrs}
+		{/frames}
 	</div>
 </section>
