@@ -1,8 +1,11 @@
+'use strict'
+
 var utils = require('./utils.js');
 var colors = require('colors');
 var log = utils.richLogging;
 
 var CR_CHAR_ID = 13;
+var debugging = true;
 
 var regex = {
 	'sentence': /(\s*Input Sentence = )(.*)/,
@@ -45,6 +48,8 @@ var regex = {
 	'localLexEntry': /^\s*Word = (\S+) lex entry is stored locally, number of senses = ([0-9]*)/,
 	'lexEntryNotFound': /^\s*[iI]nput syn element (\S+)  not found in lex entry (\S+)/
 }
+const reverseDepTypes = ['ADV', 'ADJ']
+
 
 function getWordObject (wordParam, lexMappings, tokenIndex) {
 //	log.info('getWordObject (' + wordParam + ', ..., ' + tokenIndex + ')');
@@ -206,36 +211,8 @@ function createEvent (parsedLine, status, state, lexMappings, words) {
 				if (sense.senseString == wordA)
 					sense.status = 'failure'
 			}
-			
-//			nullifyOldEvents(event, wordA, events);
 		}
 	}
-//			event.wordObjects.push(wordObjB);
-//			log.info(wordObjB);
-/*	
-	function nullifyOldEvents (event, word, events) {
-		//var word = event.words[0];
-//		log.info('---nullifyOldEvents---');
-//		log.info('event = ');
-//		log.info(event);
-//		log.info('word = ');
-//		log.info(word);
-//		log.info(word.events);
-		for (var i = 0; i < events.length; ++i) {
-			var otherEvent = events[i];
-			var otherWord = trimWord(otherEvent.words[0]);
-			if (otherEvent.status == 'match' && otherEvent.words[0] == word) {
-			//if (otherEvent.status == 'match') {
-//				log.info(' @@@@@@@@@@@@@@@@@@@@@@@@@@@@ EVENT SHOULD BE NULIFIED @@@@@@@@@@@@@@@@@@@@@@@@@@@@ ');
-//				log.info(otherEvent);
-//				log.info(otherEvent.words[0] + ' == ' + word);
-				otherEvent.nullified = 'nullified';
-				event.nullifies = otherEvent.id;
-			}
-		}
-//		log.info('----------------------');
-	}
-*/
 }
 
 function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, events, eventMap, dependencies) {
@@ -273,14 +250,24 @@ function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, even
 		
 		// depdency replacement parsing
 		} else if (parsedLine = line.match(regex.dependencyReplaced)) {
-			var index1 = parsedLine[2]
-			var index2 = parsedLine[3]
+			var indexA = parsedLine[2]
+			var indexB = parsedLine[3]
+			var dependency = createDependency(parsedLine[1], indexA, lexMappings[indexA].token, indexB, lexMappings[indexB].token)
+			//dependency.eventWord = state.dependency.eventWord
+			//dependency.otherWord = state.dependency.otherWord
+			
+			lexMappings[dependency.eventWord].dependencies.push(dependency)
+			var depIndex = dependencies.indexOf(state.dependency) + 1
+			dependencies.splice(depIndex, 0, dependency)
+			state.dependency.replaced = true
+			state.dependency = dependency
+			/*
 			state.dependency.type = parsedLine[1]
 			state.dependency.words[0].index = index1
 			state.dependency.words[0].token = lexMappings[index1].token
 			state.dependency.words[1].index = index2
 			state.dependency.words[1].token = lexMappings[index2].token
-		
+			*/
 		// head sense parsing
 		} else if (parsedLine = line.match(regex.headSense)) {
 			state.headSense = parsedLine[1];
@@ -382,7 +369,7 @@ function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, even
 			
 		//  there was a parse error
 		} else {
-			console.log(' ************** PARSE ERROR ************** "' + line + '"');
+			debug(' ************** PARSE ERROR ************** "' + line + '"');
 		}
 	}
 	
@@ -402,6 +389,8 @@ function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, even
 		var index = id[0];
 		var wordSense = id[1] + '.' + id[2];
 		var depIndex = state.dependency.otherWord
+		debug('setting hasEvents for ')
+		debug(state.dependency)
 		state.dependency.hasEvents = true
 //		var depIndex = id[3];
 //		if (depIndex == null)
@@ -416,7 +405,7 @@ function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, even
 //			console.log(lexMappings[index].dependencies)
 			for (var i = 0; i < lexMappings[index].dependencies.length; i++) {
 				var otherWord = parseInt(lexMappings[index].dependencies[i].otherWord)
-				console.log('\t dummmy ' + otherWord)
+				debug('\t dummmy ' + otherWord)
 				eventMap[index][wordSense][otherWord] = {
 					'dummy': true,
 					'status': 'skip'
@@ -435,46 +424,46 @@ function parseBodyLine (line, state, TMRList, sentence, words, lexMappings, even
 function parseLines (lines, startLine, state, TMRList, words, lexMappings, events, eventMap, onlyTMR, dependencies) {
 	var line;
 	try {
-		var rawIndex = 0;
-		var headerLines = [];
-		var bodyLines = [];
-		var readingHeader = true;
-		var tokens = [];
-		var sentence = '';
+		var rawIndex = 0
+		var headerLines = []
+		var bodyLines = []
+		var readingHeader = true
+		var tokens = []
+		var sentence = ''
 		if (onlyTMR) {
-			console.log('PARSING A TMR'.green);
-			readingHeader = false;
+			debug('PARSING A TMR'.green)
+			readingHeader = false
 		} else {
-			console.log('PARSING INTERMEDIATE RESULTS'.green);
+			debug('PARSING INTERMEDIATE RESULTS'.green)
 		}
 		
-		console.log('*************************************************************************************************************'.green);
+		debug('*************************************************************************************************************'.green)
 		for (var i = startLine; i < lines.length; i++) {
-			//console.log('i = ' + i);
-			line = lines[i];
+			//console.log('i = ' + i)
+			line = lines[i]
 //			if (readingHeader)
-//				console.log(rawIndex + ':\t' + line);
-			rawIndex += line.length + 1;
+//				console.log(rawIndex + ':\t' + line)
+			rawIndex += line.length + 1
 			
 //			console.log(line);
 			// check if this is the end of the header
 			if ( readingHeader && !(line.substring(0,3) === '>>>' || line[0] === '\t' || line[0] === ' ' || line.match(regex.sentenceHeader)) ) {
-				readingHeader = false;
-				console.log('DONE READING HEADER'.green);
+				readingHeader = false
+				debug('DONE READING HEADER'.green)
 			}
 			
 			// if we are reading the header parse this line as a header line
 			if (readingHeader) {
-				headerLines.push(line);
+				headerLines.push(line)
 				var parsedLine;
 				if (parsedLine = line.match(regex.sentence)) {
-					sentence += parsedLine[2];
-					tokens = sentence.match(regex.tokenizeSentence);
-//					console.log(sentence);
-//					console.log(tokens);
+					sentence += parsedLine[2]
+					tokens = sentence.match(regex.tokenizeSentence)
+//					console.log(sentence)
+//					console.log(tokens)
 					
 					for (var t in tokens) {
-						var token = tokens[t];
+						var token = tokens[t]
 						lexMappings.push({
 							'index': t,
 							'token': token,
@@ -482,20 +471,14 @@ function parseLines (lines, startLine, state, TMRList, words, lexMappings, event
 							'groupedEvents': [],
 							'dependencies': [],
 							'senses': []
-						});
+						})
 					}
 				} else if (parsedLine = line.match(regex.headerDependency)) {
-					var dependency = {
-						'type': parsedLine[1],
-						'words': [ { 'index': parsedLine[2], 'token': parsedLine[3] }, { 'index': parsedLine[4], 'token': parsedLine[5] } ],
-						'eventWord': parsedLine[2],
-						'otherWord': parsedLine[4],
-						'hasEvents': false
-					};
-					dependencies.push(dependency);
+					var dependency = createDependency(parsedLine[1], parsedLine[2], parsedLine[3], parsedLine[4], parsedLine[5])
+					dependencies.push(dependency)
 //					console.log(parsedLine[2])
 					if (parsedLine[2] != -1)
-						lexMappings[parsedLine[2]].dependencies.push(dependency);
+						lexMappings[parsedLine[2]].dependencies.push(dependency)
 				}
 			
 			// otherwise parse it as a body line
@@ -505,28 +488,28 @@ function parseLines (lines, startLine, state, TMRList, words, lexMappings, event
 						'tokens': tokens,
 						'sentence': sentence,
 						'lastLine': i
-					};
-				bodyLines.push(line);
-				parseBodyLine(line, state, TMRList, sentence, words, lexMappings, events, eventMap, dependencies);
+					}
+				bodyLines.push(line)
+				parseBodyLine(line, state, TMRList, sentence, words, lexMappings, events, eventMap, dependencies)
 			}
 		}
-		console.log('*************************************************************************************************************/'.green);
+		debug('*************************************************************************************************************/'.green)
 
 		return {
 			'tokens': tokens,
 			'sentence': sentence,
 			'lastLine': -1
-		};
+		}
 	} catch (e) {
 		e.parseLine = line
-		console.log('error on line:\t' + line)
+		debug('error on line:\t' + line)
 		throw e
 	}
 }
 
 function parseLog (lines, startLine) {
 	// initialize variables before parsing
-	console.log('*************************************************************************************************************'.green)
+	debug('*************************************************************************************************************'.green)
 	var words = [];
 	var dependencies = [];
 	var events = [];
@@ -552,13 +535,20 @@ function parseLog (lines, startLine) {
 	};
 	
 	
-	// parse the whole output
-	var parseResults = parseLines(lines, startLine, state, TMRList, words, lexMappings, events, eventMap, onlyTMR, dependencies);
+	var parseResults
 	
 	// if the user gave only a TMR, only parse and return that
 	if (onlyTMR) {
-		parseTMRContents(state, TMRList, parseResults.sentence);
-		return {'TMRList': TMRList};
+		state.tmrContents = lines.join('\n')
+		parseTMRContents(state, TMRList, '')
+		
+		return {
+			'data': {'TMRList': TMRList},
+			'lastLine': -1
+		}
+	} else {
+		// parse the whole output
+		parseResults = parseLines(lines, startLine, state, TMRList, words, lexMappings, events, eventMap, onlyTMR, dependencies);
 	}
 	
 	// compile the words into a list
@@ -576,7 +566,7 @@ function parseLog (lines, startLine) {
 			var dep = mapping.dependencies[d]
 			if (dep.hasEvents)
 				mapping.usedDependencies.push(dep)
-			else if (eventMap[i])
+			else if (eventMap[i] && !dep.replaced)
 				for (var sense in eventMap[i])
 					delete eventMap[i][sense][dep.otherWord]
 		}
@@ -597,7 +587,7 @@ function parseLog (lines, startLine) {
 	lexMappings.forEach(function (mapping) {
 		var index = mapping.index;
 		mapping.senses.forEach(function (sense) {
-			console.log(sense);
+			debug(sense);
 			var trimmedName = trimWord(sense.senseString);
 			var parent = lexEntries[trimmedName];
 			if (parent == null)
@@ -618,7 +608,7 @@ function parseLog (lines, startLine) {
 	});
 
 	// annotate the sentence
-	console.log('annotating the sentence'.green);
+	debug('annotating the sentence'.green);
 	var sentenceMappings = {};
 	/*
 	for (var i = 0; i < TMRList[0].results.length; ++i) {
@@ -654,7 +644,7 @@ module.exports = {
 
 // group events together
 function groupEvents (lexMappings, words) {
-	log.info(" ######################################################## groupEvents ######################################################## ".green)
+	debug(" ######################################################## groupEvents ######################################################## ".green)
 	//output('1 - EVENTS: ' + lexMappings[1].events.length, 'yellow')
 //	log.info(lexMappings)
 	for (var w in lexMappings) {
@@ -894,7 +884,12 @@ function parseTMRContents (state, TMRList, sentence) {
 //	console.log(TMRList);
 }
 
-function output (message, style) {
+function debug (message) {
+	if (debugging)
+		console.log(message)
+}
+
+function output (message) {
 	if (typeof message == 'object')
 		message = JSON.stringify(message, null, 4)
 	colors.setTheme({
@@ -925,7 +920,7 @@ function compareValues (a, b) {
 
 
 function createSense (senseString, lexMappings, words, tokenIndex) {
-	console.log('createSense(' + senseString + ', ..., ' + tokenIndex + ')')
+	debug('createSense(' + senseString + ', ..., ' + tokenIndex + ')')
 	var idData = getWordIdData(senseString, lexMappings, words, tokenIndex)
 	return {
 		'senseString': senseString,
@@ -934,6 +929,22 @@ function createSense (senseString, lexMappings, words, tokenIndex) {
 		'flatId': (idData.wordIndex * 1000) + idData.lexIndex,
 		'status': 'match'
 	}
+}
+
+function createDependency (type, indexA, tokenA, indexB, tokenB) {
+	var dep = {
+		'type': type,
+		'words': [ { 'index': indexA, 'token': tokenA }, { 'index': indexB, 'token': tokenB } ],
+		'eventWord': indexA,
+		'otherWord': indexB,
+		'hasEvents': false,
+		'replaced': false
+	}
+	if (reverseDepTypes.indexOf(type) != -1) {
+		dep.eventWord = indexB
+		dep.otherWord = indexA
+	}
+	return dep
 }
 
 function isTMRInput (firstLine) {
