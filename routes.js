@@ -59,35 +59,41 @@ module.exports = {
 		if (inputData == "")
 			inputData = utils.readInputFile();
 
-		var tmrSet = intermediateFormatter(inputData).TMRList;
-		
+		var formattedData = intermediateFormatter(inputData);
+
 		var results = [];
 
-		for (var entry in inputData) {
-			var sentenceId = inputData[entry]["sent-num"];
-			var sentence = inputData[entry].sentence;
+		for (var index in formattedData) {
+			var entry = formattedData[index].TMRList;
 
-			for (var tmrIndex in inputData[entry].results) {
-				var formattedResult = tmrFormatter({
-					"sentenceId": sentenceId,
-					"sentence": sentence,
-					"tmrIndex": tmrIndex,
-					"tmr": inputData[entry].results[tmrIndex].TMR
-				});
-				results.push(formattedResult);
+			for (var stepIndex in entry) {
+				var sentenceId = entry[stepIndex]["sent-num"];
+				var sentence = entry[stepIndex].sentence;
+
+				for (var tmrIndex in entry[stepIndex].results) {
+					var formattedResult = tmrFormatter({
+						"sentenceId": sentenceId,
+						"sentence": sentence,
+						"tmrIndex": tmrIndex,
+						"tmr": entry[stepIndex].results[tmrIndex].TMR
+					});
+					results.push(formattedResult);
+				}
 			}
 		}
 
 		res.render("multitmr", {
+			pageTitle: 'page-tmr',
 			debugging: false,
 			results: results,
 			data: JSON.stringify(results),
-			clientscripts: ['client.js']
+			clientscripts: ['client.js'],
+			debugStuff: formattedData
 		});
 	},
 	intermediate: function(req, res) {
 		log.info("Serving INTERMEDIATE")
-		//try {			
+		//try {
 			var raw = utils.readInputFile()
 			if (req.body.inputData.length > 0)
 				raw = req.body.inputData.replace(/\\n/g, '')
