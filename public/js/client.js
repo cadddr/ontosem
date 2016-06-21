@@ -1,3 +1,5 @@
+resetScrollHeight();
+
 // hide optional or debug attributes when the check box is unchecked
 var optionalAttributes = $("tr.kv-pair.optional");
 $("input#toggleOptional").on("click", function(e) {

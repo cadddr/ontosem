@@ -1,11 +1,11 @@
 doctype html
 html(lang="en")
 	- pageTitle = pageTitle ? pageTitle : ''
-	
+
 	head
 		title #{pageTitle}
 		link(rel='stylesheet', href='css/main.css')
-		
+
 	body(class=pageTitle)
 		header.container.gutters-sm-all
 			div.col-1
@@ -13,10 +13,10 @@ html(lang="en")
 			div.col-4
 			div.col-7
 				block toolbar
-		
+
 		div.fixedcontent.container.gutters-sm-all
 			block fixedcontent
-		
+
 		div.scroll
 			div.container.gutters-sm-all.main
 				block content
@@ -25,12 +25,12 @@ html(lang="en")
 				div.col-12
 					h3 Debugging:
 					= test
-		
+
 		// hacky way to get JSON objects exposed to the client while also rendering the templated dust.js
 		div#data-sync
 			= data
-		
-		
+
+
 		script(src='js/zepto.js')
 		script(src='js/layout.js')
 		if clientscripts

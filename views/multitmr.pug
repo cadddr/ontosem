@@ -1,0 +1,34 @@
+extends ./layout.pug
+
+block toolbar
+	form
+		input#toggleOptional(value="toggleOptional", type="checkbox", checked)
+		label(for="toggleOptional") Show Optional Attributes
+		input#toggleDebug(value="toggleDebug", type="checkbox", checked)
+		label(for="toggleDebug") Show Debug Attributes
+
+block content
+	each result in results
+		section.sentence.col-12.container.gutters-sm-all(
+			data-sentence-id = result._sentenceId
+		)
+			div.sentence-header
+				span.sentence-id= result._sentenceId + '-' + result._tmrIndex
+				|&#32;
+				each word in result.splitSentence
+					span.sentence-string(data-entity-color=word._color)= word._token
+					|&#32;
+				span.sentence-minimize Hide
+			div.sentence-body.container.gutters-lg-all
+				each frame in result.frames
+					table.tmr.col-4
+						thead.frame-header(data-entity-color=frame._color)
+							tr
+								td(colspan=2)
+									span.key= frame._key
+						tbody
+							each attrType in Object.keys(frame.attributes)
+								each attr in frame.attributes[attrType]
+									tr.kv-pair(class=attrType)
+										td.key= attr._key
+										td.val(data-entity-color=attr._color)= attr._val

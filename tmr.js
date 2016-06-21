@@ -5,6 +5,15 @@ var log = utils.richLogging;
 var relations = new Set(Object.keys(utils.inverseMap));
 var debugKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept", "word-ky"]);
 
+function sortFrames(frames) {
+	var sortedFrames = [];
+	for (var i = frames.length; i >= 0; --i) {
+		for (var child in frames[i].insertAfter)
+			;
+	}
+	return sortedFrames;
+}
+
 function generateColor(colorCounter, colorMax) {
 	// Returns distinct colors by changing hue
 	var h = Math.floor( 360 * colorCounter/colorMax );
@@ -47,9 +56,12 @@ module.exports = {
 
 		for (var entityName in tmr) {
 			var entityData = tmr[entityName];
+			var isEvent = (entityData["is-in-subtree"] == "EVENT");
 			var required = [];
 			var optional = [];
-			var debugging = [];
+			var debug = [];
+			var insertAfter = [];
+
 
 			for (var attrKey in entityData) {
 				var attrVal = entityData[attrKey];
@@ -59,6 +71,8 @@ module.exports = {
 				if (relations.has(attrKey)) {
 					if ( !(typeof attrVal === 'string') && !(attrVal instanceof String))
 						attrVal = attrVal.value;
+					if (isEvent)
+						insertAfter.push(attrVal);
 				}
 
 				var attr = {"_key": attrKey, "_val": insertLinebreaks(attrVal)};
@@ -74,7 +88,7 @@ module.exports = {
 				if (utils.isCapitalized(attrKey))
 					required.push(attr);
 				else if (debugKeys.has(attrKey))
-					debugging.push(attr);
+					debug.push(attr);
 				else
 					optional.push(attr);
 			}
@@ -82,11 +96,16 @@ module.exports = {
 			frames.push({
 				"_key": entityName,
 				"_color": color[entityName],
-				"required": required,
-				"optional": optional,
-				"debugging": debugging
+				"attributes": {
+					"required": required,
+					"optional": optional,
+					"debug": debug
+				},
+				"insertAfter": insertAfter
 			});
 		}
+
+		// Sort the frames such that events come first
 
 		// Return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.

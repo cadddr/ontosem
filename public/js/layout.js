@@ -1,7 +1,3 @@
-
-
-
-
 var form = $($("form")[0]);
 
 $("#submit-tmr").on("click", function(e){
