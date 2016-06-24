@@ -28,7 +28,7 @@ block content
 									span.key= frame._key
 						tbody
 							each attrType in Object.keys(frame.attributes)
-								each attr in frame.attributes[attrType]
+								each attr, attrKey in frame.attributes[attrType]
 									tr.kv-pair(class=attrType)
-										td.key= attr._key
+										td.key= attrKey
 										td.val(data-entity-color=attr._color)= attr._val

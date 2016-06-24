@@ -29,11 +29,17 @@ function sortFrames(frames) {
 	var modality = [];
 	var events = [];
 	for (var i = frames.length-1; i >= 0; --i) {
-		if (!(frames[i].attributes.debug.hasOwnProperty("is-in-subtree")))
+		if (frames[i].attributes.debug.hasOwnProperty("is-in-subtree")) {
+			if (frames[i].attributes.debug["is-in-subtree"]._val == "EVENT")
+				events.push(frames.splice(i, 1)[0]);
+		}
+		else
 			modality.push(frames.splice(i, 1)[0]);
-		else if (frames[i].attributes.debug["is-in-subtree"] == "EVENT")
-			events.push(frames.splice(i, 1)[0]);
 	}
+	console.log(modality);
+	console.log(events);
+	console.log(frames);
+
 	var sortedFrames = modality.concat(events, frames);
 	return sortedFrames;
 }
@@ -80,10 +86,10 @@ module.exports = {
 		for (var entityName in tmr) {
 			var entityData = tmr[entityName];
 			var isObject = (entityData["is-in-subtree"] == "OBJECT");
-			var required = [];
-			var optional = [];
-			var debug = [];
-			var insertAfter = [];
+			var required = {};
+			var optional = {};
+			var debug = {};
+			//var insertAfter = [];
 
 
 			for (var attrKey in entityData) {
@@ -98,7 +104,7 @@ module.exports = {
 					//	insertAfter.push(attrVal);
 				}
 
-				var attr = {"_key": attrKey, "_val": insertLinebreaks(attrVal)};
+				var attr = {"_val": insertLinebreaks(attrVal)};
 
 				// associate token with entity color
 				if (attrKey == "sent-word-ind")
@@ -108,11 +114,11 @@ module.exports = {
 
 				// push entries into appropriate array, based on capitalization/debug
 				if (utils.isCapitalized(attrKey))
-					required.push(attr);
+					required[attrKey] = attr;
 				else if (debugKeys.has(attrKey))
-					debug.push(attr);
+					debug[attrKey] = attr;
 				else
-					optional.push(attr);
+					optional[attrKey] = attr;
 			}
 
 			frames.push({
