@@ -9,15 +9,15 @@ block toolbar
 
 block content
 	each result in results
-		section.sentence.col-12.container.gutters-sm-all(
-			data-sentence-id = result._sentenceId
-		)
+		section.sentence.col-12.container.gutters-sm-all(data-sentence-id=result._sentenceId)
 			div.sentence-header
 				span.sentence-id= result._sentenceId + '-' + result._tmrIndex
 				|&#32;
-				each word in result.splitSentence
-					span.sentence-string(data-entity-color=word._color)= word._token
-					|&#32;
+				each sentence in result.sentences
+					each word in sentence.words
+						span.sentence-string(data-entity-color=word._color)= word._token
+						| #{word._spacing}
+					| #{sentence._punct}
 				span.sentence-minimize Hide
 			div.sentence-body.container.gutters-lg-all
 				each frame in result.frames
