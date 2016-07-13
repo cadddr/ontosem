@@ -20,8 +20,8 @@ function dissectSentences(sentence) {
 		sentences.push({"words": words, "_punct": outerResult[2]});
 	}
 
-	log.attn(sentence);
-	console.log(sentences);
+	//log.attn(sentence);
+	//console.log(sentences);
 	return sentences;
 }
 
@@ -36,9 +36,9 @@ function sortFrames(frames) {
 		else
 			modality.push(frames.splice(i, 1)[0]);
 	}
-	console.log(modality);
-	console.log(events);
-	console.log(frames);
+	//console.log(modality);
+	//console.log(events);
+	//console.log(frames);
 
 	var sortedFrames = modality.concat(events, frames);
 	return sortedFrames;
@@ -136,7 +136,7 @@ module.exports = {
 
 		// Sort the frames such that events come first
 		frames = sortFrames(frames);
-		console.log(frames);
+		//console.log(frames);
 		// Return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.
 		return {

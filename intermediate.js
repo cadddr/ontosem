@@ -585,7 +585,7 @@ function parseLog (lines, startLine) {
 		//pretty(TMRList[0])
 		
 		return {
-			'data': {'TMRList': [TMRList[0]]},
+			'data': {'TMRList': TMRList},
 			'lastLine': -1
 		}
 	} else {
