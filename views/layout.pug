@@ -5,6 +5,9 @@ html(lang="en")
 	head
 		title #{pageTitle}
 		link(rel='stylesheet', href='css/main.css')
+		if clientStyles
+			each styleName in clientStyles
+				link(rel='stylesheet', href='css/' + styleName)
 
 	body(class=pageTitle)
 		header.container.gutters-sm-all

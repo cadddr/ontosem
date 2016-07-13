@@ -65,19 +65,21 @@ module.exports = {
 
 		for (var index in formattedData) {
 			var entry = formattedData[index].TMRList;
-
 			for (var stepIndex in entry) {
 				var sentenceId = entry[stepIndex]["sent-num"];
 				var sentence = entry[stepIndex].sentence;
 
 				for (var tmrIndex in entry[stepIndex].results) {
-					var formattedResult = tmrFormatter({
-						"sentenceId": sentenceId,
-						"sentence": sentence,
-						"tmrIndex": tmrIndex,
-						"tmr": entry[stepIndex].results[tmrIndex].TMR
-					});
-					results.push(formattedResult);
+					var TMR = entry[stepIndex].results[tmrIndex].TMR
+					if (TMR) {
+						var formattedResult = tmrFormatter({
+							"sentenceId": sentenceId,
+							"sentence": sentence,
+							"tmrIndex": tmrIndex,
+							"tmr": TMR
+						});
+						results.push(formattedResult);
+					}
 				}
 			}
 		}
@@ -93,21 +95,18 @@ module.exports = {
 	},
 	intermediate: function(req, res) {
 		log.info("Serving INTERMEDIATE")
-		//try {
-			var raw = utils.readInputFile()
-			if (req.body.inputData.length > 0)
-				raw = req.body.inputData.replace(/\\n/g, '')
-	//		log.info(raw)
-			var results = intermediateFormatter(raw)
-			log.info(results)
-			res.render("intermediate", {
-				pageTitle: 'page-intermediate',
-				parseResults: results,
-				data: JSON.stringify(results),
-				clientscripts: ['intermediateclient.js']
-			})
-/*		} catch (e) {
-			console.log(e)
-		}*/
+		
+		var raw = utils.readInputFile()
+		if (req.body.inputData.length > 0)
+			raw = req.body.inputData.replace(/\\n/g, '')
+		var results = intermediateFormatter(raw)
+		
+		res.render("intermediate", {
+			pageTitle: 'page-intermediate',
+			parseResults: results,
+			data: JSON.stringify(results),
+			clientscripts: ['intermediateclient.js', 'client.js', 'prism.js'],
+			clientStyles: ['prism.css']
+		})
 	}
 };

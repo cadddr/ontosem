@@ -4,171 +4,318 @@ $rowColor: #ddd;
 
 .page-intermediate {
 	line-height: normal;
-	
+	text-align: center;
+	background-color: #eee;
+
 	* {
 		max-width: none;
 	}
 	
-	table {
-		border-collapse: collapse;
-		background-color: white;
-		
-		thead {
-			background-color: #bbb;
-			text-align: center;
+	header {
+		transform: translateX(-650px)translateZ(0);
+		backface-visibility: hidden;
+		border: 1px solid lightgrey;
+		max-width: 1300px;
+		padding-top: 0px;
+
+		div.col-1 {
+			padding-top: 18px !important;
 		}
-		
-		tbody {
-			tr {
-				background-color: #eee;
-				
-				td {
-					
-				}
-			}
+		div.col-7 {
+			padding-top: 5px !important;
 		}
 	}
-	
-	table.dependencies {
-		tbody td {
-			padding: 4px;
-			
-			&.depType {
-				text-align: right;
-			}
-			&.depIndex {
-				text-align: right;
-				padding-left: 15px;
-			}
-			&.depToken {
-				text-align: left;
-			}
-		}
-	}
-	
-	table.word-parse {
-		border-collapse: collapse;
-		background-color: white;
-		/*width: 100%;*/
-		margin-top: 10px;
 		
-		thead {
-			td {
-				padding: 0px;
-			}
-		}
-		tbody {
-			tr {
-				background-color: #ccc;
-				
-				&.properties-row {
-					font-weight: bold;
-				}
-
-				&:first-child {
-					background-color: #ccc;
-				}
-				&.eventRow:hover {
-					background-color: #ffcccc;
-				}
-	/*
-				&.eventRow:nth-child(odd) {
-					background-color: #ddd;
-				}
-
-				&.eventRow:nth-child(even) {
-					background-color: #fff;
-				}
-	*/
-				
-				td {
-					font-size: 13px;
-					padding: 2px;
-					background-color: #eee;
-						
-					&.match {
-						background-color: $successColor;
-					}
-					&.skip {
-						background-color: $failColor;
-					}
-					&.dummyCell {
-						background-color: #eee;
-					}
-					&.reasonCell {
-						/*width: 900px;*/
-						ul {
-							font-family: monospace;
-							margin: 0px;
-						}
-					}
-					
-					&.senseCell {
-						width: 160px;
-						text-align: center;
-					}
-					&.resultCell {
-						/*width: 900px;*/
-						ul {
-							font-family: monospace;
-							margin: 0px;
-							padding-left: 0px;
-							list-style-type: none;
-						}
-					}
-					div.matches {
-						text-align: center;
-					}
-	/*				span.failure {
-						opacity: 0.4;
-					}*/
-				}
-			}
-		}
-		
-		span.pair {
-			border: 1px solid black;
-			padding: 1px;
-			padding-top: 3px;
-			padding-bottom: 4px;
-			background-color: grey;
-			white-space: pre;
-			line-height: 26px;
-		}
-		span.word {
-			line-height: 18px;
-		}
-		span.nullified {
-			opacity: 0.3;
-		}
-
-		.word-header {
-			text-align: center;
-			font-weight: bold;
-			background-color: #bbb;
-			cursor: pointer;
-
-			&:hover {
-				background-color: #aaa;
-			}
-		}
+	div.col-12 {
+		text-align: center;
 	}
 
-	span.highlightable {
+
+	div.parseContainer {
+		text-align: center;
+		margin-bottom: 30px;
+		padding: 4px;
+		padding-bottom: 20px;
 		display: inline-block;
-		padding: 0px 1px 0px 1px;
-		border: 0.5px solid black;
-		/*-webkit-box-sizing: border-box;
-		height: 20px;*/
-	}
+		border: 1px solid lightgrey;
+		min-width: 1300px;
+		background-color: #fff;
 
-	span.highlighted {
-		border: 1px solid red !important;
-		/*font-weight: bold;*/
+		&.collapsed {
+			padding-bottom: 4px;
+			
+			div#sentence {
+				margin-bottom: 0px;
+				padding-bottom: 0px;
+			}
+
+			div.rawContainer, div.guiContainer {
+				display: none;
+				height: 0px !important;
+				overflow-y: hidden;
+			}
+		}
+
+		div#sentence {
+			margin-bottom: 10px;
+			padding-bottom: 4px;
+			position: relative;
+
+			span.sentenceText {
+				font-size: 30px;
+				
+				span {
+					line-height: 30px;
+				}
+			}
+		}
 		
-	}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+			border-collapse: collapse;
+			background-color: white;
+			
+			thead {
+				background-color: #bbb;
+				text-align: center;
+			}
+			
+			tbody {
+				tr {
+					background-color: #eee;
+				}
+			}
+		}
+		
+		div.rawContainer {
+			border: 1px solid grey;
+			margin-bottom: 20px;
+			font-size: 0;
+			background-color: #f5f2f0;
+			display: inline-block;
+			text-align: left;
+			
+			&.hidden {
+				display: none;
+			}
 
-	.closed {
-		display: none !important;
+			pre.rawParse {
+				display: inline-block;
+				white-space: pre-wrap;
+				padding-top: 0px;
+				padding-bottom: 0px;
+				margin: 0px;
+
+				span.number {
+					color: red;
+				}
+				span.function {
+					color: green;
+				}
+				span.punctuation {
+					color: blue;
+				}
+				span.operator {
+					color: black;
+					background-color: #dfdfdf;
+				}
+
+				code.rawTMR {
+					display: inline-block;
+					background-color: white;
+					padding-right: 10px;
+					border: 1px solid lightgrey;
+					
+					* {
+						background-color: white;
+					}
+					span.punctuation {
+						color: black;
+					}
+				}
+			}
+		}
+		div.guiContainer {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 10px;
+			
+			
+			&.hidden {
+				display: none;
+			}
+
+			table.dependencies {
+				thead td {
+					border: 1px solid black;
+				}
+				
+				tbody {
+					tr {
+						&.replaced {
+							opacity: 0.5;
+						}
+						&.noEvents {
+							background-color: lightgrey;
+						}
+
+						td {
+							border: 1px solid black;
+							padding: 4px;
+							
+							&.depType {
+								text-align: right;
+							}
+							&.depIndex {
+								text-align: right;
+								padding-left: 15px;
+							}
+							&.depToken {
+								text-align: left;
+							}
+						}
+					}
+				}
+			}
+
+			table.word-parse {
+				border-collapse: collapse;
+				background-color: white;
+				margin-top: 10px;
+				
+				&.closed tbody {
+					display: block;
+					height: 1px;
+					overflow: hidden;
+				}
+
+				thead {
+					td {
+						border: 1px solid black;
+						padding: 2px;
+					}
+				}
+				tbody {
+					tr {
+						background-color: #ccc;
+						
+						&.properties-row {
+							font-weight: bold;
+						}
+
+						&:first-child {
+							background-color: #ccc;
+						}
+						&.eventRow:hover {
+							background-color: #ffcccc;
+						}
+						
+						th {
+							border: 1px solid black;
+							padding-left: 10px;
+							padding-right: 10px;
+						}
+						
+						td {
+							font-size: 13px;
+							padding: 2px;
+							background-color: #eee;
+							border: 1px solid black;
+								
+							&.match {
+								background-color: $successColor;
+							}
+							&.skip {
+								background-color: $failColor;
+							}
+							&.dummyCell {
+								background-color: #eee;
+							}
+							&.reasonCell {
+								ul {
+									font-family: monospace;
+									margin: 0px;
+								}
+							}
+							
+							&.senseCell {
+								width: 160px;
+								text-align: center;
+							}
+							&.resultCell {
+								max-width: 600px;
+
+								ul {
+									font-family: monospace;
+									margin: 0px;
+									padding-left: 0px;
+									list-style-type: none;
+								}
+							}
+							div.matches {
+								text-align: center;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	span.button {
+		position: absolute;
+		font-size: 14px;
+		text-transform: uppercase;
+		text-align: right;
+		font-weight: bold;
+		opacity: 0.8;
+		padding: 10px;
+		background-color: white;
+		transition: background-color 150ms;
+		border-radius: 3px;
+		cursor: pointer;
+		right: 0px;
+		
+		&.sentenceShowRaw {
+			right: 60px;
+		}
+		&:hover {
+			background-color: #FFDDBB;
+		}
+	}
+	
+	span.pair {
+		border: 1px solid black;
+		padding: 1px;
+		padding-top: 3px;
+		padding-bottom: 4px;
+		background-color: grey;
+		white-space: pre;
+		line-height: 26px;
+	}
+	span.word {
+		display: inline-block;
+		padding: 2px 5px;
+		border-radius: 3px;
+		line-height: 18px;
+	}
+	span.nullified {
+		opacity: 0.3;
+	}
+	
+	.word-header {
+		text-align: center;
+		font-weight: bold;
+		background-color: #bbb;
+		cursor: pointer;
+		
+		&:hover {
+			background-color: #aaa;
+		}
+	}
+	.highlighted {
+		background-color: rgba(100, 100, 255, 0.5);
 	}
 }
+
