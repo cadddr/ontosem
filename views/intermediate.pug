@@ -1,7 +1,7 @@
 extends ./layout.pug
 
 block toolbar
-	span#showHideAll.button Hide All
+	span#showHideAll.button(title='Collapses/Uncollapses all parsed sentences') Hide All
 
 
 mixin word(index, sense, word)
@@ -52,16 +52,11 @@ block content
 									td.depToken
 										if dep.words[0].index != -1
 											+word(dep.words[0].index, '0.0', dep.words[0].token)
-											//
 												span.highlightable.word(data-entity-id=dep.words[0].index+':0.0', parent-id=dep.words[0].index+':0.0') #{dep.words[0].token}
 									td.depIndex
 										= dep.words[1].index
 									td.depToken
 										+word(dep.words[1].index, '0.0', dep.words[1].token)
-										//
-											span.highlightable.word(data-entity-id=dep.words[1].index+':0.0', parent-id=dep.words[1].index+':0.0') #{dep.words[1].token}
-					//
-						table.word-parse.open(id='NO_ID')
 					each mapping in results.lexMappings
 						if mapping.state == 'show'
 							- // console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
@@ -73,14 +68,6 @@ block content
 										td(colspan='100')
 											div.word-header.no-select
 												+word(mapping.index, '0.0', mapping.token)
-												//
-													span.highlightable(data-entity-id=mapping.index+':0.0', parent-id=mapping.index+':0.0')
-															= mapping.token
-													if mapping.senses
-														| &nbsp;Senses: #{mapping.senses.length}
-														if mapping.synonyms
-															| , Synonyms: #{mapping.synonyms}
-									
 								tbody
 									- // column headers
 									tr
@@ -93,8 +80,6 @@ block content
 												th.matchesCell(dep='dep_'+dep.words[0].index+'_'+dep.words[1].index) #{dep.type}
 									- // event rows
 									each sense in mapping.senses
-										- // console.log(sense)
-										- // console.log(results.eventMap)
 										- senseEvents = results.eventMap[sense.index][sense.id]
 										- sense.result = ['Successfully matched']
 										- sense.status = 'match'

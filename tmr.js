@@ -12,7 +12,7 @@ function dissectSentences(sentence) {
 	var sentences = [];
 
 	while (outerResult = sentenceRegExp.exec(sentence)) {
-		console.log(outerResult);
+		//console.log(outerResult);
 		var words = [];
 		var innerResult = [];
 		while (innerResult = wordRegExp.exec(outerResult[1]))
@@ -61,7 +61,6 @@ module.exports = {
 	format: function(data) {
 		// Passed a raw JSON TMR, returns a formatted and annotated
 		// JSON object to render the decorated TMR to the browser
-
 		var sentenceId = data.sentenceId;
 		var sentences = dissectSentences(data.sentence);
 		var tmrIndex = data.tmrIndex;
@@ -94,21 +93,25 @@ module.exports = {
 
 			for (var attrKey in entityData) {
 				var attrVal = entityData[attrKey];
+				//log.attn('attrKey = ' + attrKey + ', attrVal = ' + attrVal)
 
 				// Some attribute values come as objects which only contain a single value
 				// Simply check and extract the contained string if attrVal is not a string
 				if (relations.has(attrKey)) {
 					if ( !(typeof attrVal === 'string') && !(attrVal instanceof String))
-						attrVal = attrVal.VALUE;
+						attrVal = (attrVal.VALUE ? attrVal.VALUE : attrVal.value) + '';
 					//if (!isObject)
 					//	insertAfter.push(attrVal);
 				}
-
+				
+				
+				
 				var attr = {"_val": insertLinebreaks(attrVal)};
 
 				// associate token with entity color
 				if (attrKey == "sent-word-ind")
-					sentences[attrVal[0]+sentOffset].words[attrVal[1]]._color = color[entityName];
+					sentences[0].words[attrVal[1]]._color = color[entityName];
+					//sentences[attrVal[0]+sentOffset].words[attrVal[1]]._color = color[entityName];
 				else if (entitySet.has(attrVal))
 					attr._color = color[attrVal];
 

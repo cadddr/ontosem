@@ -25,6 +25,8 @@ app.post('/logs', routes.intermediate);
 
 // Index/data upload page
 app.get('/', routes.index);
+app.get('/tmr', routes.index);
+app.get('/logs', routes.index);
 
 
 var PORT = utils.port;
