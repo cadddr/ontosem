@@ -29,7 +29,7 @@ $(document).ready(function () {
 	console.log('reading data');
 	var data = {};
 	var dataContainer = $("#data-sync");
-	if (dataContainer.size() > 0 && $("#data-sync")[0].textContent != "")
+	if (dataContainer.length > 0 && $("#data-sync")[0].textContent != "")
 	  data = JSON.parse($("#data-sync")[0].textContent);
 	console.log(data);
 
@@ -79,12 +79,14 @@ $(document).ready(function () {
 		if ($(this).html() == "Hide All") {
 			$(".parseContainer").removeClass("collapsed")
 			$(this).html("Show All")
+			$('span.sentenceMinimize').html('Hide')
 		} else {
 			$(".parseContainer").addClass("collapsed")
 			$(this).html("Hide All")
+			$('span.sentenceMinimize').html('Show')
 		}
 
-		$('span.sentenceMinimize').forEach(function (o) {
+		$('span.sentenceMinimize').each(function (i, o) {
 			//console.log(o)
 			toggleHide($(o))
 		})

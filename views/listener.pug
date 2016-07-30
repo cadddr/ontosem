@@ -1,0 +1,8 @@
+extends ./layout.pug
+
+block content
+	div.col-2
+	div.col-8
+		form.hidden(id='submitTMR', action='tmr', method='post')
+			input(type='text', name='inputData', value='external')
+		div Waiting for data to be sent to the server...

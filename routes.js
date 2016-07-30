@@ -1,8 +1,10 @@
 var request = require('request');
 var utils = require('./utils.js');
+var pug = require('pug');
 var log = utils.richLogging;
 var tmrFormatter = require('./tmr.js').format;
 var intermediateFormatter = require('./intermediate.js').format;
+var lastResults = null;
 
 var isEvent = function(word) {
 	if(word["is-in-subtree"] != undefined
@@ -56,8 +58,12 @@ module.exports = {
 		log.info("Received SENTENCE");
 
 		var inputData = req.body.inputData;
-		if (inputData == "")
+		if (inputData == "") {
 			inputData = utils.readInputFile();
+		} else if (inputData == 'external') {
+			inputData = lastResults
+			lastResults = null
+		}
 
 		var formattedData = intermediateFormatter(inputData);
 
@@ -108,5 +114,27 @@ module.exports = {
 			clientscripts: ['intermediateclient.js', 'client.js', 'prism.js'],
 			clientStyles: ['prism.css']
 		})
+	},
+	listen: function(req, res) {
+		log.info("Serving listener page")
+		var hostURL = req.headers.host
+		console.log(req.headers.host)
+		
+		res.render("listener", {
+			pageTitle: 'Waiting for data',
+			data: hostURL,
+			clientscripts: ['waiting.js', 'client.js']
+		})
+	},
+	getResults: function(req, res) {
+		if (lastResults)
+			res.send('TMR')
+		else
+			res.send('none')
+	},
+	tmrData: function(req, res) {
+		log.info("Receiving results from analyzer")
+		lastResults = req.body.inputData;
+		res.send('success')
 	}
 };

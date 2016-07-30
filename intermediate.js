@@ -57,7 +57,7 @@ var regex = {
 	'convertNonStringKeys': /(\[[^\[^\]]*\])(\s*:)/g,
 	'convertNonStringKeysSub': '"$1"$2',
 	'tokenizeSentence': /\b([a-zA-Z0-9\-]+)\b/g,
-	'tmrLastLine': /.*[\]\}]\s*[\n\r]*/,
+	'tmrLastLine': /.*[\]\}]\s*$/,
 	
 	'unknownElement': /^\s*(\S+) has Unknown element "([^"]*)".Skipping it\./,
 	'wordSenseSelected': /^\s*Word (\S+) , index= ([0-9]*) has been used with sense= (\S+)/,
@@ -147,8 +147,9 @@ function parseLog (lines, startLine) {
 			state.parsingTmr = true
 			var line = lines.rawLines[i]
 			state.tmrContents += line + '\n'
-			state.TMRStartLine = lines[i]
+			//console.log('LINE = ' +line)
 			if (line.match(regex.tmrLastLine)) {
+				state.TMRStartLine = lines[i]
 				parseTMRContents(state, TMRList, '')
 				state.tmrContents = ''
 			}
