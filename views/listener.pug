@@ -1,5 +1,12 @@
 extends ./layout.pug
 
+block toolbar
+	form
+		input#toggleOptional(value="toggleOptional", type="checkbox", checked)
+		label(for="toggleOptional") Show Optional Attributes
+		input#toggleDebug(value="toggleDebug", type="checkbox", checked)
+		label(for="toggleDebug") Show Debug Attributes
+
 block content
 	div.col-2
 	div.col-8

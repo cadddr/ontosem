@@ -3,25 +3,33 @@ $(document).ready(function () {
 	listenForChanges()
 });
 
+// checks for results from the server every 500 ms
 function listenForChanges () {
 	checkForResults()
-	window.setTimeout(listenForChanges, 1000)
+	window.setTimeout(listenForChanges, 500)
 }
 
+// communicates with the server to determine if there are new results to render
 function checkForResults () {
-	console.log('checkForResults()');
 	$.ajax('/getResults').done(function (response) {
-		console.log(response)
-		//var result = response
 		if (response == 'none') {
-			console.log('no results yet')
+			// nothing
 		} else if (response == 'TMR') {
-			console.log('we got the results')
+			// render this TMR
 			viewTMRs()
 		}
 	})
 }
 
+// gets the rendered TMR from the server and appends it to the page
 function viewTMRs () {
-	$('#submitTMR').submit()
+	$.ajax({
+		url:'/subtmr',
+		method:'POST',
+		data:{inputData:'external'}
+	}).done(function (response) {
+		$('div.container.main').html(response.tmrHTML)
+		$('div#data-sync').html(response.data)
+		addTMRBindings()
+	})
 }

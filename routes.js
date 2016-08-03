@@ -2,9 +2,10 @@ var request = require('request');
 var utils = require('./utils.js');
 var pug = require('pug');
 var log = utils.richLogging;
-var tmrFormatter = require('./tmr.js').format;
+var tmrFormatter = require('./tmr.js');
 var intermediateFormatter = require('./intermediate.js').format;
 var lastResults = null;
+var tmrData = []
 
 var isEvent = function(word) {
 	if(word["is-in-subtree"] != undefined
@@ -56,40 +57,17 @@ module.exports = {
 	tmr: function(req, res) {
 		// Multiple TMR viewer
 		log.info("Received SENTENCE");
-
+		
+		// read the TMR data from the request body or the input file
 		var inputData = req.body.inputData;
-		if (inputData == "") {
+		if (inputData == "")
 			inputData = utils.readInputFile();
-		} else if (inputData == 'external') {
-			inputData = lastResults
-			lastResults = null
-		}
-
+		
+		// parse and format the TMR data
 		var formattedData = intermediateFormatter(inputData);
+		var results = tmrFormatter.formatTMRList(formattedData);
 
-		var results = [];
-
-		for (var index in formattedData) {
-			var entry = formattedData[index].TMRList;
-			for (var stepIndex in entry) {
-				var sentenceId = entry[stepIndex]["sent-num"];
-				var sentence = entry[stepIndex].sentence;
-
-				for (var tmrIndex in entry[stepIndex].results) {
-					var TMR = entry[stepIndex].results[tmrIndex].TMR
-					if (TMR) {
-						var formattedResult = tmrFormatter({
-							"sentenceId": sentenceId,
-							"sentence": sentence,
-							"tmrIndex": tmrIndex,
-							"tmr": TMR
-						});
-						results.push(formattedResult);
-					}
-				}
-			}
-		}
-
+		// otherwise, render the multiTMR file normally
 		res.render("multitmr", {
 			pageTitle: 'page-tmr',
 			debugging: false,
@@ -97,6 +75,21 @@ module.exports = {
 			data: JSON.stringify(results),
 			clientscripts: ['client.js'],
 			debugStuff: formattedData
+		});
+	},
+	subtmr: function(req, res) {
+		// read the TMR data from the oldest TMR that has been sent from the analyzer
+		var inputData = tmrData.shift();
+		
+		// parse and format the TMR data
+		var formattedData = intermediateFormatter(inputData);
+		var results = tmrFormatter.formatTMRList(formattedData);
+			
+		// this request is being made by the listener page so render the subTMR file
+		var tmrHTML = pug.renderFile('views/subtmr.pug', {results:results});
+		res.send({
+			tmrHTML: tmrHTML,
+			data: JSON.stringify(results)
 		});
 	},
 	intermediate: function(req, res) {
@@ -118,23 +111,22 @@ module.exports = {
 	listen: function(req, res) {
 		log.info("Serving listener page")
 		var hostURL = req.headers.host
-		console.log(req.headers.host)
 		
 		res.render("listener", {
-			pageTitle: 'Waiting for data',
+			pageTitle: 'page-tmr',
 			data: hostURL,
 			clientscripts: ['waiting.js', 'client.js']
 		})
 	},
 	getResults: function(req, res) {
-		if (lastResults)
+		if (tmrData.length > 0)
 			res.send('TMR')
 		else
 			res.send('none')
 	},
 	tmrData: function(req, res) {
 		log.info("Receiving results from analyzer")
-		lastResults = req.body.inputData;
+		tmrData.push(req.body.inputData)
 		res.send('success')
 	}
 };

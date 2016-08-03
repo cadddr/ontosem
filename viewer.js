@@ -17,6 +17,7 @@ app.set('view engine', 'pug');
 
 // Endpoint for TMR JSON data
 app.post('/tmr', routes.tmr);
+app.post('/subtmr', routes.subtmr);
 app.post('/tmrData', routes.tmrData);
 
 // Endpoint for intermediate logging analysis

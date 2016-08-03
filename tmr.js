@@ -148,5 +148,29 @@ module.exports = {
 			"_tmrIndex": tmrIndex,
 			"frames": frames
 		};
+	},
+	formatTMRList: function (formattedData) {
+		var results = []
+		for (var index in formattedData) {
+			var entry = formattedData[index].TMRList;
+			for (var stepIndex in entry) {
+				var sentenceId = entry[stepIndex]["sent-num"];
+				var sentence = entry[stepIndex].sentence;
+
+				for (var tmrIndex in entry[stepIndex].results) {
+					var TMR = entry[stepIndex].results[tmrIndex].TMR
+					if (TMR) {
+						var formattedResult = module.exports.format({
+							"sentenceId": sentenceId,
+							"sentence": sentence,
+							"tmrIndex": tmrIndex,
+							"tmr": TMR
+						});
+						results.push(formattedResult);
+					}
+				}
+			}
+		}
+		return results
 	}
 };

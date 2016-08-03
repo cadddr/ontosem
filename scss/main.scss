@@ -3,6 +3,10 @@
 @import "tmr.scss";
 @import "intermediate.scss";
 
+h6#headerTitle a {
+	color: black !important;
+}
+
 form {
 	textarea {
 		width: 100%;
@@ -33,6 +37,10 @@ form {
 		&:hover {
 			background-color: #00C4FF;
 			cursor: pointer;
+		}
+		
+		a {
+			color: white !important;
 		}
 	}
 }

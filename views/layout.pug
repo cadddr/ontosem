@@ -12,10 +12,10 @@ html(lang="en")
 	body(class=pageTitle)
 		header.container.gutters-sm-all
 			div.col-1
-				h6 Ontosem
+				h6#headerTitle
+					a(href='../') Ontosem
 			div.col-4
-			div.col-7
-				block toolbar
+			block toolbar
 
 		div.fixedcontent.container.gutters-sm-all
 			block fixedcontent
@@ -34,7 +34,6 @@ html(lang="en")
 			= data
 
 
-		//script(src='js/zepto.js')
 		script(src='js/jquery.min.js')
 		script(src='js/layout.js')
 		if clientscripts

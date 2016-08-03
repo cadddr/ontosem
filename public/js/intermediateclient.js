@@ -1,8 +1,6 @@
 //var colorList = ['#CCFFCC', '#CCDDFF', '#CCAAFF', '#FFEEEE', '#FFAA66', '#00FF00', '#AAAAAA'];
 
 // global constants
-//console.log('global');
-//const colorList = ['#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#bcbd22', '#e377c2', '#17becf', '#9467bd', '#17becf', '#8c564b'];
 const colorList = ['#aec7e8', '#ff7f0e', '#2ca02c', '#d62728', '#bcbd22', '#e377c2', '#17becf', '#9467bd', '#17becf', '#8c564b'];
 const regex = {
 	'parseSentence': /Intermediate results for: \"(.*)\"/,
@@ -10,7 +8,6 @@ const regex = {
 };
 
 // global variables used to track state
-//var highlighted = [];
 var highlighted = null
 
 function generateColor(colorCounter, colorMax) {
@@ -23,7 +20,6 @@ function generateColor(colorCounter, colorMax) {
 
 // set up the page once the DOM has loaded
 $(document).ready(function () {
-	//console.log('aaaaaaaaaaaaaaaaaa');
 
 	// read data passed from the server
 	console.log('reading data');
@@ -69,12 +65,12 @@ $(document).ready(function () {
 		}
 		
 //		console.log('binding listeners');
-		//bindRowHighlights(parseContainer)
 		bindHighlightListeners(parseContainer)
 		bindHideListeners(parseContainer)
 //		console.log('done');
 	}
-
+	
+	// bind the hide/show all button listener
 	$('#showHideAll').click(function () {
 		if ($(this).html() == "Hide All") {
 			$(".parseContainer").removeClass("collapsed")
@@ -85,15 +81,14 @@ $(document).ready(function () {
 			$(this).html("Hide All")
 			$('span.sentenceMinimize').html('Show')
 		}
-
+		
 		$('span.sentenceMinimize').each(function (i, o) {
-			//console.log(o)
 			toggleHide($(o))
 		})
 	})
-	//resetScrollHeight(parseContainer)
 });
 
+// binds all the listeners for the lex entry highlighting on hover
 function bindHighlightListeners (parseContainer) {
 	var depElements = parseContainer.find('[dep]')
 	depElements
@@ -109,6 +104,7 @@ function bindHighlightListeners (parseContainer) {
 		})
 }
 
+// binds the listeners for all the hide/show buttons
 function bindHideListeners (parseContainer) {
 	var heads = parseContainer.find('table.word-parse thead')
 	var hideButtons = parseContainer.find("span.sentenceMinimize")
@@ -120,12 +116,10 @@ function bindHideListeners (parseContainer) {
 	})
 
 	hideButtons.click(function () {
-		console.log(this)
 		toggleHide($(this))
 	})
 	
 	modeButtons.click(function () {
-		console.log(this)
 		var guiContainer = $(this).closest(".parseContainer").find('.guiContainer')
 		var rawContainer = $(this).closest(".parseContainer").find('.rawContainer')
 		if ($(this).html() == "Show Raw") {
@@ -140,6 +134,7 @@ function bindHideListeners (parseContainer) {
 	})
 }
 
+// toggles a button between the hide and show states
 function toggleHide (button) {
 	button.closest(".parseContainer").toggleClass("collapsed")
 	if (button.html() == "Hide")
