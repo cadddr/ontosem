@@ -10,4 +10,6 @@ block content
 		form#input(action='/tmr', method='post')
 			textarea#sentence-input-textarea(placeholder='Paste a TMR set or intermediate logs', name='inputData')
 			button#submit-tmr(type='submit') TMR
-			button#submit-logs(type='submit') Logs
+			button#submit-logs(type='submit') Intermediate Results
+			button#listenButton(type='button') 
+				a(href='../listen') Listen for analyzer output

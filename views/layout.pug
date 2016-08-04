@@ -5,11 +5,15 @@ html(lang="en")
 	head
 		title #{pageTitle}
 		link(rel='stylesheet', href='css/main.css')
+		if clientStyles
+			each styleName in clientStyles
+				link(rel='stylesheet', href='css/' + styleName)
 
 	body(class=pageTitle)
 		header.container.gutters-sm-all
 			div.col-1
-				h6 Ontosem
+				h6#headerTitle
+					a(href='../') Ontosem
 			block toolbar
 
 		div.fixedcontent.container.gutters-sm-all
@@ -29,7 +33,7 @@ html(lang="en")
 			div#data-sync= data
 
 
-		script(src='js/zepto.js')
+		script(src='js/jquery.min.js')
 		script(src='js/layout.js')
 		if clientscripts
 			each scriptName in clientscripts
