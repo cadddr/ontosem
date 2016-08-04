@@ -29,6 +29,9 @@
 			.sentence-string {
 				padding: 3px;
 				border-radius: 3px;
+				&.multi-color {
+					padding-right: 0px;
+				}
 			}
 		}
 
@@ -131,8 +134,9 @@
 		&.centered {
 			background-color: #ffffff;
 			position: fixed;
+			top: 50%;
 			left: 50%;
-			transform: translate(-50%, 0);
+			transform: translate(-50%, calc(-50% + 25px));
 		}
 		&:not(.centered) {
 			background-color: #dfdfdf;

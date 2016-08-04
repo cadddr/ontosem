@@ -11,6 +11,6 @@ mixin lex-kv(lex, depth)
 				+lex-kv(val, depth+1)
 
 //- base case for lex entry, inserted at the depth of the attribute value which calls it
-ul.lex-container.hide(class=attr._val)
+ul.lex-container.centered.hide(class=attr._val)
 	span.close-button X
 	+lex-kv(attr._lex, 0)
