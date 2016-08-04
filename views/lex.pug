@@ -1,0 +1,16 @@
+//- recursively called mixin to render margins correctly
+mixin lex-kv(lex, depth)
+	each val, prop in lex
+			if typeof val != 'object'
+				if val != 'NIL'
+					li(style='margin-left:'+depth+'em') <b>#{prop}</b>: #{val}
+			else if Array.isArray(val)
+				li(style='margin-left:'+depth+'em') <b>#{prop}</b>: #{val.join(", ")}
+			else
+				li(style='margin-left:'+depth+'em') <b>#{prop}</b>
+				+lex-kv(val, depth+1)
+
+//- base case for lex entry, inserted at the depth of the attribute value which calls it
+ul.lex-container.hide(class=attr._val)
+	span.close-button X
+	+lex-kv(attr._lex, 0)

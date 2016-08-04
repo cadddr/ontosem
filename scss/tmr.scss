@@ -1,107 +1,172 @@
 .page-tmr {
 
-  section.sentence {
-    background-color: white;
-    margin: 10px 0px;
+	section.sentence {
+		background-color: white;
+		margin: 10px 0px;
 
-    &.collapsed {
-      margin-bottom: -10px;
+		&.collapsed {
+			margin-bottom: -10px;
 
-      .sentence-body {
-        display: none;
-      }
-    }
+			.sentence-body {
+				display: none;
+			}
+		}
 
-    [data-entity-color] {
-      cursor: pointer;
-    }
+		[data-entity-color], .multi-color {
+			cursor: pointer;
+			transition: background-color 150ms;
+		}
 
-    .sentence-header {
-      font-size: 24px;
-      margin: 10px;
-      margin-bottom: 15px;
-      width: calc(100% - 100px);
+		.sentence-header {
+			font-size: 24px;
+			margin: 10px;
+			width: calc(100% - 100px);
 
-      .sentence-id {
-        opacity: 0.2;
-      }
+			.sentence-id {
+				opacity: 0.2;
+			}
 
-      .sentence-string {
-        border: 3px solid transparent;
-        border-radius: 3px;
-      }
-    }
+			.sentence-string {
+				padding: 3px;
+				border-radius: 3px;
+			}
+		}
 
-    .sentence-minimize {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 14px;
-      text-transform: uppercase;
-      text-align: right;
-      font-weight: bold;
-      opacity: 0.8;
-      padding: 10px;
-      background-color: white;
-      transition: background-color 150ms;
-      border-radius: 3px;
-      cursor: pointer;
+		.sentence-body {
 
-      &:hover {
-        background-color: #FFDDBB;
-      }
+			.tmr {
+				padding: 2px;
+				table-layout: fixed;
+				border-collapse: separate;
+				margin-bottom: 10px;
+				margin-top: 0px;
 
-    }
+				&:first-child, &:nth-child(4){
+					border: none;
+				}
 
-    .sentence-body {
+				tbody {
+					font-size: 16px;
+				}
 
-      .tmr {
-        padding: 2px;
-        table-layout: fixed;
-        border-collapse: separate;
-        margin-bottom: 10px;
-        margin-top: 0px;
+				td {
+					border-radius: 3px;
+					transition: box-shadow 100ms, background-color 100ms;
+					vertical-align: top;
+				}
+			}
 
-        &:first-child, &:nth-child(4){
-          border: none;
-        }
+			.frame-header {
+				td {
+					font-weight: bold;
+					padding: 15px;
+				}
+			}
+			.kv-pair {
+				td {
+					padding: 2px 15px;
+				}
 
-        td {
-          border-radius: 3px;
-          transition: box-shadow 100ms, background-color 100ms;
-          vertical-align: top;
-        }
-      }
+				&.required {
+					color: #000;
+				}
+				&.optional {
+					color: #777777;
+				}
+				&.auxiliary {
+					font-style: italic;
+					color: #777777;
+				}
 
-      .frame-header {
-        td {
-          font-weight: bold;
-          padding: 15px;
-        }
-      }
-      .kv-pair {
-        td {
-          padding: 5px 15px;
-        }
-        .key {
-          padding-left: 45px;
-        }
+				.key {
+					padding-left: 45px;
+				}
+			}
+		}
+	}
 
-        &.required {
-          color: #000;
-        }
-        &.optional {
-          color: #777777;
-        }
-        &.debug {
-          font-style: italic;
-          color: #777777;
-        }
+	form {
+		line-height: 30px;
+		width: calc(100% - 190px);
+		input {
+			margin-left: 10px;
+		}
+	}
 
-        &.hide {
-          display: none;
-        }
-      }
-    }
-  }
+	.sentence-minimize {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 14px;
+		width: 75px;
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: bold;
+		opacity: 0.8;
+		padding: 8px;
+		background-color: white;
+		transition: background-color 150ms;
+		border-radius: 3px;
+		cursor: pointer;
+
+		&#minimize-all {
+			top: 6px;
+			width: 90px;
+		}
+
+		&:hover {
+			background-color: #FFDDBB;
+		}
+	}
+
+	ul.lex-container {
+		width: 500px;
+		z-index: 2;
+		padding: 15px;
+		border-radius: 10px;
+		margin: 0px;
+		list-style: none;
+		cursor: auto;
+
+		&.centered {
+			background-color: #ffffff;
+			position: fixed;
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+		&:not(.centered) {
+			background-color: #dfdfdf;
+			position: absolute;
+		}
+
+		& > span.close-button {
+			position: absolute;
+			padding: 5px 8px;
+			top: 0px;
+			right: 0px;
+			color: #aaa;
+			cursor: pointer;
+		}
+	}
+
+	td.lex {
+		cursor: pointer;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	#bg-dim {
+		z-index: 1;
+		position: fixed;
+		padding: 0px;
+		margin: 0px;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5);
+	}
+
 }

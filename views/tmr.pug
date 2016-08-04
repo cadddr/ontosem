@@ -1,0 +1,40 @@
+//- sentence header with proper color tags
+mixin header(result)
+	div.sentence-header
+		span.sentence-id= result._sentenceId + '-' + result._tmrIndex
+		|&#32;
+		each sentence in result.sentences
+			each word in sentence.words
+				-
+					var colorAttr = {};
+					if (word.colors.length == 1) colorAttr["data-entity-color"] = word.colors[0];
+					else if (word.colors.length > 1) colorAttr["class"] = "multi-color";
+				span.sentence-string&attributes(colorAttr)= word._token
+					if word.colors.length > 1
+						each color in word.colors
+							span.sentence-string.asterisk(data-entity-color=color) *
+				| #{word._spacing}
+			| #{sentence._punct}
+		span.sentence-minimize Hide
+
+//- framed content below header for each entity
+mixin entity(frame)
+	table.tmr.col-4
+		thead.frame-header(data-entity-color=frame._color)
+			tr: td(colspan=2): span.key= frame._key
+		tbody
+			each attrType in Object.keys(frame.attributes)
+				each attr, attrKey in frame.attributes[attrType]
+					tr.kv-pair(class=attrType)
+						td.key= attrKey
+						if attr._lex
+							td.val.lex(data-entity-color=attr._color)= attr._val
+								include ./lex.pug
+						else
+							td.val(data-entity-color=attr._color)= attr._val
+
+section.sentence.col-12.container.gutters-sm-all(data-sentence-id=result._sentenceId)
+	+header(result)
+	div.sentence-body.container.gutters-lg-all
+		each frame in result.frames
+			+entity(frame)

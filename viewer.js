@@ -13,9 +13,6 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.set('views', './views');
 app.set('view engine', 'pug');
-//app.engine('dust', adaro.dust({cache: false, helpers: ['dustjs-helpers']}));
-//app.set('view engine', 'dust');
-
 
 // Endpoint for TMR JSON data
 app.post('/tmr', routes.tmr);
@@ -25,7 +22,6 @@ app.post('/logs', routes.intermediate);
 
 // Index/data upload page
 app.get('/', routes.index);
-
 
 var PORT = utils.port;
 app.listen(PORT);
