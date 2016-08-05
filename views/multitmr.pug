@@ -9,8 +9,18 @@ block toolbar
 		label(for="toggleAuxiliary") Show Auxiliary Attributes
 	span#minimize-all.sentence-minimize Hide All
 
-//- main content (TMR views)
+//- render content when received via textbox
 block content
-	each result in results
-		include ./tmr.pug
-	div#bg-dim.hide
+	if via == 'index'
+		each result in results
+			include ./tmr.pug
+		div#bg-dim.hide
+	//- render content waiting on listener
+	else if via == 'listener'
+		div.col-1
+		div.col-8
+			form.hide(id='submitTMR', action='tmr', method='post')
+				input(type='text', name='inputData', value='external')
+			div.listen Waiting for data to be sent to the server...
+	else
+		div Received invalid request

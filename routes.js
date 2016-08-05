@@ -5,7 +5,7 @@ var log = utils.richLogging;
 var tmrFormatter = require('./tmr.js');
 var intermediateFormatter = require('./intermediate.js').format;
 var lastResults = null;
-var tmrData = []
+var tmrData = [];
 
 module.exports = {
 	index: function(req, res) {
@@ -28,10 +28,11 @@ module.exports = {
 		var formattedData = intermediateFormatter(inputData);
 		var results = tmrFormatter.formatTMRList(formattedData);
 
-		// otherwise, render the multiTMR file normally
+		// render the multiTMR file normally
 		res.render("multitmr", {
 			pageTitle: 'page-tmr',
 			debugging: false,
+			via: 'index',
 			results: results,
 			clientscripts: ['client.js']
 		});
@@ -44,21 +45,20 @@ module.exports = {
 		var formattedData = intermediateFormatter(inputData);
 		var results = tmrFormatter.formatTMRList(formattedData);
 
-		// this request is being made by the listener page so render the subTMR file
-		var tmrHTML = pug.renderFile('views/subtmr.pug', {results:results});
+		// this request is being made by the listener page so render just one tmr file
+		var tmrHTML = pug.renderFile('views/tmr.pug', {result: results[0]});
 		res.send({
-			tmrHTML: tmrHTML,
-			data: JSON.stringify(results)
+			tmrHTML: tmrHTML
 		});
 	},
 	intermediate: function(req, res) {
 		// intermediate results viewer
-		log.info("Serving INTERMEDIATE")
-		
-		var raw = utils.readInputFile()
+		log.info("Serving INTERMEDIATE");
+
+		var raw = utils.readInputFile();
 		if (req.body.inputData.length > 0)
-			raw = req.body.inputData.replace(/\\n/g, '')
-		var results = intermediateFormatter(raw)
+			raw = req.body.inputData.replace(/\\n/g, '');
+		var results = intermediateFormatter(raw);
 
 		res.render("intermediate", {
 			pageTitle: 'page-intermediate',
@@ -66,27 +66,28 @@ module.exports = {
 			data: JSON.stringify(results),
 			clientscripts: ['intermediateclient.js', 'client.js', 'prism.js'],
 			clientStyles: ['prism.css']
-		})
+		});
 	},
 	listen: function(req, res) {
-		log.info("Serving listener page")
-		var hostURL = req.headers.host
+		log.info("Serving listener page");
+		var hostURL = req.headers.host;
 
-		res.render("listener", {
+		res.render("multitmr", {
 			pageTitle: 'page-tmr',
+			via: 'listener',
 			data: hostURL,
 			clientscripts: ['waiting.js', 'client.js']
-		})
+		});
 	},
 	getResults: function(req, res) {
 		if (tmrData.length > 0)
-			res.send('TMR')
+			res.send('TMR');
 		else
-			res.send('none')
+			res.send('none');
 	},
 	tmrData: function(req, res) {
-		log.info("Receiving results from analyzer")
-		tmrData.push(req.body.inputData)
-		res.send('success')
+		log.info("Receiving results from analyzer");
+		tmrData.push(req.body.inputData);
+		res.send('Successfully received data:\n\t'+req.body.inputData);
 	}
 };

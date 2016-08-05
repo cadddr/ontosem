@@ -40,8 +40,8 @@ function averageColor(cArray) {
 	return "rgba("+c.join(',')+")";
 }
 
-// bind functions to respective elements and events when the document loads
-$(document).ready(function () {
+// bind functions to respective elements and events when the document loads/updates
+function addTMRBindings() {
 	// toggle optional or auxiliary attributes when the check box is changed
 	optionalAttributes = $("tr.kv-pair.optional");
 	$("input#toggleOptional").on("click", function(e) {
@@ -74,6 +74,7 @@ $(document).ready(function () {
 			$(this).html("Show All");
 	});
 
+	hideAllButton.off("click");
 	hideAllButton.on("click", function(e) {
 		var matchingButtons = $();
 
@@ -162,4 +163,6 @@ $(document).ready(function () {
 		var multiColorWords = matches.filter(".asterisk").parent();
 		multiColorWords.trigger("colorupdate");
 	});
-});
+}
+
+$(document).ready(addTMRBindings);
