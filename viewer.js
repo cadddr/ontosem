@@ -21,13 +21,17 @@ app.post('/tmrData', routes.tmrData);
 
 // Endpoint for intermediate logging analysis
 app.post('/logs', routes.intermediate);
+app.post('/subintermediate', routes.subintermediate);
+app.post('/intermediateData', routes.intermediateData);
 
 // Index/data upload page
 app.get('/', routes.index);
 app.get('/tmr', routes.index);
 app.get('/logs', routes.index);
-app.get('/listen', routes.listen);
-app.get('/getResults', routes.getResults)
+app.get('/listenTMR', routes.listenTMR);
+app.get('/listenIntermediate', routes.listenIntermediate);
+app.get('/getTMRResults', routes.getTMRResults)
+app.get('/getIntermediateResults', routes.getIntermediateResults)
 
 var PORT = utils.port;
 app.listen(PORT);

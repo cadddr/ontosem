@@ -1,11 +1,14 @@
 extends ./layout.pug
 
+
+//- toolbar which allows toggling of optional and Auxiliary attributes
 block toolbar
 	form
 		input#toggleOptional(value="toggleOptional", type="checkbox", checked)
 		label(for="toggleOptional") Show Optional Attributes
-		input#toggleDebug(value="toggleDebug", type="checkbox", checked)
-		label(for="toggleDebug") Show Debug Attributes
+		input#toggleAuxiliary(value="toggleAuxiliary", type="checkbox", checked)
+		label(for="toggleAuxiliary") Show Auxiliary Attributes
+	span#minimize-all.sentence-minimize Hide All
 
 block content
 	div.col-2

@@ -42,28 +42,20 @@ function averageColor(cArray) {
 
 // bind functions to respective elements and events when the document loads
 $(document).ready(function () {
+	addPageBindings()
+	addTMRBindings()
+});
+
+// adds bindings that should only ever be made once
+function addPageBindings () {
 	// toggle optional or auxiliary attributes when the check box is changed
-	optionalAttributes = $("tr.kv-pair.optional");
 	$("input#toggleOptional").on("click", function(e) {
 		optionalAttributes.toggleClass("hide");
 	});
-
-	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
 	$("input#toggleAuxiliary").on("click", function(e) {
 		 auxiliaryAttributes.toggleClass("hide");
 	});
-
-	// collapse/expand the sentence body when the button is pressed
-	hideButtons = $("span.sentence-minimize:not(#minimize-all)");
-	hideButtons.on("click", function(e) {
-		$(this).closest(".sentence").toggleClass("collapsed");
-		if ($(this).html() == "Hide")
-			$(this).html("Show");
-		else
-			$(this).html("Hide");
-		hideAllButton.trigger("update");
-	});
-
+	
 	hideAllButton = $("#minimize-all");
 	hideAllButton.on("update", function(e) {
 		if (hideButtons.filter(function() {
@@ -73,8 +65,9 @@ $(document).ready(function () {
 		else
 			$(this).html("Show All");
 	});
-
+	
 	hideAllButton.on("click", function(e) {
+		console.log('aaaaaaaaaaaaaaaaaaaa')
 		var matchingButtons = $();
 
 		if ($(this).html() == "Hide All") {
@@ -92,7 +85,24 @@ $(document).ready(function () {
 
 		matchingButtons.trigger("click");
 	});
+}
 
+// adds bindings that are specific to the current TMRs on the page
+function addTMRBindings () {
+	optionalAttributes = $("tr.kv-pair.optional");
+	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
+	
+	// collapse/expand the sentence body when the button is pressed
+	hideButtons = $("span.sentence-minimize:not(#minimize-all)");
+	hideButtons.on("click", function(e) {
+		$(this).closest(".sentence").toggleClass("collapsed");
+		if ($(this).html() == "Hide")
+			$(this).html("Show");
+		else
+			$(this).html("Hide");
+		hideAllButton.trigger("update");
+	});
+	
 	// toggle lexicon entries when applicable from-sense is pressed
 	$("td.lex").on("click", function(e) {
 		if (e.target == this || $(e.target).hasClass("close-button")) {
@@ -162,4 +172,4 @@ $(document).ready(function () {
 		var multiColorWords = matches.filter(".asterisk").parent();
 		multiColorWords.trigger("colorupdate");
 	});
-});
+}

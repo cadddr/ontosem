@@ -1,3 +1,5 @@
+var dataIndex = 0;
+
 // set up the page once the DOM has loaded
 $(document).ready(function () {
 	listenForChanges()
@@ -11,12 +13,20 @@ function listenForChanges () {
 
 // communicates with the server to determine if there are new results to render
 function checkForResults () {
-	$.ajax('/getResults').done(function (response) {
+	var title = $('title').html();
+	var url = '/getTMRResults';
+	if (title == 'page-intermediate')
+		url = '/getIntermediateResults';
+		
+	$.ajax(url).done(function (response) {
 		if (response == 'none') {
 			// nothing
 		} else if (response == 'TMR') {
 			// render this TMR
 			viewTMRs()
+		} else if (response == 'intermediate') {
+			// render this TMR
+			viewIntermediate()
 		}
 	})
 }
@@ -31,5 +41,23 @@ function viewTMRs () {
 		$('div.container.main').html(response.tmrHTML)
 		$('div#data-sync').html(response.data)
 		addTMRBindings()
+	})
+}
+
+// gets the rendered TMR from the server and appends it to the page
+function viewIntermediate () {
+	$.ajax({
+		url:'/subintermediate',
+		method:'POST',
+		data:{inputData:'external', sentenceIndex:dataIndex}
+	}).done(function (response) {
+		$('div#intermediateContainer.waiting').html('')
+		$('div#intermediateContainer.waiting').removeClass('waiting')
+		$('div#intermediateContainer').append(response.intermediateHTML)
+		$('div#data-sync').html(response.data)
+		var data = JSON.parse(response.data)
+		var parseContainer = $('#parse-' + dataIndex)
+		parseSentence(data[0], parseContainer)
+		++dataIndex;
 	})
 }

@@ -10,8 +10,8 @@ const regex = {
 // global variables used to track state
 var highlighted = null
 
+// Returns distinct colors by changing hue
 function generateColor(colorCounter, colorMax) {
-	// Returns distinct colors by changing hue
 	var h = Math.floor( 360 * colorCounter/colorMax );
 	var s = "100%";
 	var l = "85%";
@@ -25,49 +25,19 @@ $(document).ready(function () {
 	console.log('reading data');
 	var data = {};
 	var dataContainer = $("#data-sync");
-	if (dataContainer.length > 0 && $("#data-sync")[0].textContent != "")
+	if (dataContainer.length > 0 && dataContainer[0].textContent != "")
 	  data = JSON.parse($("#data-sync")[0].textContent);
 	console.log(data);
 
-	// parse the sentence
+	// parse the sentences
 	for (var parseIndex = 0; parseIndex < data.length; parseIndex++) {
 		let index = parseIndex + 0
-		setTimeout(function(){ parseSentence(index) }, 1);
-	}
-
-	function parseSentence (parseIndex) {
-		var parseResults = data[parseIndex]
-//		console.log('parsing sentence: ' + parseResults.sentence);
-		var parseContainer = $('#parse-' + parseIndex)
-//		console.log(parseContainer)
-		var sentenceContainer = parseContainer.find('#sentence .sentenceText')
-		parseResults.sentenceMappings = JSON.parse(parseResults.sentenceMappings)
-		var sentence = parseResults.sentence
-		for (var i in parseResults.lexMappings) {
-			var mapping = parseResults.lexMappings[i]
-			var sentence = sentence.replace(new RegExp('\\b' + mapping.token + '\\b'), '<span data-entity-id="' + i + '" parent-id="' + i + ':0.0" class="highlightable word">' + mapping.token + '</span>')
-		}
-		sentenceContainer.html(sentence)
-		
-		// set the colors for each lex mapping
-//		console.log('setting colors');
-		for (var i in parseResults.lexMappings) {
-	//		var lex = data.lexMappings[i];
-	//		console.log(i);
-	//		console.log(lex);
-	//		var id = lex.id.match(regex.getIdRegex)[1];
-	//		var parentId = lex.parent.match(regex.getIdRegex)[1];
-			//$("[data-entity-id='" + i + "']").css("background-color", colorList[id]);
-			//$("[data-entity-id='" + lex.parent + "']").css("background-color", colorList[parentId]);
-			
-			//parseContainer.find("[parent-id='" + i + ":0.0']").css("background-color", colorList[i])
-			parseContainer.find("[parent-id='" + i + ":0.0']").css("background-color", generateColor(i, parseResults.lexMappings.length))
-		}
-		
-//		console.log('binding listeners');
-		bindHighlightListeners(parseContainer)
-		bindHideListeners(parseContainer)
-//		console.log('done');
+		setTimeout(function(){
+			var parseResults = data[index]
+			var parseContainer = $('#parse-' + index)
+			//console.log('parsing sentence: ' + parseResults.sentence);
+			parseSentence(parseResults, parseContainer)
+		}, 1);
 	}
 	
 	// bind the hide/show all button listener
@@ -86,7 +56,40 @@ $(document).ready(function () {
 			toggleHide($(o))
 		})
 	})
+	
+	$(window).resize(function () {
+		correctHeaderWidth()
+	})
+	
+	correctHeaderWidth()
 });
+
+function correctHeaderWidth () {
+	var newWidth = Math.min($(window).width() / 2, 650);
+	$('header').css('transform', 'translateX(-' + newWidth + 'px) translateZ(0)');
+}
+
+function parseSentence (parseResults, parseContainer) {
+	var sentenceContainer = parseContainer.find('#sentence .sentenceText')
+	parseResults.sentenceMappings = JSON.parse(parseResults.sentenceMappings)
+	var sentence = parseResults.sentence
+	for (var i in parseResults.lexMappings) {
+		var mapping = parseResults.lexMappings[i]
+		var sentence = sentence.replace(new RegExp('\\b' + mapping.token + '\\b'), '<span data-entity-id="' + i + '" parent-id="' + i + ':0.0" class="highlightable word">' + mapping.token + '</span>')
+	}
+	sentenceContainer.html(sentence)
+	
+	// set the colors for each lex mapping
+	//console.log('setting colors');
+	for (var i in parseResults.lexMappings) {
+		parseContainer.find("[parent-id='" + i + ":0.0']").css("background-color", generateColor(i, parseResults.lexMappings.length))
+	}
+	
+	//console.log('binding listeners');
+	bindHighlightListeners(parseContainer)
+	bindHideListeners(parseContainer)
+	//console.log('done');
+}
 
 // binds all the listeners for the lex entry highlighting on hover
 function bindHighlightListeners (parseContainer) {

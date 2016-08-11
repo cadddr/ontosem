@@ -1,0 +1,10 @@
+extends ./layout.pug
+
+block toolbar
+	span#showHideAll.button(title='Collapses/Uncollapses all parsed sentences') Hide All
+
+block content
+	div.col-12#intermediateContainer.waiting
+		form.hidden(id='submitIntermediate', action='logs', method='post')
+			input(type='text', name='inputData', value='external')
+		div Waiting for data to be sent to the server...
