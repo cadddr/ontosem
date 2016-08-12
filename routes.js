@@ -90,7 +90,7 @@ module.exports = {
 		log.info("Serving TMR listener page")
 		var hostURL = req.headers.host
 		
-		res.render("TMRlistener", {
+		res.render("TMRListener", {
 			pageTitle: 'page-tmr',
 			data: hostURL,
 			clientscripts: ['waiting.js', 'client.js']
@@ -99,7 +99,7 @@ module.exports = {
 	listenIntermediate: function(req, res) {
 		log.info("Serving intermediate results listener page")
 		
-		res.render("Intermediatelistener", {
+		res.render("IntermediateListener", {
 			pageTitle: 'page-intermediate',
 			data: [],
 			clientscripts: ['waiting.js', 'intermediateclient.js', 'client.js'],
