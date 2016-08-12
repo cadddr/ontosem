@@ -42,7 +42,7 @@ module.exports = {
 			debugging: false,
 			via: 'index',
 			results: results,
-			clientscripts: ['client.js']
+			clientscripts: ['tmrclient.js']
 		});
 	},
 	subtmr: function(req, res) {
@@ -72,7 +72,7 @@ module.exports = {
 			pageTitle: 'page-intermediate',
 			parseResults: results,
 			data: JSON.stringify(results),
-			clientscripts: ['intermediateclient.js', 'client.js', 'prism.js'],
+			clientscripts: ['intermediateclient.js', 'prism.js'],
 			clientStyles: ['prism.css']
 		});
 	},
@@ -101,7 +101,7 @@ module.exports = {
 			pageTitle: 'page-tmr',
 			via: 'listener',
 			data: hostURL,
-			clientscripts: ['waiting.js', 'client.js']
+			clientscripts: ['waiting.js', 'tmrclient.js']
 		});
 	},
 	listenIntermediate: function(req, res) {
@@ -110,7 +110,7 @@ module.exports = {
 		res.render("IntermediateListener", {
 			pageTitle: 'page-intermediate',
 			data: [],
-			clientscripts: ['waiting.js', 'intermediateclient.js', 'client.js'],
+			clientscripts: ['waiting.js', 'intermediateclient.js'],
 			clientStyles: ['prism.css']
 		});
 	},
