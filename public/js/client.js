@@ -40,14 +40,8 @@ function averageColor(cArray) {
 	return "rgba("+c.join(',')+")";
 }
 
-// bind functions to respective elements and events when the document loads
-$(document).ready(function () {
-	addPageBindings()
-	addTMRBindings()
-});
-
-// adds bindings that should only ever be made once
-function addPageBindings () {
+// bind functions to respective elements and events when the document loads/updates
+function addTMRBindings() {
 	// toggle optional or auxiliary attributes when the check box is changed
 	$("input#toggleOptional").on("click", function(e) {
 		optionalAttributes.toggleClass("hide");
@@ -55,7 +49,7 @@ function addPageBindings () {
 	$("input#toggleAuxiliary").on("click", function(e) {
 		 auxiliaryAttributes.toggleClass("hide");
 	});
-	
+
 	hideAllButton = $("#minimize-all");
 	hideAllButton.on("update", function(e) {
 		if (hideButtons.filter(function() {
@@ -65,7 +59,8 @@ function addPageBindings () {
 		else
 			$(this).html("Show All");
 	});
-	
+
+	hideAllButton.off("click");
 	hideAllButton.on("click", function(e) {
 		console.log('aaaaaaaaaaaaaaaaaaaa')
 		var matchingButtons = $();
@@ -91,7 +86,7 @@ function addPageBindings () {
 function addTMRBindings () {
 	optionalAttributes = $("tr.kv-pair.optional");
 	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
-	
+
 	// collapse/expand the sentence body when the button is pressed
 	hideButtons = $("span.sentence-minimize:not(#minimize-all)");
 	hideButtons.on("click", function(e) {
@@ -102,7 +97,7 @@ function addTMRBindings () {
 			$(this).html("Hide");
 		hideAllButton.trigger("update");
 	});
-	
+
 	// toggle lexicon entries when applicable from-sense is pressed
 	$("td.lex").on("click", function(e) {
 		if (e.target == this || $(e.target).hasClass("close-button")) {
@@ -173,3 +168,5 @@ function addTMRBindings () {
 		multiColorWords.trigger("colorupdate");
 	});
 }
+
+$(document).ready(addTMRBindings);

@@ -38,10 +38,9 @@ function viewTMRs () {
 		method:'POST',
 		data:{inputData:'external'}
 	}).done(function (response) {
-		$('div.container.main').html(response.tmrHTML)
-		$('div#data-sync').html(response.data)
-		addTMRBindings()
-	})
+		$('div.container.main').html(response.tmrHTML+$('div.container.main').html());
+		addTMRBindings();
+	});
 }
 
 // gets the rendered TMR from the server and appends it to the page
