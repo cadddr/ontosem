@@ -26,6 +26,7 @@ app.post('/intermediateData', routes.intermediateData);
 
 // Index/data upload page
 app.get('/', routes.index);
+app.get('/post', routes.post);
 app.get('/tmr', routes.index);
 app.get('/logs', routes.index);
 app.get('/listenTMR', routes.listenTMR);

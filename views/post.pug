@@ -7,10 +7,10 @@ block content
 		if e
 			div.error
 				= e.stack
-		form#input(method='post')
+		form#input( method='post')
 			textarea#sentence-input-textarea(placeholder='Paste a TMR set or intermediate logs', name='inputData')
-			button#submit-tmr(type='submit') TMR
-			button#submit-logs(type='submit') Intermediate Results
+			button#post-tmr(type='submit') Post TMR
+			button#post-logs(type='submit') Post Intermediate Results
 			button#listenButton(type='button')
 				a(href='../listenTMR') Listen for analyzer TMRs
 			button#listenButton(type='button')

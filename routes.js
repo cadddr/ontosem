@@ -5,14 +5,21 @@ var log = utils.richLogging;
 var tmrFormatter = require('./tmr.js');
 var intermediateFormatter = require('./intermediate.js').format;
 var lastResults = null;
-var tmrData = []
-var intermediateData = []
+var tmrData = [];
+var intermediateData = [];
 
 module.exports = {
 	index: function(req, res) {
 		// Homepage
 		log.info("Serving INDEX");
 		res.render("index", {
+			debugging: false
+		});
+	},
+	post: function(req, res) {
+		// Post testing
+		log.info("Serving Post Testing");
+		res.render("post", {
 			debugging: false
 		});
 	},
@@ -105,7 +112,7 @@ module.exports = {
 			data: [],
 			clientscripts: ['waiting.js', 'intermediateclient.js', 'client.js'],
 			clientStyles: ['prism.css']
-		})
+		});
 	},
 	getTMRResults: function(req, res) {
 		if (tmrData.length > 0)
@@ -122,11 +129,11 @@ module.exports = {
 	tmrData: function(req, res) {
 		log.info("Receiving tmr results from analyzer");
 		tmrData.push(req.body.inputData);
-		res.send('Successfully received data:\n\t'+req.body.inputData);
+		res.send('<pre>Successfully received data:\n'+req.body.inputData+'</pre>');
 	},
 	intermediateData: function(req, res) {
 		log.info("Receiving results from analyzer");
-		tmrData.push(req.body.inputData);
-		res.send('Successfully received data:\n\t'+req.body.inputData);
+		intermediateData.push(req.body.inputData);
+		res.send('<pre>Successfully received data:\n'+req.body.inputData+'</pre>');
 	}
 };
