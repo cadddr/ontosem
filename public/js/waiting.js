@@ -17,7 +17,7 @@ function checkForResults () {
 	var url = '/getTMRResults';
 	if (title == 'page-intermediate')
 		url = '/getIntermediateResults';
-		
+
 	$.ajax(url).done(function (response) {
 		if (response == 'none') {
 			// nothing
@@ -39,7 +39,7 @@ function viewTMRs () {
 		data:{inputData:'external'}
 	}).done(function (response) {
 		$('div.container.main').html(response.tmrHTML+$('div.container.main').html());
-		addTMRBindings();
+		updateBindings();
 	});
 }
 

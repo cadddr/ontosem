@@ -40,8 +40,8 @@ function averageColor(cArray) {
 	return "rgba("+c.join(',')+")";
 }
 
-// bind functions to respective elements and events when the document loads/updates
-function addTMRBindings() {
+// bind functions to respective elements and events when the document loads
+function addBindings() {
 	// toggle optional or auxiliary attributes when the check box is changed
 	$("input#toggleOptional").on("click", function(e) {
 		optionalAttributes.toggleClass("hide");
@@ -50,6 +50,7 @@ function addTMRBindings() {
 		 auxiliaryAttributes.toggleClass("hide");
 	});
 
+	// add events for the hide all button in the toolbar
 	hideAllButton = $("#minimize-all");
 	hideAllButton.on("update", function(e) {
 		if (hideButtons.filter(function() {
@@ -60,9 +61,7 @@ function addTMRBindings() {
 			$(this).html("Show All");
 	});
 
-	hideAllButton.off("click");
 	hideAllButton.on("click", function(e) {
-		console.log('aaaaaaaaaaaaaaaaaaaa')
 		var matchingButtons = $();
 
 		if ($(this).html() == "Hide All") {
@@ -80,15 +79,19 @@ function addTMRBindings() {
 
 		matchingButtons.trigger("click");
 	});
+
+	updateBindings();
 }
 
 // adds bindings that are specific to the current TMRs on the page
-function addTMRBindings () {
+function updateBindings () {
 	optionalAttributes = $("tr.kv-pair.optional");
 	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
 
 	// collapse/expand the sentence body when the button is pressed
 	hideButtons = $("span.sentence-minimize:not(#minimize-all)");
+	hideAllButton.trigger("update");
+	
 	hideButtons.on("click", function(e) {
 		$(this).closest(".sentence").toggleClass("collapsed");
 		if ($(this).html() == "Hide")
@@ -169,4 +172,4 @@ function addTMRBindings () {
 	});
 }
 
-$(document).ready(addTMRBindings);
+$(document).ready(addBindings);
