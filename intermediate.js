@@ -36,6 +36,7 @@ var regex = {
 	
 	'success': /^\s*Successful match (\S+)( and (\S+))?/,
 	'skip': /^\s*Skipping  (\S+)( - (\S+) pair.)?/,
+	'falsePositiveReason': /^\s*Sense (\S+) : (.*)/,
 	'falsePositive': /^\s*Removing a false positive result: (\{([0-9]*\: \'(\S+)\',? ?)*})/,
 	'formatFalsePositive': /\{|\}|\s*[0-9]*\: |'/g,
 	'missingRole': /^\s*Sense (\S+) : required syntactic role \( (\S+) \) is missing in the input sentence/,
@@ -464,9 +465,16 @@ function parseBodyLine (lineObject, state, TMRList, sentence, words, lexMappings
 		} else if (parsedLine = line.match(regex.skip)) {
 			addEvent('skip')
 			
+		// false positive reason parsing
+		} else if (parsedLine = line.match(regex.falsePositiveReason)) {
+			var word = parsedLine[1]
+			var reason = parsedLine[2]
+			state.falsePositiveWord = word
+			state.reasons.push(reason)
+			
 		// falsePositive parsing
 		} else if (parsedLine = line.match(regex.falsePositive)) {
-			state.reasons.push(line);
+			addEvent('falsePositive')
 			
 		// missingRole parsing
 		} else if (parsedLine = line.match(regex.missingRole)) {
@@ -644,6 +652,8 @@ function createEvent (parsedLine, status, state, lexMappings, words) {
 	if (status == 'match' || status == 'skip')
 		makePair(parsedLine[1], parsedLine[3]);
 	
+	if (status == 'falsePositive')
+		makePair(state.falsePositiveWord, null);
 	/*
 	if (status == 'missingRole')
 		makePair(parsedLine[1], parsedLine[3]);

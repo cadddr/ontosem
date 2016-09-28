@@ -233,6 +233,9 @@ $rowColor: #ddd;
 							&.skip {
 								background-color: $failColor;
 							}
+							&.falsePositive {
+								background-color: $failColor;
+							}
 							&.dummyCell {
 								background-color: #eee;
 							}
