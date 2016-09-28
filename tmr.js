@@ -161,7 +161,7 @@ module.exports = {
 			"sentences": sentences,
 			"_tmrIndex": tmrIndex,
 			"frames": frames,
-			"_dataString": JSON.stringify(data)
+			"_dataString": data.dataString
 		};
 	},
 	formatTMRList: function (formattedData) {
@@ -173,13 +173,15 @@ module.exports = {
 				var sentence = entry[stepIndex].sentence;
 
 				for (var tmrIndex in entry[stepIndex].results) {
-					var TMR = entry[stepIndex].results[tmrIndex].TMR
+					var TMR = entry[stepIndex].results[tmrIndex].TMR;
+					var dataString = entry[stepIndex].originalString;
 					if (TMR) {
 						var formattedResult = module.exports.format({
 							"sentenceId": sentenceId,
 							"sentence": sentence,
 							"tmrIndex": tmrIndex,
-							"tmr": TMR
+							"tmr": TMR,
+							"dataString": dataString
 						});
 						results.push(formattedResult);
 					}
