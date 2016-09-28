@@ -160,7 +160,8 @@ module.exports = {
 			"_sentenceId": sentenceId,
 			"sentences": sentences,
 			"_tmrIndex": tmrIndex,
-			"frames": frames
+			"frames": frames,
+			"_dataString": JSON.stringify(data)
 		};
 	},
 	formatTMRList: function (formattedData) {

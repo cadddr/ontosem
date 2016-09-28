@@ -33,6 +33,7 @@ app.get('/listenTMR', routes.listenTMR);
 app.get('/listenIntermediate', routes.listenIntermediate);
 app.get('/getTMRResults', routes.getTMRResults)
 app.get('/getIntermediateResults', routes.getIntermediateResults)
+app.get('/gold', routes.gold)
 
 var PORT = utils.port;
 app.listen(PORT);

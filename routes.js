@@ -135,5 +135,11 @@ module.exports = {
 		log.info("Receiving results from analyzer");
 		intermediateData.push(req.body.inputData);
 		res.send('<pre>Successfully received data:\n'+req.body.inputData+'</pre>');
+	},
+	gold: function(req, res) {
+		res.render("gold", {
+			pageTitle: 'gold',
+			clientscripts: ['gold.js']
+		});
 	}
 };

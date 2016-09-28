@@ -1,5 +1,6 @@
 resetScrollHeight();
 
+var tmrString = "";
 var optionalAttributes = $();
 var auxiliaryAttributes = $();
 var hideButtons = $();
@@ -88,10 +89,22 @@ function updateBindings () {
 	optionalAttributes = $("tr.kv-pair.optional");
 	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
 
+	// cleanup the html attributes and store data using jquery
+	$(".submit-gold[data-string]").each(function(index) {
+		$(this).data("dataString", $(this).attr("data-string"));
+		$(this).removeAttr("data-string");
+	});
+
+	// add event for submitting gold standard TMRs
+	$(".submit-gold").on("click", function(e) {
+		var w = window.open('/gold','window','toolbar=no, menubar=no, height=640, width=520');
+		w.tmrString = $(this).data("dataString");
+	});
+
 	// collapse/expand the sentence body when the button is pressed
 	hideButtons = $("span.sentence-minimize:not(#minimize-all)");
 	hideAllButton.trigger("update");
-	
+
 	hideButtons.on("click", function(e) {
 		$(this).closest(".sentence").toggleClass("collapsed");
 		if ($(this).html() == "Hide")
