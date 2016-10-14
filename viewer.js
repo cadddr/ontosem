@@ -18,6 +18,7 @@ app.set('view engine', 'pug');
 app.post('/tmr', routes.tmr);
 app.post('/subtmr', routes.subtmr);
 app.post('/tmrData', routes.tmrData);
+app.post('/dbSubmit', routes.dbSubmit);
 
 // Endpoint for intermediate logging analysis
 app.post('/logs', routes.intermediate);

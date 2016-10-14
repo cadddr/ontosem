@@ -6,7 +6,7 @@ $(document).ready(function () {
 	// bind the submit event to the button
 	form = $("#tmr-form");
 	$("#submit-tmr").on("click", function() {
-		form.attr('action', $("#action-input").val());
+		form.attr('action', '../dbSubmit');
 		form.submit();
 	});
 

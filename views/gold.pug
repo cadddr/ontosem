@@ -1,7 +1,7 @@
 extends ./layout.pug
 
 block content
-	form#tmr-form(method='post')
-		input#action-input(type='text', placeholder='Put desination address here')
+	form#tmr-form(method='POST')
+		input#action-input(name='dbAddress', type='text', placeholder='Put desination address here')
 		textarea#tmr-input(name='goldTmr', placeholder='Put TMR object here')
 		button#submit-tmr(type='submit') Submit

@@ -141,5 +141,26 @@ module.exports = {
 			pageTitle: 'gold',
 			clientscripts: ['gold.js']
 		});
+	},
+	dbSubmit: function(req, res) {
+		log.info("Received DATABASE SUBMISSION:");
+		log.info(req.body);
+		if (req.body.dbAddress && req.body.goldTmr) {
+			var options = {
+			  method: 'post',
+			  body: {'goldTmr': req.body.goldTmr},
+			  json: true,
+			  url: req.body.dbAddress
+			};
+			request(options, function(err, dbRes, body) {
+				if (err)
+					res.send('<pre>Error occured: </pre>\n'+JSON.stringify(err));
+				else
+					res.send(body);
+			});
+		}
+		else {
+			res.send('<pre>Invalid submission. Please include both a destination and TMR.</pre>');
+		}
 	}
 };
