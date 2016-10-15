@@ -164,8 +164,10 @@ module.exports = {
 			"_dataString": data.dataString
 		};
 	},
+
+	// do some preprocessing on the TMR to make it easier to annotate
 	formatTMRList: function (formattedData) {
-		var results = []
+		var results = [];
 		for (var index in formattedData) {
 			var entry = formattedData[index].TMRList;
 			for (var stepIndex in entry) {
@@ -173,14 +175,14 @@ module.exports = {
 				var sentence = entry[stepIndex].sentence;
 
 				for (var tmrIndex in entry[stepIndex].results) {
-					var TMR = entry[stepIndex].results[tmrIndex].TMR;
-					var dataString = entry[stepIndex].originalString;
-					if (TMR) {
+					var tmr = entry[stepIndex].results[tmrIndex].TMR;
+					var dataString = JSON.stringify(entry[stepIndex]);
+					if (tmr) {
 						var formattedResult = module.exports.format({
 							"sentenceId": sentenceId,
 							"sentence": sentence,
 							"tmrIndex": tmrIndex,
-							"tmr": TMR,
+							"tmr": tmr,
 							"dataString": dataString
 						});
 						results.push(formattedResult);

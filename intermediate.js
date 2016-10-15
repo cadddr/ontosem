@@ -768,7 +768,7 @@ function createDependency (type, indexA, tokenA, indexB, tokenB) {
 function parseTMRContents (state, TMRList, sentence) {
 	//console.log('state.parsingFinal = ' + state.parsingFinal)
 	//console.log(state)
-	var originalString = state.tmrContents.substring(0, state.tmrContents.length - 1)
+	//var originalString = state.tmrContents.substring(0, state.tmrContents.length - 1)
 
 	// if this isn't the final results, ignore it
 	if (!state.parsingFinal) {
@@ -837,7 +837,7 @@ function parseTMRContents (state, TMRList, sentence) {
 
 	// helper function to add the parsed TMR to the TMR list
 	function addTMR (tmr) {
-		tmr.originalString = originalString
+		//tmr.originalString = originalString
 		// add missing parameters
 		if (tmr.sentence == null)
 			tmr.sentence = sentence
