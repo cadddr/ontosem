@@ -81,6 +81,11 @@ module.exports = {
 		var sentences = dissectSentences(data.sentence);
 		var tmrIndex = data.tmrIndex;
 		var tmr = data.tmr;
+		var totalPreference = null;
+		if (tmr.hasOwnProperty("total_preference")) {
+			totalPreference = tmr.total_preference;
+			delete tmr.total_preference;
+		}
 
 		log.attn("Interpreting TMR...");
 
@@ -115,8 +120,14 @@ module.exports = {
 				var attr = {"_val": insertLinebreaks(attrVal)};
 
 				if (attrKey == "sent-word-ind") {
+					// normalize word indices to all be arrays
+					if (Number.isInteger(attrVal[1]))
+						attrVal[1] = [attrVal[1]];
 					// associate token with entity color(s)
-					sentences[attrVal[0]-sentOffset].words[attrVal[1]].colors.push(color[entityName]);
+					for (var i = 0; i < attrVal[1].length; ++i)
+						sentences[attrVal[0]-sentOffset].words[attrVal[1][i]].colors.push(color[entityName]);
+					// attrKey uses separate formatting due to its nature as a nested array
+					attr = {"_val": attrVal[0] + ", [" + attrVal[1].join(", ") + "]"};
 				}
 				else if (attrKey == "from-sense") {
 					// search for lexicon entry, and add if found
