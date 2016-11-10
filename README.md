@@ -14,7 +14,7 @@ npm run start
 ```
 2. When the above is ready, navigate your browser to localhost:3000
 3. Paste the data (TMR Object or Intermediate Logs) into the textfield and select which type of data you are analyzing
-4. If you do not enter data, it will utilize sample data from tests/results
+4. If you do not enter data, it will utilize sample data from `tests/results`
 
 
 ### Development
