@@ -5,6 +5,7 @@
 // imports
 var util = require('util')
 var utils = require('./utils.js')
+var jsonConverter = require('./jsonConverter.js')
 var colors = require('colors')
 var log = utils.richLogging
 
@@ -22,7 +23,7 @@ var debugging = false
 // contains all the regular expressions used to parse the logs and TMRs
 var regex = {
 	'sentence': /(\s*Input Sentence = )(.*)/,
-	'sentenceHeader': / ===== SENTENCE ([0-9]*) ,concept_base_number ([0-9]*) =====/,
+	'sentenceHeader': / ===== SENTENCE ([0-9]*) ,concept_base_number ([0-9]*) =====|  ---- SENTENCE ([0-9]*)/,
 	'headerDependency': /\s*(\S*) :\s*(-?[0-9]+) ([^,]*), (-?[0-9]+) (.*)/,
 	'trimWord': /^(([A-Z]*-?)+)(-[A-Z]+[0-9]+)?$/,
 	'wordLexIndex': /^.*-[A-Z]*([0-9]+)$/,
@@ -44,7 +45,7 @@ var regex = {
 	'requiredWords': /^\s*Required word\(s\)  (\S+|\[[^\]]*\])  does NOT match input  (\S+)/,
 
 	'shortTermMemory': /^--- Short Term Memory after processing the last dependency\. Length= ([0-9]*)/,
-	'finalResult': /^-- Final result: Length= ([0-9]*)/,
+	'finalResult': /^\s*(-|=)+ Final result: Length\s*= ([0-9]*)/,
 	'lexStorage': /^--- lex entries storage:/,
 	'lexEntry': /^\s*word_index= ([0-9]*) word_sense\(s\)= dict_keys\((\[[^\]]*\])\)/,
 	'formatLexEntry': /[\[\]\' ]/g,
@@ -59,6 +60,8 @@ var regex = {
 	'convertNonStringKeysSub': '"$1"$2',
 	'tokenizeSentence': /\b([a-zA-Z0-9\-]+)\b/g,
 	'tmrLastLine': /.*[\]\}]\s*$/,
+	'isTMRLine': /\s*((\[|\()|\{)/,
+	'headerContinuationLine': /^(>>>| |\t|-|\[)/,
 
 	'unknownElement': /^\s*(\S+) has Unknown element "([^"]*)".Skipping it\./,
 	'wordSenseSelected': /^\s*Word (\S+) , index= ([0-9]*) has been used with sense= (\S+)/,
@@ -308,7 +311,7 @@ function parseLines (lines, startLine, state, TMRList, words, lexMappings, event
 
 //			console.log(line);
 			// check if this is the end of the header
-			if ( readingHeader && !(line.substring(0,3) === '>>>' || line[0] === '\t' || line[0] === ' ' || line.match(regex.sentenceHeader)) ) {
+			if ( readingHeader && !(line.match(regex.headerContinuationLine) || line.match(regex.sentenceHeader)) ) {
 				readingHeader = false
 				//debug('DONE READING HEADER'.green)
 			}
@@ -380,7 +383,7 @@ function parseLines (lines, startLine, state, TMRList, words, lexMappings, event
 function parseBodyLine (lineObject, state, TMRList, sentence, words, lexMappings, events, eventMap, dependencies) {
 	var parsedLine;
 	var line = lineObject.raw
-
+	
 	// if this line is part of a TMR add it to the TMR contents and move on
 	if (state.parsingTmr && (line.substring(0,3) != '---' && !isBlankLine(line))) {
 		lineObject.type = 'TMR'
@@ -766,75 +769,35 @@ function createDependency (type, indexA, tokenA, indexB, tokenB) {
 
 // parses the TMR data stored in the state and stores the result in TMRList
 function parseTMRContents (state, TMRList, sentence) {
-	//console.log('state.parsingFinal = ' + state.parsingFinal)
-	//console.log(state)
-	//var originalString = state.tmrContents.substring(0, state.tmrContents.length - 1)
-
+	
 	// if this isn't the final results, ignore it
 	if (!state.parsingFinal) {
 		state.parsingTmr = false
 		state.tmrContents = ''
 		return
 	}
-
+	
 	//console.log('parseTMRContents()'.yellow)
 	//console.log(state.tmrContents)
-
-	var newTMRString = state.tmrContents.replace(regex.formatTMR, regex.formatTMRSubstitution)//.replace(/\'/g, '"')
+	
+	// copy the TMR data from the state and reset it to its default values
+	var pythonTMR = state.tmrContents
 	state.parsingFinal = false
 	state.parsingTmr = false
 	state.tmrContents = ''
-
-	var matches = newTMRString.match(regex.cleanTMR);
-	var lastIndex = 0;
-	if (matches)
-		for (var j = 0; j < matches.length; ++j) {
-			var startIndex = newTMRString.substr(lastIndex).indexOf(matches[j]) + lastIndex
-			var endIndex = startIndex + matches[j].length + 1
-
-			var textBefore = newTMRString.substring(0, startIndex)
-			var textAfter = newTMRString.substr(endIndex - 1)
-
-
-			//console.log('matches[j] = '.yellow)
-			//console.log(matches[j])
-			var dictString = convertDict(matches[j])
-			//console.log('dictString = '.yellow)
-			//console.log(dictString)
-
-			newTMRString = textBefore + dictString + textAfter
-			lastIndex = startIndex + dictString.length
-			//logObject('newTMRString', newTMRString, 0, 'yellow')
-		}
-
-
-	// fix single quoted keys in maps
-	var inString = false
-	var TMRArray = newTMRString.split('')
-	for (var i in TMRArray)
-		if (TMRArray[i] == '"')
-			inString = !inString
-		else if (!inString && TMRArray[i] == '\'')
-			TMRArray[i] = '"'
-	newTMRString = TMRArray.join('')
-
-	// remove touples
-	newTMRString = newTMRString.replace(regex.tuple, regex.tupleSubstitution)
-
-	// convert improper key types like lists to strings
-	newTMRString = newTMRString.replace(regex.convertNonStringKeys, regex.convertNonStringKeysSub)
-
-	// parse the TMR as JSON
-	//logObject('newTMRString', newTMRString, 0, 'yellow')
-	var TMR = JSON.parse(newTMRString)
-
+	
+	// convert the python TMR representation into JSON
+	var TMR = jsonConverter.pythonToJson(pythonTMR)
+	
 	// put the parsed TMR(s) in the list
 	if (state.isTMRList || TMR.length)
 		for (var i = 0; i < TMR.length; ++i)
 			addTMR(TMR[i])
 	else
 		addTMR(TMR)
-
+	
+	return
+	
 	// helper function to add the parsed TMR to the TMR list
 	function addTMR (tmr) {
 		//tmr.originalString = originalString
@@ -844,21 +807,6 @@ function parseTMRContents (state, TMRList, sentence) {
 		if (tmr['sent-num'] == null)
 			tmr['sent-num'] = 1
 		TMRList.push(tmr)
-	}
-
-	// converts a python OrderedDict into a JSON object
-	function convertDict (dictString) {
-		var pairs = dictString.match(regex.extractPairs)
-		var dictObject = {}
-		for (var p in pairs) {
-			var pair = pairs[p]
-			var keyAndVal = pair.match(regex.convertDict)
-			var key = keyAndVal[1]
-			var val = keyAndVal[2]
-			dictObject[key] = val
-		}
-
-		return JSON.stringify(dictObject)
 	}
 }
 
@@ -984,9 +932,12 @@ function compareValues (a, b) {
 
 // returns true if this line is the start of a TMR, otherwise returns false
 function isTMRInput (firstLine) {
-	if (firstLine[0] == '>' || firstLine.match(regex.sentenceHeader))
-		return false;
-	return true;
+	if (firstLine.match(regex.isTMRLine))
+		return true;
+	return false;
+	//if (firstLine[0] == '>' || firstLine.match(regex.sentenceHeader) || firstLine[0] == ' ' || firstLine[0] == '\n' || firstLine[0] == '\r')
+	//	return false;
+	//return true;
 }
 
 
