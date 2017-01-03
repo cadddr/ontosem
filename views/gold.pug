@@ -4,4 +4,9 @@ block content
 	form#tmr-form(method='POST')
 		input#action-input(name='dbAddress', type='text', placeholder='Put desination address here')
 		textarea#tmr-input(name='goldTmr', placeholder='Put TMR object here')
+		label(for='tmr-format')= 'Submission Format: '
+		select#tmr-format(name='tmrFormat')
+			option(value='json-string') Stringified JSON
+			option(value='json-object') JSONObject
+			option(value='dict-string') Stringified Python Dict
 		button#submit-tmr(type='submit') Submit

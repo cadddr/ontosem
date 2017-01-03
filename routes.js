@@ -138,7 +138,7 @@ module.exports = {
 	},
 	gold: function(req, res) {
 		res.render("gold", {
-			pageTitle: 'gold',
+			pageTitle: 'page-gold',
 			clientscripts: ['gold.js']
 		});
 	},
@@ -146,15 +146,25 @@ module.exports = {
 		log.info("Received DATABASE SUBMISSION:");
 		log.info(req.body);
 		if (req.body.dbAddress && req.body.goldTmr) {
+			var outgoingBody = {};
+			if (req.body.tmrFormat == 'json-object')
+				outgoingBody = JSON.parse(req.body.goldTmr);
+			else
+				outgoingBody = {"goldTmr": req.body.goldTmr};
+
 			var options = {
 			  method: 'post',
-			  body: {'goldTmr': req.body.goldTmr},
+			  body: outgoingBody,
 			  json: true,
 			  url: req.body.dbAddress
 			};
+			
+			log.info("Request options:");
+			log.info(options);
+
 			request(options, function(err, dbRes, body) {
 				if (err)
-					res.send('<pre>Error occured: </pre>\n'+JSON.stringify(err));
+					res.send('<pre>Error occurred: </pre>\n'+JSON.stringify(err));
 				else
 					res.send(body);
 			});

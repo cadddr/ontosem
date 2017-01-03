@@ -172,7 +172,8 @@ module.exports = {
 			"sentences": sentences,
 			"_tmrIndex": tmrIndex,
 			"frames": frames,
-			"_dataString": data.dataString
+			"_dataJSON": data.dataJSON,
+			"_dataDict": data.dataDict
 		};
 	},
 
@@ -184,17 +185,21 @@ module.exports = {
 			for (var stepIndex in entry) {
 				var sentenceId = entry[stepIndex]["sent-num"];
 				var sentence = entry[stepIndex].sentence;
-
+				var dataDict = entry[stepIndex].originalString;
+				delete entry[stepIndex].originalString;
+				var dataJSON = JSON.stringify(entry[stepIndex]);
+				console.log(dataDict);
+				console.log(dataJSON);
 				for (var tmrIndex in entry[stepIndex].results) {
 					var tmr = entry[stepIndex].results[tmrIndex].TMR;
-					var dataString = JSON.stringify(entry[stepIndex]);
 					if (tmr) {
 						var formattedResult = module.exports.format({
 							"sentenceId": sentenceId,
 							"sentence": sentence,
 							"tmrIndex": tmrIndex,
 							"tmr": tmr,
-							"dataString": dataString
+							"dataJSON": dataJSON,
+							"dataDict": dataDict
 						});
 						results.push(formattedResult);
 					}

@@ -90,15 +90,20 @@ function updateBindings () {
 	auxiliaryAttributes = $("tr.kv-pair.auxiliary");
 
 	// cleanup the html attributes and store data using jquery
-	$(".submit-gold[data-string]").each(function(index) {
-		$(this).data("dataString", $(this).attr("data-string"));
-		$(this).removeAttr("data-string");
+	$(".submit-gold[data-json]").each(function(index) {
+		$(this).data("dataJSON", $(this).attr("data-json"));
+		$(this).removeAttr("data-json");
+	});
+	$(".submit-gold[data-dict]").each(function(index) {
+		$(this).data("dataDict", $(this).attr("data-dict"));
+		$(this).removeAttr("data-dict");
 	});
 
 	// add event for submitting gold standard TMRs
 	$(".submit-gold").on("click", function(e) {
 		var w = window.open('/gold','window','toolbar=no, menubar=no, height=640, width=520');
-		w.tmrString = $(this).data("dataString");
+		w.tmrJSON = $(this).data("dataJSON");
+		w.tmrDict = $(this).data("dataDict");
 	});
 
 	// collapse/expand the sentence body when the button is pressed

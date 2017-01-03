@@ -15,7 +15,7 @@ mixin header(result)
 							span.sentence-string.asterisk(data-entity-color=color) *
 				| #{word._spacing}
 			| #{sentence._punct}
-		span.submit-gold(data-string=result._dataString) Gold
+		span.submit-gold(data-json=result._dataJSON, data-dict=result._dataDict) Gold
 		span.sentence-minimize Hide
 
 //- framed content below header for each entity

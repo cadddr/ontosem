@@ -383,7 +383,7 @@ function parseLines (lines, startLine, state, TMRList, words, lexMappings, event
 function parseBodyLine (lineObject, state, TMRList, sentence, words, lexMappings, events, eventMap, dependencies) {
 	var parsedLine;
 	var line = lineObject.raw
-	
+
 	// if this line is part of a TMR add it to the TMR contents and move on
 	if (state.parsingTmr && (line.substring(0,3) != '---' && !isBlankLine(line))) {
 		lineObject.type = 'TMR'
@@ -769,38 +769,39 @@ function createDependency (type, indexA, tokenA, indexB, tokenB) {
 
 // parses the TMR data stored in the state and stores the result in TMRList
 function parseTMRContents (state, TMRList, sentence) {
-	
+
 	// if this isn't the final results, ignore it
 	if (!state.parsingFinal) {
 		state.parsingTmr = false
 		state.tmrContents = ''
 		return
 	}
-	
+
 	//console.log('parseTMRContents()'.yellow)
 	//console.log(state.tmrContents)
-	
+
 	// copy the TMR data from the state and reset it to its default values
 	var pythonTMR = state.tmrContents
 	state.parsingFinal = false
 	state.parsingTmr = false
 	state.tmrContents = ''
-	
+
 	// convert the python TMR representation into JSON
 	var TMR = jsonConverter.pythonToJson(pythonTMR)
-	
+
 	// put the parsed TMR(s) in the list
 	if (state.isTMRList || TMR.length)
 		for (var i = 0; i < TMR.length; ++i)
 			addTMR(TMR[i])
 	else
 		addTMR(TMR)
-	
+
 	return
-	
+
 	// helper function to add the parsed TMR to the TMR list
 	function addTMR (tmr) {
-		//tmr.originalString = originalString
+		tmr.originalString = pythonTMR
+		console.log(pythonTMR)
 		// add missing parameters
 		if (tmr.sentence == null)
 			tmr.sentence = sentence
