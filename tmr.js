@@ -9,13 +9,13 @@ var auxiliaryKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept",
 //
 function extractValue(attrKey, attrVal) {
 	if (relations.has(attrKey)) {
-		if ( !(typeof attrVal === 'string') && !(attrVal instanceof String)) {
+		if ( typeof attrVal == 'object' ) {
 			if (attrVal.hasOwnProperty("VALUE"))
 				attrVal = attrVal.VALUE;
 			else if (attrVal.hasOwnProperty("value"))
 				attrVal = attrVal.value;
 			else
-				Object.stringify(attrVal);
+				JSON.stringify(attrVal);
 		}
 	}
 	return attrVal;
