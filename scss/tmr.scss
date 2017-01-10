@@ -24,7 +24,8 @@
 		.sentence-header {
 			font-size: 24px;
 			margin: 10px;
-			width: calc(100% - 100px);
+			width: calc(100% - 80px);
+			line-height: 1.4em;
 
 			.sentence-id {
 				opacity: 0.2;
@@ -45,8 +46,8 @@
 				padding: 0px;
 				table-layout: fixed;
 				border-collapse: separate;
-				margin-bottom: 10px;
-				margin-top: 0px;
+				margin-bottom: 8px;
+				margin-top: 8px;
 
 				&:first-child, &:nth-child(4){
 					border: none;
@@ -94,17 +95,19 @@
 
 	form {
 		line-height: 30px;
-		width: calc(100% - 190px);
+		width: calc(91.66666% - 120px);
+		font-size: 14px;
 		input {
 			margin-left: 10px;
 		}
 	}
 	.submit-gold {
 		position: absolute;
-		top: 10px;
-		right: 90px;
+		top: 36px;
+		right: 10px;
 		font-size: 14px;
-		width: 75px;
+		font-style: italic;
+		width: 60px;
 		text-transform: uppercase;
 		text-align: center;
 		font-weight: bold;
@@ -114,6 +117,7 @@
 		transition: background-color 150ms;
 		border-radius: 3px;
 		cursor: pointer;
+		line-height: 1em;
 		&:hover {
 			background-color: #D4AF37;
 		}
@@ -121,10 +125,10 @@
 
 	.sentence-minimize {
 		position: absolute;
-		top: 10px;
+		top: 4px;
 		right: 10px;
 		font-size: 14px;
-		width: 75px;
+		width: 60px;
 		text-transform: uppercase;
 		text-align: center;
 		font-weight: bold;
@@ -134,10 +138,11 @@
 		transition: background-color 150ms;
 		border-radius: 3px;
 		cursor: pointer;
+		line-height: 1em;
 
 		&#minimize-all {
-			top: 6px;
-			width: 90px;
+			top: 10px;
+			width: 100px;
 		}
 
 		&:hover {
