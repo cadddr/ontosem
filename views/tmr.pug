@@ -20,7 +20,7 @@ mixin header(result)
 
 //- framed content below header for each entity
 mixin entity(frame)
-	table.tmr.col-4
+	table.tmr.col-sm-4.col-xs-6.col-12
 		thead.frame-header(data-entity-color=frame._color)
 			tr: td(colspan=2): span.key= frame._key
 		tbody
