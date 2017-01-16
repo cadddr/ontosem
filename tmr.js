@@ -106,14 +106,50 @@ module.exports = {
 					sentOffset = tmr[entityName]["sent-word-ind"][0];
 		}
 
+		var totalPref = 0;
+		var totalConf = 0;
+
 		for (var entityName in tmr) {
 			var entityData = tmr[entityName];
 			var isObject = (entityData["is-in-subtree"] == "OBJECT");
 			var required = {};
 			var optional = {};
 			var auxiliary = {};
+			var pref = 0;
+			var semPref = 0;
+
+			// remove analysis data from frames
+			if (entityName == "total-preference") {
+				totalPref = entityData;
+				console.log("total-preference");
+				console.log(totalPref);
+				continue;
+			}
+			else if (entityName == "total-confidence") {
+				totalConf = entityData;
+				console.log("total-confidence");
+				console.log(totalConf);
+				continue;
+			}
+			else if (entityName == "rejected-words") {
+				// do nothing for now
+			}
 
 			for (var attrKey in entityData) {
+				// remove sem-preference from attributes
+				if (attrKey == "preference") {
+					pref = entityData[attrKey];
+					console.log("preference of "+entityName);
+					console.log(pref);
+					continue;
+				}
+				else if (attrKey == "sem-preference") {
+					semPref = entityData[attrKey];
+					console.log("sem-preference of "+entityName);
+					console.log(semPref);
+					continue;
+				}
+
 				// some attribute values come as objects which only contain a single value
 				// simply check and extract the contained string if attrVal is not a string
 				var attrVal = extractValue(attrKey, entityData[attrKey]);
@@ -158,7 +194,9 @@ module.exports = {
 					"required": required,
 					"optional": optional,
 					"auxiliary": auxiliary
-				}
+				},
+				"_pref": pref,
+				"_semPref": semPref
 			});
 		}
 
@@ -172,6 +210,8 @@ module.exports = {
 			"sentences": sentences,
 			"_tmrIndex": tmrIndex,
 			"frames": frames,
+			"_totalPref": totalPref,
+			"_totalConf": totalConf,
 			"_dataJSON": data.dataJSON,
 			"_dataDict": data.dataDict
 		};
@@ -188,8 +228,6 @@ module.exports = {
 				var dataDict = entry[stepIndex].originalString;
 				delete entry[stepIndex].originalString;
 				var dataJSON = JSON.stringify(entry[stepIndex]);
-				console.log(dataDict);
-				console.log(dataJSON);
 				for (var tmrIndex in entry[stepIndex].results) {
 					var tmr = entry[stepIndex].results[tmrIndex].TMR;
 					if (tmr) {
