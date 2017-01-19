@@ -14,7 +14,7 @@ function extractValue(attrKey, attrVal) {
 		else if (attrVal.hasOwnProperty("value"))
 			attrVal = attrVal.value;
 	}
-	else if (attrVal.toString() == "[object Object]")
+	if (attrVal.toString() == "[object Object]")
 		attrVal = JSON.stringify(attrVal);
 
 	return attrVal;
