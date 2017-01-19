@@ -163,8 +163,10 @@ module.exports = {
 					if (Number.isInteger(attrVal[1]))
 						attrVal[1] = [attrVal[1]];
 					// associate token with entity color(s)
-					for (var i = 0; i < attrVal[1].length; ++i)
+					for (var i = 0; i < attrVal[1].length; ++i) {
+						console.log("sentences["+ (attrVal[0]-sentOffset) +"].words["+ attrVal[1][i] +"]");
 						sentences[attrVal[0]-sentOffset].words[attrVal[1][i]].colors.push(color[entityName]);
+					}
 					// attrKey uses separate formatting due to its nature as a nested array
 					attr = {"_val": attrVal[0] + ", [" + attrVal[1].join(", ") + "]"};
 				}
