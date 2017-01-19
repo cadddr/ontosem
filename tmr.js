@@ -87,6 +87,7 @@ module.exports = {
 		var frames = [];
 		var entitySet = new Set(Object.keys(tmr));
 		entitySet.delete("total-preference");
+		entitySet.delete("total_preference");
 		entitySet.delete("total-confidence");
 		entitySet.delete("rejected-words");
 		var sentOffset = -1;
@@ -117,16 +118,12 @@ module.exports = {
 			var semPref = 0;
 
 			// remove analysis data from frames
-			if (entityName == "total-preference") {
+			if (entityName == "total-preference" || entityName == "total_preference") {
 				totalPref = entityData;
-				console.log("total-preference");
-				console.log(totalPref);
 				continue;
 			}
 			else if (entityName == "total-confidence") {
 				totalConf = entityData;
-				console.log("total-confidence");
-				console.log(totalConf);
 				continue;
 			}
 			else if (entityName == "rejected-words") {
@@ -137,14 +134,10 @@ module.exports = {
 				// remove sem-preference from attributes
 				if (attrKey == "preference") {
 					pref = entityData[attrKey];
-					console.log("preference of "+entityName);
-					console.log(pref);
 					continue;
 				}
 				else if (attrKey == "sem-preference") {
 					semPref = entityData[attrKey];
-					console.log("sem-preference of "+entityName);
-					console.log(semPref);
 					continue;
 				}
 
