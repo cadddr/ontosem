@@ -6,18 +6,17 @@ var lexViewer = require('./lexviewer.js');
 var relations = new Set(Object.keys(utils.inverseMap));
 var auxiliaryKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept","word-ky"]);
 
-//
+// gets the value of some weirdly-formatted attributes, and properly stringifies some objects
 function extractValue(attrKey, attrVal) {
-	if (relations.has(attrKey)) {
-		if ( typeof attrVal == 'object' ) {
-			if (attrVal.hasOwnProperty("VALUE"))
-				attrVal = attrVal.VALUE;
-			else if (attrVal.hasOwnProperty("value"))
-				attrVal = attrVal.value;
-			else
-				JSON.stringify(attrVal);
-		}
+	if (relations.has(attrKey) && typeof attrVal == 'object') {
+		if (attrVal.hasOwnProperty("VALUE"))
+			attrVal = attrVal.VALUE;
+		else if (attrVal.hasOwnProperty("value"))
+			attrVal = attrVal.value;
 	}
+	else if (attrVal.toString() == "[object Object]")
+		attrVal = JSON.stringify(attrVal);
+
 	return attrVal;
 }
 
@@ -47,16 +46,19 @@ function dissectSentences(sentence) {
 function sortFrames(frames) {
 	var modality = [];
 	var events = [];
+	var nonEntities = [];
 	for (var i = frames.length-1; i >= 0; --i) {
 		if (frames[i].attributes.auxiliary.hasOwnProperty("is-in-subtree")) {
 			if (frames[i].attributes.auxiliary["is-in-subtree"]._val == "EVENT")
 				events.push(frames.splice(i, 1)[0]);
 		}
+		else if (frames[i]._key == "rejected-words")
+			nonEntities.push(frames.splice(i, 1)[0]);
 		else
 			modality.push(frames.splice(i, 1)[0]);
 	}
 
-	var sortedFrames = modality.concat(events, frames);
+	var sortedFrames = modality.concat(events, frames, nonEntities);
 	return sortedFrames;
 }
 
