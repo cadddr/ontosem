@@ -11,6 +11,8 @@ var regex = {
 	'tupleSubstitution': '[$1]',
 	'convertNonStringKeys': /(\[[^\[^\]]*\])(\s*:)/g,
 	'convertNonStringKeysSub': '"$1"$2',
+	'removeInvalidCommas': /,(\s*)]/g,
+	'removeInvalidCommasSub': '$1\]',
 }
 
 module.exports = {
@@ -61,6 +63,9 @@ module.exports = {
 		
 		// convert improper key types like lists to strings
 		jsonString = jsonString.replace(regex.convertNonStringKeys, regex.convertNonStringKeysSub)
+		
+		// removes invalid commas such as ["test",]
+		jsonString = jsonString.replace(regex.removeInvalidCommas, regex.removeInvalidCommasSub)
 		
 		// parse the object as JSON
 		return JSON.parse(jsonString)
