@@ -23,7 +23,7 @@ function extractValue(attrKey, attrVal) {
 
 // takes a string input and separates it into its components
 function dissectSentences(sentence) {
-	var sentenceRegExp = /(.*?)([!?.](?:\s|$))/g;
+	var sentenceRegExp = /(.+?)([!?.]+(?:\s|$)|$)/g;
 	var wordRegExp = /('*\w+)(\s*)/g;
 	var outerResult = [];
 	var sentences = [];
@@ -81,11 +81,6 @@ module.exports = {
 		var sentences = dissectSentences(data.sentence);
 		var tmrIndex = data.tmrIndex;
 		var tmr = data.tmr;
-		var totalPreference = null;
-		if (tmr.hasOwnProperty("total_preference")) {
-			totalPreference = tmr.total_preference;
-			delete tmr.total_preference;
-		}
 
 		log.attn("Interpreting TMR...");
 
