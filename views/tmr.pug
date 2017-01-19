@@ -15,6 +15,18 @@ mixin header(result)
 							span.sentence-string.asterisk(data-entity-color=color) *
 				| #{word._spacing}
 			| #{sentence._punct}
+		if (result._totalPref || result._totalConf)
+			span.scorebox
+				if (result._totalPref)
+					span.score
+						span PREF
+						span &#160;=&#160;
+						span= result._totalPref
+				if (result._totalConf)
+					span.score
+						span CONF
+						span &#160;=&#160;
+						span= result._totalConf
 		span.submit-gold(data-json=result._dataJSON, data-dict=result._dataDict) Gold
 		span.sentence-minimize Hide
 
@@ -22,7 +34,21 @@ mixin header(result)
 mixin entity(frame)
 	table.tmr.col-sm-4.col-xs-6.col-12
 		thead.frame-header(data-entity-color=frame._color)
-			tr: td(colspan=2): span.key= frame._key
+			tr: td(colspan=2)
+				span.key= frame._key
+				span.runner
+				if (frame._pref || frame._semPref)
+					span.scorebox
+						if (frame._pref)
+							span.score
+								span PREF
+								span &#160;=&#160;
+								span= frame._pref
+						if (frame._semPref)
+							span.score
+								span SEM-PREF
+								span &#160;=&#160;
+								span= frame._semPref
 		tbody
 			each attrType in Object.keys(frame.attributes)
 				each attr, attrKey in frame.attributes[attrType]

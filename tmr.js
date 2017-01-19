@@ -6,24 +6,23 @@ var lexViewer = require('./lexviewer.js');
 var relations = new Set(Object.keys(utils.inverseMap));
 var auxiliaryKeys = new Set(["is-in-subtree","syn-roles","lex-source","concept","word-ky"]);
 
-//
+// gets the value of some weirdly-formatted attributes, and properly stringifies some objects
 function extractValue(attrKey, attrVal) {
-	if (relations.has(attrKey)) {
-		if ( typeof attrVal == 'object' ) {
-			if (attrVal.hasOwnProperty("VALUE"))
-				attrVal = attrVal.VALUE;
-			else if (attrVal.hasOwnProperty("value"))
-				attrVal = attrVal.value;
-			else
-				JSON.stringify(attrVal);
-		}
+	if (relations.has(attrKey) && typeof attrVal == 'object') {
+		if (attrVal.hasOwnProperty("VALUE"))
+			attrVal = attrVal.VALUE;
+		else if (attrVal.hasOwnProperty("value"))
+			attrVal = attrVal.value;
 	}
+	if (attrVal.toString() == "[object Object]")
+		attrVal = JSON.stringify(attrVal);
+
 	return attrVal;
 }
 
 // takes a string input and separates it into its components
 function dissectSentences(sentence) {
-	var sentenceRegExp = /(.*?)([!?.](?:\s|$))/g;
+	var sentenceRegExp = /(.+?)([!?.]+(?:\s|$)|$)/g;
 	var wordRegExp = /('*\w+)(\s*)/g;
 	var outerResult = [];
 	var sentences = [];
@@ -47,16 +46,19 @@ function dissectSentences(sentence) {
 function sortFrames(frames) {
 	var modality = [];
 	var events = [];
+	var nonEntities = [];
 	for (var i = frames.length-1; i >= 0; --i) {
 		if (frames[i].attributes.auxiliary.hasOwnProperty("is-in-subtree")) {
 			if (frames[i].attributes.auxiliary["is-in-subtree"]._val == "EVENT")
 				events.push(frames.splice(i, 1)[0]);
 		}
+		else if (frames[i]._key == "rejected-words")
+			nonEntities.push(frames.splice(i, 1)[0]);
 		else
 			modality.push(frames.splice(i, 1)[0]);
 	}
 
-	var sortedFrames = modality.concat(events, frames);
+	var sortedFrames = modality.concat(events, frames, nonEntities);
 	return sortedFrames;
 }
 
@@ -81,22 +83,21 @@ module.exports = {
 		var sentences = dissectSentences(data.sentence);
 		var tmrIndex = data.tmrIndex;
 		var tmr = data.tmr;
-		var totalPreference = null;
-		if (tmr.hasOwnProperty("total_preference")) {
-			totalPreference = tmr.total_preference;
-			delete tmr.total_preference;
-		}
 
 		log.attn("Interpreting TMR...");
 
 		var frames = [];
 		var entitySet = new Set(Object.keys(tmr));
+		entitySet.delete("total-preference");
+		entitySet.delete("total_preference");
+		entitySet.delete("total-confidence");
+		entitySet.delete("rejected-words");
 		var sentOffset = -1;
 
 		var color = {};
 		var colorCounter = 0;
 		var colorMax = entitySet.size;
-		for (var entityName in tmr) {
+		entitySet.forEach(function (entityName) {
 			color[entityName] = generateColor(colorCounter, colorMax);
 			++colorCounter;
 
@@ -104,7 +105,10 @@ module.exports = {
 			if (tmr[entityName].hasOwnProperty("sent-word-ind"))
 				if (tmr[entityName]["sent-word-ind"][0] < sentOffset || sentOffset == -1)
 					sentOffset = tmr[entityName]["sent-word-ind"][0];
-		}
+		});
+
+		var totalPref = 0;
+		var totalConf = 0;
 
 		for (var entityName in tmr) {
 			var entityData = tmr[entityName];
@@ -112,8 +116,33 @@ module.exports = {
 			var required = {};
 			var optional = {};
 			var auxiliary = {};
+			var pref = 0;
+			var semPref = 0;
+
+			// remove analysis data from frames
+			if (entityName == "total-preference" || entityName == "total_preference") {
+				totalPref = entityData;
+				continue;
+			}
+			else if (entityName == "total-confidence") {
+				totalConf = entityData;
+				continue;
+			}
+			else if (entityName == "rejected-words") {
+				// do nothing for now
+			}
 
 			for (var attrKey in entityData) {
+				// remove sem-preference from attributes
+				if (attrKey == "preference") {
+					pref = entityData[attrKey];
+					continue;
+				}
+				else if (attrKey == "sem-preference") {
+					semPref = entityData[attrKey];
+					continue;
+				}
+
 				// some attribute values come as objects which only contain a single value
 				// simply check and extract the contained string if attrVal is not a string
 				var attrVal = extractValue(attrKey, entityData[attrKey]);
@@ -124,8 +153,11 @@ module.exports = {
 					if (Number.isInteger(attrVal[1]))
 						attrVal[1] = [attrVal[1]];
 					// associate token with entity color(s)
-					for (var i = 0; i < attrVal[1].length; ++i)
-						sentences[attrVal[0]-sentOffset].words[attrVal[1][i]].colors.push(color[entityName]);
+					for (var i = 0; i < attrVal[1].length; ++i) {
+						console.log("sentences["+ (attrVal[0]-sentOffset) +"].words["+ attrVal[1][i] +"]");
+						if (sentences[attrVal[0]-sentOffset].words[attrVal[1][i]] != null)
+							sentences[attrVal[0]-sentOffset].words[attrVal[1][i]].colors.push(color[entityName]);
+					}
 					// attrKey uses separate formatting due to its nature as a nested array
 					attr = {"_val": attrVal[0] + ", [" + attrVal[1].join(", ") + "]"};
 				}
@@ -158,7 +190,9 @@ module.exports = {
 					"required": required,
 					"optional": optional,
 					"auxiliary": auxiliary
-				}
+				},
+				"_pref": pref,
+				"_semPref": semPref
 			});
 		}
 
@@ -172,6 +206,8 @@ module.exports = {
 			"sentences": sentences,
 			"_tmrIndex": tmrIndex,
 			"frames": frames,
+			"_totalPref": totalPref,
+			"_totalConf": totalConf,
 			"_dataJSON": data.dataJSON,
 			"_dataDict": data.dataDict
 		};
@@ -188,8 +224,6 @@ module.exports = {
 				var dataDict = entry[stepIndex].originalString;
 				delete entry[stepIndex].originalString;
 				var dataJSON = JSON.stringify(entry[stepIndex]);
-				console.log(dataDict);
-				console.log(dataJSON);
 				for (var tmrIndex in entry[stepIndex].results) {
 					var tmr = entry[stepIndex].results[tmrIndex].TMR;
 					if (tmr) {
