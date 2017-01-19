@@ -91,12 +91,15 @@ module.exports = {
 
 		var frames = [];
 		var entitySet = new Set(Object.keys(tmr));
+		entitySet.delete("total-preference");
+		entitySet.delete("total-confidence");
+		entitySet.delete("rejected-words");
 		var sentOffset = -1;
 
 		var color = {};
 		var colorCounter = 0;
 		var colorMax = entitySet.size;
-		for (var entityName in tmr) {
+		entitySet.forEach(function (entityName) {
 			color[entityName] = generateColor(colorCounter, colorMax);
 			++colorCounter;
 
@@ -104,7 +107,7 @@ module.exports = {
 			if (tmr[entityName].hasOwnProperty("sent-word-ind"))
 				if (tmr[entityName]["sent-word-ind"][0] < sentOffset || sentOffset == -1)
 					sentOffset = tmr[entityName]["sent-word-ind"][0];
-		}
+		});
 
 		var totalPref = 0;
 		var totalConf = 0;
