@@ -19,7 +19,7 @@ npm run start
 
 ### Development
 + pug a.k.a. jade (templating engine) http://jade-lang.com/
-+ Zepto (lightweight jQuery alternative): http://zeptojs.com/
++ jQuery (JavaScript library) https://jquery.com/
 + Sass (CSS preprocessor): http://sass-lang.com/
 + Juiced (lightweight grid system): http://juicedcss.com/
 
