@@ -188,6 +188,18 @@ function updateBindings () {
 		var multiColorWords = matches.filter(".asterisk").parent();
 		multiColorWords.trigger("colorupdate");
 	});
+
+	$(".sentence-id").on("mouseover mouseout click", function(e) {
+		var matches = $(this).closest(".sentence").find("thead[data-entity-color]");
+
+		if (e.type == "click") {
+			var unlocked = matches.filter(":not(.highlight-lock)");
+			if (unlocked.length != 0 && unlocked.length != matches.length)
+				matches = unlocked;
+		}
+		
+		matches.trigger("effective"+e.type);
+	});
 }
 
 $(document).ready(addBindings);

@@ -154,12 +154,18 @@ module.exports = {
 						attrVal[1] = [attrVal[1]];
 					// associate token with entity color(s)
 					for (var i = 0; i < attrVal[1].length; ++i) {
-						console.log("sentences["+ (attrVal[0]-sentOffset) +"].words["+ attrVal[1][i] +"]");
 						if (sentences[attrVal[0]-sentOffset].words[attrVal[1][i]] != null)
 							sentences[attrVal[0]-sentOffset].words[attrVal[1][i]].colors.push(color[entityName]);
 					}
 					// attrKey uses separate formatting due to its nature as a nested array
 					attr = {"_val": attrVal[0] + ", [" + attrVal[1].join(", ") + "]"};
+				}
+				else if (entityName == "rejected-words") { // handle invalid color for rejected words
+					attr._color = "hsla("+attrKey+",0%,50%,0.1)";
+					var sentInd, wordInd;
+					for (sentInd = 0, wordInd = attrKey; sentences[sentInd].length <= wordInd; ++sentInd)
+						wordInd -= sentences[sentInd].length;
+					sentences[sentInd].words[wordInd].colors.push(attr._color);
 				}
 				else if (attrKey == "from-sense") {
 					// search for lexicon entry, and add if found
@@ -171,7 +177,6 @@ module.exports = {
 					// add color to entity reference
 					attr._color = color[attrVal];
 				}
-
 
 				// push entries into appropriate array, based on capitalization/auxiliary
 				if (utils.isCapitalized(attrKey))
