@@ -225,8 +225,6 @@ module.exports = {
 		// add constraint info to the proper attribute data
 		addConstraintInfo(frames);
 
-		console.log(frames[0].attributes.required)
-
 		// return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.
 		return {
