@@ -15,14 +15,14 @@ mixin header(result)
 							span.sentence-string.asterisk(data-entity-color=color) *
 				| #{word._spacing}
 			| #{sentence._punct}
-		if (result._totalPref || result._totalConf)
+		if result._totalPref || result._totalConf
 			span.scorebox
-				if (result._totalPref)
+				if result._totalPref
 					span.score
 						span PREF
 						span &#160;=&#160;
 						span= result._totalPref
-				if (result._totalConf)
+				if result._totalConf
 					span.score
 						span CONF
 						span &#160;=&#160;
@@ -37,14 +37,14 @@ mixin entity(frame)
 			tr: td(colspan=2)
 				span.key= frame._key
 				span.runner
-				if (frame._pref || frame._semPref)
+				if frame._pref || frame._semPref
 					span.scorebox
-						if (frame._pref)
+						if frame._pref
 							span.score
 								span PREF
 								span &#160;=&#160;
 								span= frame._pref
-						if (frame._semPref)
+						if frame._semPref
 							span.score
 								span SEM-PREF
 								span &#160;=&#160;
@@ -54,11 +54,18 @@ mixin entity(frame)
 				each attr, attrKey in frame.attributes[attrType]
 					tr.kv-pair(class=attrType)
 						td.key= attrKey
+							if attr.constraintInfo
+								sup(toggles-for=attrKey) C
 						if attr._lex
 							td.val.lex(data-entity-color=attr._color)= attr._val
 								include ./lex.pug
 						else
 							td.val(data-entity-color=attr._color)= attr._val
+					if attr.constraintInfo
+						each cVal, cKey in attr.constraintInfo
+							tr.kv-pair.constraint-info(class=attrType, constrains=attrKey)
+								td.key= cKey
+								td.val= cVal
 
 section.sentence.col-12.container.gutters-sm-all(data-sentence-id=result._sentenceId)
 	+header(result)

@@ -189,6 +189,7 @@ function updateBindings () {
 		multiColorWords.trigger("colorupdate");
 	});
 
+	// highlight all
 	$(".sentence-id").on("mouseover mouseout click", function(e) {
 		var matches = $(this).closest(".sentence").find("thead[data-entity-color]");
 
@@ -197,8 +198,14 @@ function updateBindings () {
 			if (unlocked.length != 0 && unlocked.length != matches.length)
 				matches = unlocked;
 		}
-		
+
 		matches.trigger("effective"+e.type);
+	});
+
+	// toggles visibility of constraint info
+	$("sup").on("click", function(e) {
+		var matches = $(this).closest("tbody").find("[constrains="+$(this).attr("toggles-for")+"]");
+		matches.toggle();
 	});
 }
 

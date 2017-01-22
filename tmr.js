@@ -62,6 +62,14 @@ function sortFrames(frames) {
 	return sortedFrames;
 }
 
+// adds constraint info to the proper attributes
+function addConstraintInfo(frames) {
+	for (var frameKey in frames)
+		for (var attrKey in frames[frameKey].constraints)
+			if (frames[frameKey].attributes.required.hasOwnProperty(attrKey))
+				frames[frameKey].attributes.required[attrKey].constraintInfo = frames[frameKey].constraints[attrKey];
+}
+
 // returns distinct colors by changing hue
 function generateColor(colorCounter, colorMax) {
 	var h = Math.floor( 360 * colorCounter/colorMax );
@@ -116,6 +124,7 @@ module.exports = {
 			var required = {};
 			var optional = {};
 			var auxiliary = {};
+			var constraints = {};
 			var pref = 0;
 			var semPref = 0;
 
@@ -133,13 +142,21 @@ module.exports = {
 			}
 
 			for (var attrKey in entityData) {
-				// remove sem-preference from attributes
+				// remove scoring from frames
 				if (attrKey == "preference") {
 					pref = entityData[attrKey];
 					continue;
 				}
 				else if (attrKey == "sem-preference") {
 					semPref = entityData[attrKey];
+					continue;
+				}
+
+				// remove attribute constraint info from frames
+				var constraintResult;
+				if (constraintResult = /(.+)[_-]constraint[_-]info$/ig.exec(attrKey)) {
+					var mainAttrKey = constraintResult[1];
+					constraints[mainAttrKey] = entityData[attrKey];
 					continue;
 				}
 
@@ -196,6 +213,7 @@ module.exports = {
 					"optional": optional,
 					"auxiliary": auxiliary
 				},
+				"constraints": constraints,
 				"_pref": pref,
 				"_semPref": semPref
 			});
@@ -203,6 +221,11 @@ module.exports = {
 
 		// sort the frames such that events come first
 		frames = sortFrames(frames);
+
+		// add constraint info to the proper attribute data
+		addConstraintInfo(frames);
+
+		console.log(frames[0].attributes.required)
 
 		// return the annotated set along with the collection of
 		// known entities, as well as the sentence itself.
