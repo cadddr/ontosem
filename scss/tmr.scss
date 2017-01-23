@@ -91,7 +91,7 @@
 
 				&.constraint-info {
 					display: none;
-					
+
 					font-size: 12px;
 					line-height: 1em;
 					td {
@@ -251,6 +251,10 @@
 		justify-content: space-between;
 	}
 
+	[toggles-for] {
+		cursor: pointer;
+	}
+
 	sup {
 		position: relative;
 		top: -0.5em;
@@ -261,7 +265,7 @@
 
 		cursor: pointer;
 		color: #005999;
-		&:hover {
+		&.hover {
 			color: #3af;
 		}
 	}

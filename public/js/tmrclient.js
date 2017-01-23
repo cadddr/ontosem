@@ -203,10 +203,18 @@ function updateBindings () {
 	});
 
 	// toggles visibility of constraint info
-	$("sup").on("click", function(e) {
+	$("[toggles-for]").on("click", function(e) {
 		var matches = $(this).closest("tbody").find("[constrains="+$(this).attr("toggles-for")+"]");
 		matches.toggle();
 	});
+	$("[toggles-for]").on("mouseover mouseout", function(e) {
+		if (e.type == "mouseover")
+			$(this).find("sup").addClass("hover");
+		else if (e.type == "mouseout")
+			$(this).find("sup").removeClass("hover");
+	});
+
+
 }
 
 $(document).ready(addBindings);

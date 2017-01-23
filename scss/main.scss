@@ -58,7 +58,16 @@ form {
 	}
 }
 
-.page-gold #submit-tmr {
-	float: right;
-	margin: 0px 10px;
+.page-gold {
+	label {
+		padding: 5px;
+		font-size: 16px;
+	}
+	input {
+		margin-top: 5px !important;
+	}
+	#submit-tmr {
+		float: right;
+		margin: 0px 10px;
+	}
 }

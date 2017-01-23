@@ -53,9 +53,11 @@ mixin entity(frame)
 			each attrType in Object.keys(frame.attributes)
 				each attr, attrKey in frame.attributes[attrType]
 					tr.kv-pair(class=attrType)
-						td.key= attrKey
-							if attr.constraintInfo
-								sup(toggles-for=attrKey) C
+						if attr.constraintInfo
+							td.key(toggles-for=attrKey)= attrKey
+								sup C
+						else
+							td.key= attrKey
 						if attr._lex
 							td.val.lex(data-entity-color=attr._color)= attr._val
 								include ./lex.pug

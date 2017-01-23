@@ -1,7 +1,10 @@
 // set up the page once the DOM has loaded
 $(document).ready(function () {
 	// fill the input field with the tmr string sent from opener
-	$("#tmr-input").val(tmrJSON);
+	if (typeof tmrJSON === "undefined")
+		$("#tmr-input").val("Couldn't automatically load the TMR.\nPlease close this window before trying again.");
+	else
+		$("#tmr-input").val(tmrJSON);
 
 	// bind the submit event to the button
 	form = $("#tmr-form");
@@ -17,5 +20,12 @@ $(document).ready(function () {
 		else if ($(this).val() == 'dict-string')
 			$("#tmr-input").val(tmrDict);
 	});
-});
 
+	// load the proper format when dropdown is changed
+	$("#db-list").on("change", function() {
+		if ($(this).val() == 'leia')
+			$("#action-input").val("http://leia-0.leia.rpi.edu:8080");
+		else if ($(this).val() == 'manual')
+			$("#action-input").val("");
+	});
+});

@@ -2,7 +2,12 @@ extends ./layout.pug
 
 block content
 	form#tmr-form(method='POST')
-		input#action-input(name='dbAddress', type='text', placeholder='Put desination address here')
+		input#action-input(name='dbAddress', type='text', value='http://leia-0.leia.rpi.edu:8080' placeholder='Put destination address here')
+		label(for='db-list')= 'Address List: '
+		select#db-list
+			-// To add more addresses, follow the format below. Make sure to add it in public/js/gold.js as well
+			option(value='leia') Leia (Visualizer must be on RPI Network)
+			option(value='manual') (Write your own address)
 		textarea#tmr-input(name='goldTmr', placeholder='Put TMR object here')
 		label(for='tmr-format')= 'Submission Format: '
 		select#tmr-format(name='tmrFormat')
