@@ -66,8 +66,13 @@ function sortFrames(frames) {
 function addConstraintInfo(frames) {
 	for (var frameKey in frames)
 		for (var attrKey in frames[frameKey].constraints)
-			if (frames[frameKey].attributes.required.hasOwnProperty(attrKey))
+			if (frames[frameKey].attributes.required.hasOwnProperty(attrKey)) {
 				frames[frameKey].attributes.required[attrKey].constraintInfo = frames[frameKey].constraints[attrKey];
+
+				// hide unneeded property 'variable'
+				if (frames[frameKey].attributes.required[attrKey].constraintInfo.variable)
+					delete frames[frameKey].attributes.required[attrKey].constraintInfo.variable;
+			}
 }
 
 // returns distinct colors by changing hue
