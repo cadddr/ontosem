@@ -52,7 +52,7 @@ function sortFrames(frames) {
 			if (frames[i].attributes.auxiliary["is-in-subtree"]._val == "EVENT")
 				events.push(frames.splice(i, 1)[0]);
 		}
-		else if (frames[i]._key == "rejected-words")
+		else if (/^rejected[_-]words$/ig.exec(frames[i]._key))
 			nonEntities.push(frames.splice(i, 1)[0]);
 		else
 			modality.push(frames.splice(i, 1)[0]);
@@ -104,7 +104,9 @@ module.exports = {
 		entitySet.delete("total-preference");
 		entitySet.delete("total_preference");
 		entitySet.delete("total-confidence");
+		entitySet.delete("total_confidence");
 		entitySet.delete("rejected-words");
+		entitySet.delete("rejected_words");
 		var sentOffset = -1;
 
 		var color = {};
@@ -125,7 +127,6 @@ module.exports = {
 
 		for (var entityName in tmr) {
 			var entityData = tmr[entityName];
-			var isObject = (entityData["is-in-subtree"] == "OBJECT");
 			var required = {};
 			var optional = {};
 			var auxiliary = {};
@@ -134,32 +135,32 @@ module.exports = {
 			var semPref = 0;
 
 			// remove analysis data from frames
-			if (entityName == "total-preference" || entityName == "total_preference") {
+			if (/^total[_-]preference$/ig.exec(entityName)) {
 				totalPref = entityData;
 				continue;
 			}
-			else if (entityName == "total-confidence") {
+			else if (/^total[_-]confidence$/ig.exec(entityName)) {
 				totalConf = entityData;
 				continue;
 			}
-			else if (entityName == "rejected-words") {
+			else if (/^rejected[_-]words$/ig.exec(entityName)) {
 				// do nothing for now
 			}
 
 			for (var attrKey in entityData) {
 				// remove scoring from frames
-				if (attrKey == "preference") {
+				if (/^preference$/ig.exec(attrKey)) {
 					pref = entityData[attrKey];
 					continue;
 				}
-				else if (attrKey == "sem-preference") {
+				else if (/^sem[_-]preference$/ig.exec(attrKey)) {
 					semPref = entityData[attrKey];
 					continue;
 				}
 
 				// remove attribute constraint info from frames
 				var constraintResult;
-				if (constraintResult = /(.+)[_-]constraint[_-]info$/ig.exec(attrKey)) {
+				if (constraintResult = /^(.+)[_-]constraint[_-]info$/ig.exec(attrKey)) {
 					var mainAttrKey = constraintResult[1];
 					constraints[mainAttrKey] = entityData[attrKey];
 					continue;
@@ -170,7 +171,7 @@ module.exports = {
 				var attrVal = extractValue(attrKey, entityData[attrKey]);
 				var attr = {"_val": insertLinebreaks(attrVal)};
 
-				if (attrKey == "sent-word-ind") {
+				if (/^sent[_-]word[_-]ind$/ig.exec(attrKey)) {
 					// normalize word indices to all be arrays
 					if (Number.isInteger(attrVal[1]))
 						attrVal[1] = [attrVal[1]];
@@ -182,14 +183,14 @@ module.exports = {
 					// attrKey uses separate formatting due to its nature as a nested array
 					attr = {"_val": attrVal[0] + ", [" + attrVal[1].join(", ") + "]"};
 				}
-				else if (entityName == "rejected-words") { // handle invalid color for rejected words
+				else if (/^rejected[_-]words$/ig.exec(entityName)) { // handle invalid color for rejected words
 					attr._color = "hsla("+attrKey+",0%,50%,0.1)";
 					var sentInd, wordInd;
 					for (sentInd = 0, wordInd = attrKey; sentences[sentInd].length <= wordInd; ++sentInd)
 						wordInd -= sentences[sentInd].length;
 					sentences[sentInd].words[wordInd].colors.push(attr._color);
 				}
-				else if (attrKey == "from-sense") {
+				else if (/^from[_-]sense$/ig.exec(attrKey)) {
 					// search for lexicon entry, and add if found
 					var lex = lexViewer.findEntry(attrVal);
 					if (lex)
